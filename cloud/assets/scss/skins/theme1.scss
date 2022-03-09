@@ -1,0 +1,486 @@
+﻿// Theme Color 1
+.theme-azure{
+    #left-sidebar{
+        background: $azure;
+        .brand-name{
+            color: $white;
+        }
+        .nav-tabs{
+            border-bottom: 1px solid rgba($white, 0.3);
+            .nav-link{
+                color: rgba($white, 0.5);
+                &.active{
+                    border-color: $white;
+                    color: $white;
+                }
+            }
+        }
+        .metismenu{
+            .g_heading{
+                color: rgba($white, 0.5);
+            }
+            a{
+                color: rgba($white, 0.9);
+            }
+            .active>a,
+            a:hover{
+                color: $white;
+            }
+        }        
+    }
+    #header_top{
+        background: $azure;
+        .nav-link{
+            color: rgba($white, 0.9);
+            &:hover{
+                color: $white !important;
+            }
+        }
+    }
+    .card-title{
+        color: $azure;
+    }
+    .btn-primary{
+        background: $azure;
+        border: 0;
+    }
+    &.offcanvas-active{
+        #header_top{
+            background: $azure;
+        }
+        &.gradient{
+            #header_top{
+                background: linear-gradient(145deg, $azure, $indigo);
+            }   
+        }
+    }
+    &.gradient{
+        #header_top{
+            background: linear-gradient(145deg, $azure, $indigo);
+        }
+        #left-sidebar{
+            background: linear-gradient(145deg, $azure, $indigo);
+        }        
+        .btn-primary{
+            background: linear-gradient(145deg, $azure, $indigo);
+        }
+    }
+}
+
+// Theme Color 2
+.theme-indigo{
+    #left-sidebar{
+        background: $indigo;
+        .brand-name{
+            color: $white;
+        }
+        .nav-tabs{
+            border-bottom: 1px solid rgba($white, 0.3);
+            .nav-link{
+                color: rgba($white, 0.5);
+                &.active{
+                    border-color: $white;
+                    color: $white;
+                }
+            }
+        }
+        .metismenu{
+            .g_heading{
+                color: rgba($white, 0.5);
+            }
+            a{
+                color: rgba($white, 0.9);
+            }
+            .active>a,
+            a:hover{
+                color: $white;
+            }
+        }
+    }
+    #header_top{
+        background: $indigo;
+        .nav-link{
+            color: rgba($white, 0.9);
+            &:hover{
+                color: $white !important;
+            }
+        }
+    }
+    .card-title{
+        color: $indigo;
+    }
+    .btn-primary{
+        background: $indigo;
+        border: 0;
+    }
+    &.offcanvas-active{
+        #header_top{
+            background: $indigo;
+        }
+        &.gradient{
+            #header_top{
+                background: linear-gradient(145deg, $indigo2, $indigo);
+            }   
+        }
+    }
+    &.gradient{
+        #header_top{
+            background: linear-gradient(145deg, $indigo2, $indigo);
+        }
+        #left-sidebar{
+            background: linear-gradient(145deg, $indigo2, $indigo);
+        }
+        .btn-primary{
+            background: linear-gradient(145deg, $indigo2, $indigo);
+        }
+    }
+}
+
+// Theme Color 2
+.theme-purple{
+    #left-sidebar{
+        background: $purple;
+        .brand-name{
+            color: $white;
+        }
+        .nav-tabs{
+            border-bottom: 1px solid rgba($white, 0.3);
+            .nav-link{
+                color: rgba($white, 0.5);
+                &.active{
+                    border-color: $white;
+                    color: $white;
+                }
+            }
+        }
+        .metismenu{
+            .g_heading{
+                color: rgba($white, 0.5);
+            }
+            a{
+                color: rgba($white, 0.9);
+            }
+            .active>a,
+            a:hover{
+                color: $white;
+            }
+        }
+    }
+    #header_top{
+        background: $purple;
+        .nav-link{
+            color: rgba($white, 0.9);
+            &:hover{
+                color: $white !important;
+            }
+        }
+    }
+    .card-title{
+        color: $purple;
+    }
+    .btn-primary{
+        background: $purple;
+        border: 0;
+    }
+    &.offcanvas-active{
+        #header_top{
+            background: $purple;
+        }
+        &.gradient{
+            #header_top{
+                background: linear-gradient(145deg, $blush, $purple);
+            }   
+        }
+    }
+    &.gradient{
+        #header_top{
+            background: linear-gradient(145deg, $blush, $purple);
+        }
+        #left-sidebar{
+            background: linear-gradient(145deg, $blush, $purple);
+        }
+        .btn-primary{
+            background: linear-gradient(145deg, $blush, $purple);
+        }
+    }
+}
+
+// Theme Color 3
+.theme-orange{
+    #left-sidebar{
+        background: $orange;
+        .brand-name{
+            color: $white;
+        }
+        .nav-tabs{
+            border-bottom: 1px solid rgba($white, 0.3);
+            .nav-link{
+                color: rgba($white, 0.5);
+                &.active{
+                    border-color: $white;
+                    color: $white;
+                }
+            }
+        }
+        .metismenu{
+            .g_heading{
+                color: rgba($white, 0.5);
+            }
+            a{
+                color: rgba($white, 0.9);
+            }
+            .active>a,
+            a:hover{
+                color: $white;
+            }
+        }
+    }
+    #header_top{
+        background: $yellow;
+        .nav-link{
+            color: rgba($white, 0.9);
+            &:hover{
+                color: $white !important;
+            }
+        }
+    }
+    .card-title{
+        color: $yellow;
+    }
+    .btn-primary{
+        background: $yellow;
+        border: 0;
+    }
+    &.offcanvas-active{
+        #header_top{
+            background: $yellow;
+        }
+        &.gradient{
+            #header_top{
+                background: linear-gradient(145deg, $indigo2, $yellow);
+            }   
+        }
+    }
+    &.gradient{
+        #header_top{
+            background: linear-gradient(145deg, $indigo2, $yellow);
+        }
+        #left-sidebar{
+            background: linear-gradient(145deg, $indigo2, $yellow);
+        }
+        .btn-primary{
+            background: linear-gradient(145deg, $indigo2, $yellow);
+        }
+    }
+}
+
+// Theme Color 4
+.theme-green{
+    #left-sidebar{
+        background: $green;
+        .brand-name{
+            color: $white;
+        }
+        .nav-tabs{
+            border-bottom: 1px solid rgba($white, 0.3);
+            .nav-link{
+                color: rgba($white, 0.5);
+                &.active{
+                    border-color: $white;
+                    color: $white;
+                }
+            }
+        }
+        .metismenu{
+            .g_heading{
+                color: rgba($white, 0.5);
+            }
+            a{
+                color: rgba($white, 0.9);
+            }
+            .active>a,
+            a:hover{
+                color: $white;
+            }
+        }
+    }
+    #header_top{
+        background: $green;
+        .nav-link{
+            color: rgba($white, 0.9);
+            &:hover{
+                color: $white !important;
+            }
+        }
+    }
+    .card-title{
+        color: $green;
+    }
+    .btn-primary{
+        background: $green;
+        border: 0;
+    }
+    &.offcanvas-active{
+        #header_top{
+            background: $green;
+        }
+        &.gradient{
+            #header_top{
+                background: linear-gradient(145deg, $teal, $green);
+            }   
+        }
+    }
+    &.gradient{
+        #header_top{
+            background: linear-gradient(145deg, $teal, $green);
+        }
+        #left-sidebar{
+            background: linear-gradient(145deg, $teal, $green);
+        }
+        .btn-primary{
+            background: linear-gradient(145deg, $teal, $green);
+        }
+    }
+}
+
+// Theme Color 5
+.theme-cyan{
+    #header_top{
+        background: $cyan;
+
+        .nav-link{
+            color: rgba($white, 0.9);
+            &:hover{
+                color: $white !important;
+            }
+        }
+    }
+    #left-sidebar{
+        background: $cyan;
+        .brand-name{
+            color: $white;
+        }
+        .nav-tabs{
+            border-bottom: 1px solid rgba($white, 0.3);
+            .nav-link{
+                color: rgba($white, 0.5);
+                &.active{
+                    border-color: $white;
+                    color: $white;
+                }
+            }
+        }
+        .metismenu{
+            .g_heading{
+                color: rgba($white, 0.5);
+            }
+            a{
+                color: rgba($white, 0.9);
+            }
+            .active>a,
+            a:hover{
+                color: $white;
+            }
+        }
+    }
+    .card-title{
+        color: $cyan;
+    }
+    .btn-primary{
+        background: $cyan;
+        border: 0;
+    }
+    &.offcanvas-active{
+        #header_top{
+            background: $cyan;
+        }
+        &.gradient{
+            #header_top{
+                background: linear-gradient(145deg, $teal, $cyan);
+            }   
+        }
+    }
+    &.gradient{
+        #header_top{
+            background: transparent;
+            @include max-screen($break-large){
+                background: linear-gradient(145deg, $teal, $cyan);
+            }
+        }
+        #left-sidebar{
+            background: linear-gradient(145deg, $teal, $cyan);
+        }
+        .btn-primary{
+            background: linear-gradient(145deg, $teal, $cyan);
+        }
+    }
+}
+
+// Theme Color 6
+.theme-blush{
+    #left-sidebar{
+        background: $blush;
+        .brand-name{
+            color: $white;
+        }
+        .nav-tabs{
+            border-bottom: 1px solid rgba($white, 0.3);
+            .nav-link{
+                color: rgba($white, 0.5);
+                &.active{
+                    border-color: $white;
+                    color: $white;
+                }
+            }
+        }
+        .metismenu{
+            .g_heading{
+                color: rgba($white, 0.5);
+            }
+            a{
+                color: rgba($white, 0.9);
+            }
+            .active>a,
+            a:hover{
+                color: $white;
+            }
+        }
+    }
+    #header_top{
+        background: $blush;
+        .nav-link{
+            color: rgba($white, 0.9);
+            &:hover{
+                color: $white !important;
+            }
+        }
+    }
+    .card-title{
+        color: $blush;
+    }
+    .btn-primary{
+        background: $blush;
+        border: 0;
+    }
+    &.offcanvas-active{
+        #header_top{
+            background: $blush;
+        }
+        &.gradient{
+            #header_top{
+                background: linear-gradient(145deg, $blue, $blush);
+            }   
+        }
+    }
+    &.gradient{
+        #header_top{
+            background: linear-gradient(145deg, $blue, $blush);
+        }
+        #left-sidebar{
+            background: linear-gradient(145deg, $blue, $blush);
+        }
+        .btn-primary{
+            background: linear-gradient(145deg, $blue, $blush);
+        }
+    }
+}

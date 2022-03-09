@@ -1,0 +1,57 @@
+un serveur de fichier est un espace de stockage, traitement et distribution de fichier public ou privé en ligne.
+un serveur de fichier est caractérisé par son nom, son mot de passe, sa date de creation, le type, sa capacité limit.
+un serveur de fichier de type public est accessible à tout le monde disposant du mot de passe
+un serveur de fichier de type privé est accessible à tous les utilisateurs autorisé et disposant du mot de passe
+un utilisateur est caractérisé par son nom, son prenom, son nom d'utilisateur, son mot de passe, son mot de passe de recuperation.
+un utilisateur peut creer un serveur de fichier pour lequel il sera administrateur
+
+un utilisateur administrateur de serveur de fichier privé peut autoriser manuellement (sous demande ou non) les autres utilisateurs à y acceder et définir leur categorie d'utilisateur (administrateur ou simple memebre). il peut egalement définir le niveau d'acces des utilisateurs simple membre aux fichier et repertoire:
+-Lecture
+-Ecriture
+-Creation
+-Suppression
+-partage
+-telecharger
+
+un utilisateur administrateur de serveur de fichier privé ou public peut exclure tous les utilisateurs enregistrés dans le serveur de fichier.
+dans un serveur de fichier public les utilisateurs simple membre ont un niveau d'acces absolu sur les repertoires et fichiers partagés en public.
+
+un utilisateur peut creer une et une seule bibliotheque privé dans un serveur de fichier dans laquelle il pourra controler les niveaux d'acces de tout le monde sur chaque fichier et repertoire.
+-Lecture
+-Ecriture
+-Creation
+-Suppression
+-partage
+-telecharger
+
+un repertoire est un dossier de dossier et de fichiers. Il est caractérisé par son nom, sa date de creation, sa description, son statut (supprimé ou non). un repertoire appartient à un serveur de fichier.
+
+un fichier est un document à plusieurs formats. il  se caractérise par son nom, sa taille, son statut (supprimé ou non), son icon, son chemin, le nombre de vu, la derniere fois qu'il a été vu et par qui, la date de creation, sa description.
+
+un utilisateur peut acceder à ses fichiers depuis n'importe quel serveur mais les autres utilisateurs y ont acces seulement dans le serveur où les fichiers ont été crées.
+
+un utilisateur peut partager un fichier d'un cloud à un autre; copier coller dans un autre emplacement du meme cloud; l'utilisateur proprietaire peut deplacer vers un autre emplacement du meme cloud.
+
+un dossier qui n'est pas vide ne peut etre supprimé; son contenu doit etre supprimé avant.
+
+dans un cloud public seul les administrateurs et l'utilisateur proprietaire peuvent supprimer un fichier ou un dossier. Pour le cas d'un utilisateur qui supprime son dossier, si ce dossier contient un fichier ou un dossier qui ne lui appartient pas, le fichier n'est pas detruit mais les autres oui.
+
+la creation d'un fichier est notifié dans le chat sous forme de message de l'utilisateur.
+
+un repertoire ou un fichier supprimé est envoyé dans la corbeille.
+il est possible de le restaurer dans son repertoire d'origine et si celui ci n'existe plus, un nouveau est crée.
+
+un repertoire ou un fichier
+un repertoire supprimé depuis plus de 1 mois de son emplacement ou supprimé dans la corbeille est définitivement retiré du serveur de fichier.
+
+une corbeille est caractérisée par sa date de creation.
+
+un utilisateur est notifié sur toutes les operations liées au serveur de fichier auquel il appartient.
+une notification est caractérisé par son libellé, sa date, son message, son type et son statut.
+elle peut etre de type demande d'autorisation ou de type normale.
+le statut défini si elle à deja été lue ou non.
+une notification datée de 6 jours est auto supprimée.
+
+les utilisateurs d'un meme serveur de fichier peuvent discuter tous à la fois dans un chat.
+
+un message est caractérise par la date d'envoi, le contenu, le chemin vers les fichiers envoyés dans le chat.

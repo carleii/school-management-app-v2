@@ -1,0 +1,24 @@
+                                                                                                                        <td><?php echo $nom_examen; ?></td>
+                                                                                                                        <td>
+                                                                                                                            <?php
+                                                                                                                            if ($note > 0) {
+                                                                                                                                echo $count_note / $note;
+                                                                                                                                # code...
+                                                                                                                            } else {
+                                                                                                                                echo 'empty';
+                                                                                                                            }
+                                                                                                                            ?>
+                                                                                                                        </td>
+                                                                                                                        <td>
+                                                                                                                            <?php
+                                                                                                                            if (($note > 0) and $count_note / $note >= $note_valid) {
+                                                                                                                                echo 'Validate';
+                                                                                                                                # code...
+                                                                                                                            } elseif (($note > 0) and $count_note / $note < $note_valid) {
+                                                                                                                                echo 'Rejected';
+                                                                                                                                # code...
+                                                                                                                            } else {
+                                                                                                                                echo 'empty';
+                                                                                                                            }
+                                                                                                                            ?>
+                                                                                                                        </td>

@@ -1,0 +1,72 @@
+.widgets1{
+    display: flex;
+    align-items: center;
+    .icon{
+        width: 40px;
+        text-align: center;
+        margin-right: 20px;
+    }
+}
+.widgets2{
+    display: flex;
+    justify-content: space-between;
+    h2{
+        @extend .mb-20;
+    }
+    h6{
+        @extend .mb-0;
+    }
+    .icon{
+
+        @extend .font-37;
+    }
+}
+.top_counter{
+    display: flex;
+    align-items: center;
+
+    .icon{
+        @extend .mr-20;
+        border-radius: $border-radius-extra-small;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        i{
+            @extend .font-20;
+            color: $white;
+        }
+    }
+}
+.w_sparkline{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.currency_state{
+    display: flex;
+    align-items: center;
+    .icon{
+        @extend .mr-20; 
+        img{
+            width: 40px;
+        }       
+    }
+    .number{
+        @extend .mb-0;
+    }
+}
+.gender_overview{
+    @extend .mb-15;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    background: $gray-50;    
+
+    .widgets1{
+        margin: 0 20px;
+        .icon{
+            width: 40px;
+        }
+    }    
+}

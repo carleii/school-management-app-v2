@@ -1,0 +1,6 @@
+ajout (dans le logiciel et dans le elearning) d'un utilisateur, etudiant, enseignant il faut faire le systeme de mailing
+dans le qr code il faut mettre url entier du site
+dans le footer prevoire la date de bug en fonction de la date de creation de l'etablissement
+envoyer le lien de paiement de scolarite dans le mail envoyé à l'etudiant
+
+dans le protocole de connexion à la base de données il faut mettre le localhost en IP adress pour l'installation dans un reseau local

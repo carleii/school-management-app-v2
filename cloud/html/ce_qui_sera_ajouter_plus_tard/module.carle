@@ -1,0 +1,14 @@
+@charset "UTF-8";
+/*------------- #VARIABLES --------------*/
+-none
+/*------------- #TABLE OF CONTENTS --------------*/
+-none
+/*------------------------------------------------------------------
+
+
+Project name: "E/s File server",
+Version: "1.0.0",
+Description: "As the name guys!!!!! :)"
+
+/*------------- #What next --------------*/
+--->Attribuer un niveau d'acces pour chaque dossier et fichier d'un cloud privé de facon individuelle.

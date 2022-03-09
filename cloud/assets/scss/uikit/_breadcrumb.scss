@@ -1,0 +1,15 @@
+.page-breadcrumb {
+	background: none;
+    padding: 0;
+    margin: 0;
+    font-size: px2rem(12px);
+    text-transform: uppercase;
+
+	.breadcrumb-item {
+		color: $text-muted;
+
+		&.active {
+			color: $text-muted-dark;
+		}
+	}
+}

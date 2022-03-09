@@ -1,0 +1,7 @@
+{
+    "phpserver.browser": "firefox",
+    "phpserver.phpConfigPath": "C:\\xampp\\php\\php.ini",
+    "phpserver.phpPath": "C:\\xampp\\php\\php.exe",
+    "phpserver.port": 80,
+    "phpserver.router": "localhost/cloud/"
+}

@@ -1,0 +1,19 @@
+.footer {	
+	font-size: px2rem(14px);
+	padding: 1.25rem 0;
+    color: $text-muted;
+    @include max-screen ($break-small - 1px){
+        text-align: center;
+        .col-sm-12.text-md-right{
+            margin-top: 15px;
+        }
+    }
+
+	a:not(.btn) {
+		color: $text-muted-dark;
+	}
+
+	@media print {
+		display: none;
+	}
+}

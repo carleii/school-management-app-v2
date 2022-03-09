@@ -1,0 +1,141 @@
+.inbox{
+    margin: 0;
+    .card-header{
+        padding: 10px 20px;
+        .custom-checkbox{
+            .custom-control-label:before,
+            .custom-control-label:after{
+                top: 2px;
+            }
+        }
+        .card-options>a{
+            font-size: $font-size;
+            padding: 0 5px;
+            margin-left: 10px;
+        }
+        h5{
+            white-space: nowrap;
+        }
+    }
+
+    .first{
+        width: 70px;
+    }
+    .custom-control{
+        @include inline-block();
+        @extend .mb-0;        
+        .custom-control-label::before,
+        .custom-control-label::after{
+            top: 2px;
+        }
+    }
+    .from{
+        a{
+            @extend .font-17;
+            color: $gray-700;
+        }
+    }
+    .msg{
+        @extend .text_ellipsis;
+        width: 800px;
+
+        @include max-screen ($break-xlarge){
+            width: 600px;
+        }
+        @include max-screen ($break-1024){
+            width: 510px;
+        }
+        @include max-screen ($break-medium){
+            width: 350px;
+        }
+        @include max-screen ($break-small - 1px){
+            width: 220px;
+        }
+    }
+    .detail{
+        background: $body-color;
+        .detail-header{
+            padding: 15px;
+            background: $white;
+            .float-left{
+                img{
+                    border-radius: $border-radius-small;
+                    max-width: 63px;                    
+                }
+            }
+            @include max-screen($break-xsmall){
+                small,
+                span{
+                    display: none;
+                }
+            }
+        }
+        .media-body{
+            p{
+                a{
+                    color: $font-color;
+                }
+            }
+        }
+        .mail-cnt{
+            padding: 20px 15px;
+            @include max-screen($break-xsmall){
+                padding: 20px 0;
+            }
+        }
+    }
+    &.unread{
+        .btn-link{
+            font-weight: $font-weight-700;
+        }
+        .from{
+            a{
+                color: $gray-700;
+                font-weight: $font-weight-700;
+            }
+        }    
+    }
+}
+.mail-star{
+    color: $gray-500;
+    &.active{
+        color: $warning;
+    }
+    &.love{
+        color: $blush;
+    }
+}
+.file_folder{
+    @extend .mb-25;
+    a{
+        @include inline-block();
+        @extend .mb-5;
+        border-radius: $border-radius-small;
+        border: 1px solid $gray-100;
+        position: relative;
+        overflow: hidden;
+        width: 220px;
+        @include max-screen($break-small - 100px){
+            width: 100%;
+            display: block;
+        }
+    }
+    .icon {
+        @extend .align-center;
+        float: left;
+        width: 60px;
+
+        i {
+            @extend .font-30;            
+            vertical-align: middle;
+            line-height: 65px;
+        }
+    }
+
+    .file-name {
+        padding: 10px;
+        .date {
+            float: right;
+        }
+    }
+}

@@ -1,0 +1,19 @@
+.map,
+.chart {
+	position: relative;
+	padding-top: (9/16)*100%;
+}
+
+.map-square,
+.chart-square {
+	padding-top: 100%;
+}
+
+.map-content,
+.chart-content {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
