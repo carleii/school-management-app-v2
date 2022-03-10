@@ -79,7 +79,7 @@
                     }
                     ?>
                     <?php
-                    if ($role == 'comptable') { ?>
+                    if ($role == 'comptable' or $role = "admin") { ?>
                         <li class=""><a href="comptable.php"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="COMPTABILITE">ACCOUNTANCY</span></a>
                         </li>
                     <?php
@@ -93,7 +93,7 @@
 
             <li class=" navigation-header"><span>Academic</span>
                 <?php
-                if ($role != "admin") { ?>
+                if (1) { ?>
             <li class=" nav-item"><a href="../../../html/ltr/vertical-menu-template-dark/index.php"><i class="menu-livicon" data-icon="desktop"></i><span class="menu-title" data-i18n="">Academic Admin</span><span class="badge badge-light-danger badge-pill badge-round float-right mr-2">7</span></a>
                 <ul class="menu-content">
                     <li class="active"><a href="student.php"> <i class="menu-livicon" data-icon="user"></i><span class="menu-item" data-i18n="Analytics">STUDENTS</span></a>
@@ -110,7 +110,7 @@
 
                     ?>
                     <?php
-                    if ($role == "headmaster" or $role == "secretary") { ?>
+                    if ($role == "headmaster" or $role == "secretary" or $role = "admin") { ?>
                         <li><a href="level.php"><i class="menu-livicon" data-icon="briefcase"></i><span class="menu-item" data-i18n="eCommerce">LEVEL</span></a>
                         </li>
                         <li class=""><a href="matiere.php"><i class="menu-livicon" data-icon="square"></i><span class="menu-item" data-i18n="Analytics">SUBJECTS</span></a>
