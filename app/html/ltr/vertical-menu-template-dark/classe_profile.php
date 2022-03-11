@@ -593,23 +593,28 @@ if (isset($_POST['csv_upload'])) {
                                                 <li class="nav-item pb-0">
                                                     <a class=" nav-link d-flex px-1 " id="feed-tab" data-toggle="tab" href="#feed" aria-controls="feed" role="tab" aria-selected="true"><i class="bx bx-home"></i><span class="d-none d-md-block">Notes Reports</span></a>
                                                 </li>
+                                                <li class="nav-item pb-0">
+                                                    <a class="nav-link d-flex px-1" id="friends-tab" data-toggle="tab" href="#friends" aria-controls="friends" role="tab" aria-selected="false"><i class="bx  bx-user"></i><span class="d-none d-md-block">
+                                                            <?php $query = mysqli_query($database, "SELECT * FROM apprenant WHERE code_classe = '$code_classe' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
+                                                            echo "ADD A STUDENT: (" . mysqli_num_rows($query) . ")"; ?></span></a>
+                                                </li>
+                                                <li class="nav-item pb-0">
+                                                    <a class="nav-link d-flex px-1" id="profile-tab" data-toggle="tab" href="#profile" aria-controls="profile" role="tab" aria-selected="false"><i class="bx bx-copy-alt"></i><span class="d-none d-md-block">Time Table</span></a>
+                                                </li>
+                                                <li class="nav-item pb-0">
+                                                    <a class="nav-link d-flex px-1" id="config-tab" data-toggle="tab" href="#config" aria-controls="config" role="tab" aria-selected="false"><i class="bx bx-message-alt"></i><span class="d-none d-md-block">Config</span></a>
+                                                </li>
 
-                                            <?php
-                                                # code...
-                                            }
-                                            ?>
-
-                                            <?php
-                                            if ($role == "admin" or $role == "headmaster") {
-                                            ?>
                                                 <li class="nav-item pb-0">
                                                     <a class="nav-link d-flex px-1" id="activity-tab" data-toggle="tab" href="#activity" aria-controls="activity" role="tab" aria-selected="false"><i class="bx bx-message-alt"></i><span class="d-none d-md-block">Courses</span></a>
                                                 </li>
 
+
                                             <?php
                                                 # code...
                                             }
                                             ?>
+
                                             <?php
                                             if ($role == 'admin' or $role == 'comptable') { ?>
                                                 <li class="nav-item pb-0">
@@ -621,30 +626,6 @@ if (isset($_POST['csv_upload'])) {
 
                                             <?php
                                                 // code...
-                                            }
-                                            ?>
-                                            <?php
-                                            if ($role == "admin" or $role == "headmaster") {
-                                            ?>
-                                                <li class="nav-item pb-0">
-                                                    <a class="nav-link d-flex px-1" id="friends-tab" data-toggle="tab" href="#friends" aria-controls="friends" role="tab" aria-selected="false"><i class="bx  bx-user"></i><span class="d-none d-md-block">
-                                                            <?php $query = mysqli_query($database, "SELECT * FROM apprenant WHERE code_classe = '$code_classe' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
-                                                            echo "ADD A STUDENT: (" . mysqli_num_rows($query) . ")"; ?></span></a>
-                                                </li>
-
-                                            <?php
-                                                # code...
-                                            }
-                                            ?>
-                                            <?php
-                                            if ($role == "admin" or $role == "headmaster") {
-                                            ?>
-                                                <li class="nav-item pb-0 mr-0">
-                                                    <a class="nav-link d-flex px-1" id="profile-tab" data-toggle="tab" href="#profile" aria-controls="profile" role="tab" aria-selected="false"><i class="bx bx-copy-alt"></i><span class="d-none d-md-block">Time Table</span></a>
-                                                </li>
-
-                                            <?php
-                                                # code...
                                             }
                                             ?>
 
@@ -2182,6 +2163,93 @@ if (isset($_POST['csv_upload'])) {
                                             </div>
 
                                         </div>
+                                        <div class=" tab-pane" id="config" aria-labelledby="config-tab" role="tabpanel">
+                                            <div class="tab-content pl-0">
+                                                <div class="tab-pane active" id="user-status" aria-labelledby="user-status-tab" role="tabpanel">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <form action="" method="post">
+                                                                <section id="form-and-scrolling-components">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6 col-12">
+                                                                            <div class="card">
+                                                                                <div class="card-content">
+                                                                                    <div class="card-body">
+                                                                                        <h5>Update Student infos</h5>
+                                                                                        <div class="form-group">
+                                                                                            <div class="form-group row">
+                                                                                                <label>First Name</label>
+                                                                                                <input type="text" name="nom_apprenant" class="form-control border-1 shadow-none" id="user-post-textarea" rows="3" placeholder="<?php echo $nom_apprenant ?>" value="<?php echo $nom_apprenant ?>"></input>
+                                                                                                <label>Last Name</label>
+                                                                                                <input type="text" name="prenom_apprenant" class="form-control border-1 shadow-none" id="user-post-textarea" rows="3" placeholder="<?php echo $prenom_apprenant ?>" value="<?php echo $prenom_apprenant ?>"></input>
+                                                                                                <label>Email</label>
+                                                                                                <input type="email" name="telephone_apprenant" class="form-control border-1 shadow-none" id="user-post-textarea" rows="3" placeholder="<?php echo $telephone ?>" value="<?php echo $telephone ?>"></input>
+                                                                                                <label>Birthday and Place</label>
+                                                                                                <input type="text" name="adresse_apprenant" class="form-control border-1 shadow-none" id="user-post-textarea" rows="3" placeholder="<?php echo $adresse ?>" value="<?php echo $adresse ?>"></input>
+                                                                                                <label>Others informations</label>
+                                                                                                <textarea name="other_info_apprenant" class="form-control border-1 shadow-none" id="user-post-textarea" rows="3"><?php echo $information_tierce ?> </textarea>
+                                                                                                <label>Tutor Adresse</label>
+                                                                                                <input type="text" name="tutor_apprenant" class="form-control border-1 shadow-none" id="user-post-textarea" rows="3" placeholder="<?php echo $contact_parentale ?>" value="<?php echo $contact_parentale ?>"></input>
+                                                                                            </div>
+                                                                                            <button type="reset" class="btn btn-light-secondary">
+                                                                                                <i class="bx bx-x d-block d-sm-none"></i>
+                                                                                                <span class="d-none d-sm-block">Clean</span>
+                                                                                            </button>
+                                                                                            <button type="submit" name="update_student" class="btn btn-success ml-1">
+                                                                                                <i class="bx bx-check d-block d-sm-none"></i>
+                                                                                                <span class="d-none d-sm-block">Save</span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6 col-12">
+                                                                            <div class="card">
+                                                                                <div class="card-content">
+                                                                                    <div class="card-body">
+                                                                                        <h5>Move in another Specialty</h5>
+                                                                                        <form class="form" method="post" action="">
+                                                                                            <div class="form-goup">
+                                                                                                <select class="form-control" required name="new_class">
+                                                                                                    <?php
+                                                                                                    $query = mysqli_query($database, "SELECT * FROM classe WHERE date_academique = '$date_academique' AND matricule_etablissement = '$matricule_etablissement' ");
+                                                                                                    while ($result = mysqli_fetch_assoc($query)) {
+                                                                                                        if ($result['code_classe'] == $code_classe) {
+                                                                                                            continue;
+                                                                                                            // code...
+                                                                                                        }
+                                                                                                        $id_niveau = $result['id_niveau'];
+                                                                                                        $query_1 = mysqli_query($database, "SELECT * FROM niveau WHERE id = '$id_niveau' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
+                                                                                                        $result_1 = mysqli_fetch_assoc($query_1);
+                                                                                                    ?>
+                                                                                                        <option value="<?php echo $result['code_classe']; ?>"><?php echo $result['nom_classe'] . " " . $result_1['nom_niveau']; ?></option>
+                                                                                                    <?php
+                                                                                                        // code...
+                                                                                                    }
+                                                                                                    ?>
+
+                                                                                                </select>
+                                                                                            </div><br>
+                                                                                            <div class="form-group">
+                                                                                                <button class="btn btn-light-primary" type="submit" name="change_class">Change</button>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </section>
+                                                            </form>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                                 <!-- user profile nav tabs content ends -->
