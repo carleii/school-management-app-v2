@@ -538,7 +538,7 @@ if (isset($_POST['save'])) {
                         <div class="swal2-footer" style="display: flex;"><a href="">Why do I have this issue?</a></div>
                     </div>
                 </div>
-            <?php
+        <?php
                 # code...
                 break;
 
@@ -550,6 +550,24 @@ if (isset($_POST['save'])) {
     } else {
         include 'access_denieted.php';
     }
+    # code...
+}
+
+// DELETE ALL EXAM'S NOTES
+if (isset($_POST['delete_A_en'])) {
+    if ($role == 'admin' or $role == 'teacher') {
+        $query = mysqli_query($database, "DELETE * FROM note WHERE matricule_apprenant = '$matricule_apprenant' AND date_academique = '$date_academique'");
+        ?>
+        <script type="text/javascript" language="javascript">
+            alert("DONE!");
+        </script>
+        <?php
+        # code...
+    } else {
+        include 'access_denieted.php';
+        # code...
+    }
+
     # code...
 }
 
@@ -639,7 +657,7 @@ if (isset($_POST['delete_note'])) {
                         <div class="swal2-footer" style="display: flex;"><a href="">Why do I have this issue?</a></div>
                     </div>
                 </div>
-                <?php
+<?php
                 # code...
                 break;
 
@@ -651,6 +669,19 @@ if (isset($_POST['delete_note'])) {
     } else {
         include 'access_denieted.php';
         # code...
+    }
+    # code...
+}
+
+//DELET A Student
+if (isset($_POST['delete_A_s'])) {
+    if ($role == 'admin' or $role == 'headmaster') {
+        $result = mysqli_query($database, "DELETE FROM apprenant WHERE matricule_apprenant = '$matricule_apprenant' AND date_academique = '$date_academique'");
+        header("Location: ./student.php");
+        exit();
+        # code...
+    } else {
+        include 'access_denieted.php';
     }
     # code...
 }
@@ -1171,6 +1202,20 @@ if (isset($_POST['delete_note'])) {
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+                                                                            <div class="card">
+                                                                                <div class="card-content">
+                                                                                    <div class="card-body">
+                                                                                        <h5>OPERATIONS</h5>
+                                                                                        <form class="form" method="post" action="">
+                                                                                            <div class="form-group">
+                                                                                                <button class="btn btn-light-danger" type="submit" name="delete_A_s">DELETE THIS STUDENT</button> &AMP;
+                                                                                                <button class="btn btn-light-warning" type="submit" name="delete_A_en">DELETE ALL EXAM'S NOTES</button>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
 
                                                                         </div>
                                                                     </div>

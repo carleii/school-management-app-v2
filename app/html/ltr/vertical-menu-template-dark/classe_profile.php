@@ -23,6 +23,48 @@ if (isset($_GET['ktsp'])) {
         $scolarite = $result['scolarite'];
         $ini = $result['ini'];
         $code_cloud = base64_decode($result['pssw']);
+
+        // DELETE THE SPECIALITY
+        if (isset($_POST['delete_s'])) {
+            if ($role == "admin" or $role == "headmaster") {
+                $result = $user->delete_class($code_classe, $matricule_etablissement, $date_academique);
+                header("Location: ./classe.php");
+                # code...
+            } else {
+                include 'access_denieted.php';
+                # code...
+            }
+            # code...
+        }
+
+        // UPDATE CLASS INFOS
+        if (isset($_POST['update_sp'])) {
+            if ($role == "admin" or $role == "headmaster") {
+                $nom_classe = $_POST['nom_classe'];
+                $scolarite = $_POST['tuition'];
+                $ini = $_POST['init'];
+                $code_cloud = base64_encode($_POST['password']);
+                $query = mysqli_query($database, "UPDATE classe SET nom_classe = '$nom_classe', scolarite = '$scolarite', pssw = '$code_cloud', ini = '$ini' WHERE code_classe = '$code_classe'");
+                $code_cloud = base64_decode($code_cloud);
+                # code...
+            } else {
+                include 'access_denieted.php';
+                # code...
+            }
+            # code...
+        }
+        if (isset($_POST['change_level'])) {
+            if ($role == "admin" or $role == "headmaster") {
+                $id_niveau = $_POST['new_level'];
+                $query = mysqli_query($database, "UPDATE classe SET id_niveau = '$id_niveau' WHERE code_classe = '$code_classe' ");
+
+                # code...
+            } else {
+                include './access_denieted.php';
+            }
+            # code...
+        }
+
         $query = mysqli_query($database, "SELECT * FROM niveau WHERE id = '$id_niveau' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
         if (mysqli_num_rows($query) == 1) {
             $result = mysqli_fetch_assoc($query);
@@ -428,7 +470,7 @@ if (isset($_POST['week_del'])) {
 
 //ADD TRANCHE DE PAIEMENT
 if (isset($_POST['add_tranche'])) {
-    if ($role == 'admin' or $role == 'comptable') {
+    if ($role == 'comptable') {
         $nom_tranche = $_POST['nom_tranche'];
         $montant_tranche = $_POST['montant_tranche'];
         $echeance_tranche = $_POST['echeance_tranche'];
@@ -499,7 +541,7 @@ if (isset($_POST['add_tranche'])) {
 //DELETE TRANCHE DE PAIEMENT
 
 if (isset($_POST['delete_tranche'])) {
-    if ($role == 'admin' or $role == "comptable") {
+    if ($role == "comptable") {
         $id_tranche = $_POST['delete_tranche'];
         $result = $user->delete_tranche($id_tranche, $code_classe, $date_academique, $matricule_etablissement);
     } else {
@@ -544,7 +586,6 @@ if (isset($_POST['csv_upload'])) {
     # code...
 }
 
-
 ?>
 
 
@@ -588,7 +629,7 @@ if (isset($_POST['csv_upload'])) {
                                     <div class="card-body px-0">
                                         <ul class="nav user-profile-nav justify-content-center justify-content-md-start nav-tabs border-bottom-0 mb-0" role="tablist">
                                             <?php
-                                            if ($role == "admin" or $role == "headmaster") {
+                                            if ($role == "admin" or $role == "headmaster" or $role = "comptable") {
                                             ?>
                                                 <li class="nav-item pb-0">
                                                     <a class=" nav-link d-flex px-1 " id="feed-tab" data-toggle="tab" href="#feed" aria-controls="feed" role="tab" aria-selected="true"><i class="bx bx-home"></i><span class="d-none d-md-block">Notes Reports</span></a>
@@ -2175,27 +2216,23 @@ if (isset($_POST['csv_upload'])) {
                                                                             <div class="card">
                                                                                 <div class="card-content">
                                                                                     <div class="card-body">
-                                                                                        <h5>Update Student infos</h5>
+                                                                                        <h5>Update Speciality configuration</h5>
                                                                                         <div class="form-group">
                                                                                             <div class="form-group row">
-                                                                                                <label>First Name</label>
-                                                                                                <input type="text" name="nom_apprenant" class="form-control border-1 shadow-none" id="user-post-textarea" rows="3" placeholder="<?php echo $nom_apprenant ?>" value="<?php echo $nom_apprenant ?>"></input>
-                                                                                                <label>Last Name</label>
-                                                                                                <input type="text" name="prenom_apprenant" class="form-control border-1 shadow-none" id="user-post-textarea" rows="3" placeholder="<?php echo $prenom_apprenant ?>" value="<?php echo $prenom_apprenant ?>"></input>
-                                                                                                <label>Email</label>
-                                                                                                <input type="email" name="telephone_apprenant" class="form-control border-1 shadow-none" id="user-post-textarea" rows="3" placeholder="<?php echo $telephone ?>" value="<?php echo $telephone ?>"></input>
-                                                                                                <label>Birthday and Place</label>
-                                                                                                <input type="text" name="adresse_apprenant" class="form-control border-1 shadow-none" id="user-post-textarea" rows="3" placeholder="<?php echo $adresse ?>" value="<?php echo $adresse ?>"></input>
-                                                                                                <label>Others informations</label>
-                                                                                                <textarea name="other_info_apprenant" class="form-control border-1 shadow-none" id="user-post-textarea" rows="3"><?php echo $information_tierce ?> </textarea>
-                                                                                                <label>Tutor Adresse</label>
-                                                                                                <input type="text" name="tutor_apprenant" class="form-control border-1 shadow-none" id="user-post-textarea" rows="3" placeholder="<?php echo $contact_parentale ?>" value="<?php echo $contact_parentale ?>"></input>
+                                                                                                <label>SPECIALITY Name</label>
+                                                                                                <input type="text" name="nom_classe" class="form-control border-1 shadow-none" id="user-post-textarea" rows="3" placeholder="<?php echo $nom_classe ?>" value="<?php echo $nom_classe ?>"></input>
+                                                                                                <label>TUITION FEES</label>
+                                                                                                <input type="text" name="tuition" class="form-control border-1 shadow-none" id="user-post-textarea" rows="3" placeholder="<?php echo $scolarite ?>" value="<?php echo $scolarite ?>"></input>
+                                                                                                <label>E-learning Password</label>
+                                                                                                <input type="text" name="password" class="form-control border-1 shadow-none" id="user-post-textarea" rows="3" placeholder="<?php echo $code_cloud ?>" value="<?php echo $code_cloud ?>"></input>
+                                                                                                <label>Initial</label>
+                                                                                                <input type="text" name="init" class="form-control border-1 shadow-none" id="user-post-textarea" rows="3" placeholder="<?php echo $ini ?>" value="<?php echo $ini ?>"></input>
                                                                                             </div>
                                                                                             <button type="reset" class="btn btn-light-secondary">
                                                                                                 <i class="bx bx-x d-block d-sm-none"></i>
                                                                                                 <span class="d-none d-sm-block">Clean</span>
                                                                                             </button>
-                                                                                            <button type="submit" name="update_student" class="btn btn-success ml-1">
+                                                                                            <button type="submit" name="update_sp" class="btn btn-success ml-1">
                                                                                                 <i class="bx bx-check d-block d-sm-none"></i>
                                                                                                 <span class="d-none d-sm-block">Save</span>
                                                                                             </button>
@@ -2208,37 +2245,43 @@ if (isset($_POST['csv_upload'])) {
                                                                             <div class="card">
                                                                                 <div class="card-content">
                                                                                     <div class="card-body">
-                                                                                        <h5>Move in another Specialty</h5>
+                                                                                        <h5>CHANGE THE LEVEL OF THIS SPECIALITY</h5><sup>* <b>all the student of this speciality will change their level</b></sup>
                                                                                         <form class="form" method="post" action="">
                                                                                             <div class="form-goup">
-                                                                                                <select class="form-control" required name="new_class">
+                                                                                                <select class="form-control" required name="new_level">
                                                                                                     <?php
-                                                                                                    $query = mysqli_query($database, "SELECT * FROM classe WHERE date_academique = '$date_academique' AND matricule_etablissement = '$matricule_etablissement' ");
+                                                                                                    $query = mysqli_query($database, "SELECT * FROM niveau WHERE date_academique = '$date_academique' AND matricule_etablissement = '$matricule_etablissement' ");
                                                                                                     while ($result = mysqli_fetch_assoc($query)) {
-                                                                                                        if ($result['code_classe'] == $code_classe) {
-                                                                                                            continue;
-                                                                                                            // code...
-                                                                                                        }
-                                                                                                        $id_niveau = $result['id_niveau'];
-                                                                                                        $query_1 = mysqli_query($database, "SELECT * FROM niveau WHERE id = '$id_niveau' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
-                                                                                                        $result_1 = mysqli_fetch_assoc($query_1);
                                                                                                     ?>
-                                                                                                        <option value="<?php echo $result['code_classe']; ?>"><?php echo $result['nom_classe'] . " " . $result_1['nom_niveau']; ?></option>
+                                                                                                        <option value="<?php echo $result['id']; ?>"><?php echo $result['nom_niveau']; ?></option>
                                                                                                     <?php
                                                                                                         // code...
                                                                                                     }
                                                                                                     ?>
 
                                                                                                 </select>
+
                                                                                             </div><br>
                                                                                             <div class="form-group">
-                                                                                                <button class="btn btn-light-primary" type="submit" name="change_class">Change</button>
+                                                                                                <button class="btn btn-light-primary" type="submit" name="change_level">Change</button>
                                                                                             </div>
                                                                                         </form>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-
+                                                                            <div class="card">
+                                                                                <div class="card-content">
+                                                                                    <div class="card-body">
+                                                                                        <h5>OPERATIONS</h5>
+                                                                                        <form class="form" method="post" action="">
+                                                                                            <div class="form-group">
+                                                                                                <button class="btn btn-light-danger" type="submit" name="delete_s">DELETE THIS SPECIALITY</button> &AMP;
+                                                                                                <button class="btn btn-light-warning" type="submit" name="delete_A_en">DELETE ALL EXAM'S NOTES</button>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </section>
