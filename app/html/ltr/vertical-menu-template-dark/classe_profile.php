@@ -279,7 +279,7 @@ if (isset($_POST['delete_dis_class'])) {
 
 // UPDATE A DISCIPLINE IN THE CLASS TREATMENT
 if (isset($_POST['update_dis_class'])) {
-    if ($role == 'admin' or $role = "headmaster") {
+    if ($role == 'admin' or $role == "headmaster") {
         $dis_classe = $_POST['dis_classe'];
         $dis_teacher =  $_POST['dis_teacher'];
         $dis_credit = $_POST['dis_credit'];
@@ -629,9 +629,12 @@ if (isset($_POST['csv_upload'])) {
                                     <div class="card-body px-0">
                                         <ul class="nav user-profile-nav justify-content-center justify-content-md-start nav-tabs border-bottom-0 mb-0" role="tablist">
                                             <?php
-                                            if ($role == "admin" or $role == "headmaster" or $role = "comptable") {
+
+                                            if ($role == "admin" or $role == "headmaster") {
                                             ?>
                                                 <li class="nav-item pb-0">
+                                                    <?php echo $role;
+                                                    exit(); ?>
                                                     <a class=" nav-link d-flex px-1 " id="feed-tab" data-toggle="tab" href="#feed" aria-controls="feed" role="tab" aria-selected="true"><i class="bx bx-home"></i><span class="d-none d-md-block">Notes Reports</span></a>
                                                 </li>
                                                 <li class="nav-item pb-0">

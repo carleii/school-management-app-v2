@@ -110,7 +110,7 @@
 
                     ?>
                     <?php
-                    if ($role == "headmaster" or $role == "secretary" or $role = "admin") { ?>
+                    if ($role == "headmaster" or $role == "secretary" or $role == "admin") { ?>
                         <li><a href="level.php"><i class="menu-livicon" data-icon="briefcase"></i><span class="menu-item" data-i18n="eCommerce">LEVEL</span></a>
                         </li>
                         <li class=""><a href="matiere.php"><i class="menu-livicon" data-icon="square"></i><span class="menu-item" data-i18n="Analytics">SUBJECTS</span></a>
