@@ -633,8 +633,6 @@ if (isset($_POST['csv_upload'])) {
                                             if ($role == "admin" or $role == "headmaster") {
                                             ?>
                                                 <li class="nav-item pb-0">
-                                                    <?php echo $role;
-                                                    exit(); ?>
                                                     <a class=" nav-link d-flex px-1 " id="feed-tab" data-toggle="tab" href="#feed" aria-controls="feed" role="tab" aria-selected="true"><i class="bx bx-home"></i><span class="d-none d-md-block">Notes Reports</span></a>
                                                 </li>
                                                 <li class="nav-item pb-0">
