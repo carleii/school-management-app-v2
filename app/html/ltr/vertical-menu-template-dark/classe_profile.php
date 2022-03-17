@@ -717,7 +717,7 @@ if (isset($_POST['csv_upload'])) {
                                                                             ?>
 
                                                                         </li>
-                                                                        <li class="timeline-items timeline-icon-danger"> <b> Total paid for <?php echo ($result['nom_tranche'] . " : " . $result_0['montant_t'] + 0) ?> </b></li>
+                                                                        <li class="timeline-items timeline-icon-danger"> <b> Total paid for <?php echo ($result['nom_tranche'] . " : " . intval($result_0['montant_t'])) ?> </b></li>
 
                                                                     <?php
                                                                         echo "<br><br>";
