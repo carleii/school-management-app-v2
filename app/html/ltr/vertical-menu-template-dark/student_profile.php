@@ -202,7 +202,7 @@ if (isset($_POST['change_class'])) {
 
 //PAID SCHOLARYSHIPS TREATMENT
 if (isset($_POST['regler_tranche'])) {
-    if ($role == 'admin' or $role == 'comptable') {
+    if ($role == 'comptable') {
         $id_tranche = $_POST['id_tranche'];
         $montant_tranche = $_POST['montant_tranche'];
         $jour = $_POST['jour'];
@@ -429,7 +429,7 @@ if (isset($_POST['delete_tranche'])) {
 
 //INSERT EXAM NOTES
 if (isset($_POST['save'])) {
-    if ($role == 'admin' or $role == 'teacher') {
+    if ($role == 'teacher') {
         $bool = 1;
         $exam_code = $_POST['exam_code'];
         $query = mysqli_query($database, "SELECT * FROM discipline_classe WHERE code_classe = '$code_classe' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
