@@ -7,8 +7,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <meta name="description" content="Frest admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
-    <meta name="keywords" content="admin template, Frest admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="description"
+        content="Frest admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords"
+        content="admin template, Frest admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
     <title>Time table | <?php
                         if (isset($_GET['ktsp'])) {
@@ -22,22 +24,22 @@
                             $query_1 = mysqli_query($database, "SELECT * FROM niveau WHERE id = '$id_niveau' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique'");
                             $result_1 = mysqli_fetch_assoc($query_1);
                             # code...
-                            echo $result['nom_classe'] . " " . $result_1['nom_niveau'] . " " . $week_view;
                         } else {
                             header("Location: ./");
                             exit();
                         }
                         ?></title>
     <style type="text/css">
-        @media print {
-            footer {
-                page-break-after: always;
-            }
+    @media print {
+        footer {
+            page-break-after: always;
         }
+    }
     </style>
     <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
-    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700"
+        rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/vendors.min.css">
@@ -66,7 +68,8 @@
 
 <!-- BEGIN: Body-->
 
-<body class="vertical-layout vertical-menu-modern dark-layout 2-columns  navbar-sticky footer-static  " data-layout="dark-layout">
+<body class="vertical-layout vertical-menu-modern dark-layout 2-columns  navbar-sticky footer-static  "
+    data-layout="dark-layout">
 
 
     <!-- BEGIN: Content-->
@@ -76,7 +79,8 @@
             <div class="row">
                 <div class="col-1">
                     <div class="user-profile-images">
-                        <img src="logo_data/<?php echo $logo ?>" style="margin-left: 50px;" class="user-profile-image rounded" alt="school logo" height="107" width="90">
+                        <img src="logo_data/<?php echo $logo ?>" style="margin-left: 50px;"
+                            class="user-profile-image rounded" alt="school logo" height="107" width="90">
                     </div>
                 </div>
                 <div class="col-11">
@@ -100,8 +104,9 @@
                                 $result_1 = mysqli_fetch_assoc($query_1);
                                 # code...
                             ?>
-                                <h4>Semaine/Week : <?php echo $week_view; ?></h4>
-                                <h5><?php echo $result['nom_classe'] . "  " . $result_1['nom_niveau']; ?></h5><br><?php echo $date_academique; ?>
+                            <h4>Semaine/Week : <?php echo $week_view; ?></h4>
+                            <h5><?php echo $result['nom_classe'] . "  " . $result_1['nom_niveau']; ?></h5>
+                            <br><?php echo $date_academique; ?>
                             <?php
 
 
@@ -150,19 +155,19 @@
                                         $day = $result_1['jour'];
                                     }
                                 ?>
-                                    <tr>
-                                        <td><?php echo $day; ?></td>
-                                        <td>
-                                            <?php
+                                <tr>
+                                    <td><?php echo $day; ?></td>
+                                    <td>
+                                        <?php
                                             $query_2 = mysqli_query($database, "SELECT *  FROM calendrier WHERE date_academique = '$date_academique' AND matricule_etablissement = '$matricule_etablissement' AND code_classe = '$code_classe' AND week = '$week' AND jour = '$day' ORDER BY id asc ");
                                             while ($result_2 = mysqli_fetch_assoc($query_2)) {
                                                 echo $result_2['horaire'] . "<hr>";
                                                 # code...
                                             }
                                             ?>
-                                        </td>
-                                        <td>
-                                            <?php
+                                    </td>
+                                    <td>
+                                        <?php
                                             $query_2 = mysqli_query($database, "SELECT *  FROM calendrier WHERE date_academique = '$date_academique' AND matricule_etablissement = '$matricule_etablissement' AND code_classe = '$code_classe' AND week = '$week' AND jour = '$day' ORDER BY id asc ");
                                             while ($result_2 = mysqli_fetch_assoc($query_2)) {
                                                 $code_discipline = addslashes($result_2['code_discipline']);
@@ -172,9 +177,9 @@
                                                 # code...
                                             }
                                             ?>
-                                        </td>
-                                        <td>
-                                            <?php
+                                    </td>
+                                    <td>
+                                        <?php
                                             $query_2 = mysqli_query($database, "SELECT *  FROM calendrier WHERE date_academique = '$date_academique' AND matricule_etablissement = '$matricule_etablissement' AND code_classe = '$code_classe' AND week = '$week' AND jour = '$day' ORDER BY id asc ");
                                             while ($result_2 = mysqli_fetch_assoc($query_2)) {
                                                 $code_discipline = addslashes($result_2['code_discipline']);
@@ -187,17 +192,17 @@
                                                 # code...
                                             }
                                             ?>
-                                        </td>
-                                        <td>
-                                            <?php
+                                    </td>
+                                    <td>
+                                        <?php
                                             $query_2 = mysqli_query($database, "SELECT *  FROM calendrier WHERE date_academique = '$date_academique' AND matricule_etablissement = '$matricule_etablissement' AND code_classe = '$code_classe' AND week = '$week' AND jour = '$day' ORDER BY id asc ");
                                             while ($result_2 = mysqli_fetch_assoc($query_2)) {
                                                 echo $result_2['lieu'] . "<hr>";
                                                 # code...
                                             }
                                             ?>
-                                        </td>
-                                    </tr>
+                                    </td>
+                                </tr>
 
                                 <?php
                                     # code...
@@ -280,7 +285,7 @@
             <script src="../../../app-assets/js/scripts/datatables/datatable.js"></script>
             <!-- END: Page JS-->
             <script type="text/javascript">
-                window.print();
+            window.print();
             </script>
 
 </body>

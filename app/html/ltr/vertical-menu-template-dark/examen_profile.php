@@ -26,13 +26,16 @@ if (isset($_GET['ktsp'])) {
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <meta name="description" content="Frest admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
-    <meta name="keywords" content="admin template, Frest admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="description"
+        content="Frest admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords"
+        content="admin template, Frest admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
     <title><?php echo $nom_examen . " | " . $nom_etablissement; ?></title>
     <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
-    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700"
+        rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/vendors.min.css">
@@ -69,7 +72,8 @@ if (isset($_GET['ktsp'])) {
 
 <!-- BEGIN: Body-->
 
-<body class="vertical-layout vertical-menu-modern dark-layout 2-columns  navbar-sticky footer-static menu-expanded " data-open="click" data-menu="vertical-menu-modern" data-col="2-columns" data-layout="dark-layout">
+<body class="vertical-layout vertical-menu-modern dark-layout 2-columns  navbar-sticky footer-static menu-expanded "
+    data-open="click" data-menu="vertical-menu-modern" data-col="2-columns" data-layout="dark-layout">
 
     <!-- BEGIN: Header-->
     <div class="header-navbar-shadow"></div>
@@ -99,9 +103,11 @@ if (isset($_GET['ktsp'])) {
                                     <div class="user-profile-images">
                                         <!-- user timeline image -->
                                         <!-- user timeline image -->
-                                        <img src="../../../app-assets/images/profile/post-media/profile-banner-co.jpg" class="img-fluid rounded-top user-timeline-image" alt="user timeline image">
+                                        <img src="../../../app-assets/images/profile/post-media/profile-banner-co.jpg"
+                                            class="img-fluid rounded-top user-timeline-image" alt="user timeline image">
                                         <!-- user profile image -->
-                                        <img src="logo_data/<?php echo $logo ?>" class="user-profile-image rounded" alt="user profile image" height="140" width="140">
+                                        <img src="logo_data/<?php echo $logo ?>" class="user-profile-image rounded"
+                                            alt="user profile image" height="140" width="140">
                                     </div>
                                     <div class="user-profile-text">
                                         <h4 class="mb-0 text-bold-500 profile-text-color"><?php echo $nom_examen ?></h4>
@@ -109,12 +115,16 @@ if (isset($_GET['ktsp'])) {
                                     </div>
                                     <!-- user profile nav tabs start -->
                                     <div class="card-body px-0">
-                                        <ul class="nav user-profile-nav justify-content-center justify-content-md-start nav-tabs border-bottom-0 mb-0" role="tablist">
+                                        <ul class="nav user-profile-nav justify-content-center justify-content-md-start nav-tabs border-bottom-0 mb-0"
+                                            role="tablist">
                                             <!-- <li class="nav-item pb-0">
                                                 <a class=" nav-link d-flex px-1 active" id="feed-tab" data-toggle="tab" href="#feed" aria-controls="feed" role="tab" aria-selected="true"><i class="bx bx-home"></i><span class="d-none d-md-block">Feed</span></a>
                                             </li> -->
                                             <li class="nav-item pb-0">
-                                                <a class="nav-link d-flex px-1 active" id="activity-tab" data-toggle="tab" href="#activity" aria-controls="activity" role="tab" aria-selected="false"><i class="bx bx-user"></i><span class="d-none d-md-block">Activity</span></a>
+                                                <a class="nav-link d-flex px-1 active" id="activity-tab"
+                                                    data-toggle="tab" href="#activity" aria-controls="activity"
+                                                    role="tab" aria-selected="false"><i class="bx bx-user"></i><span
+                                                        class="d-none d-md-block">Activity</span></a>
                                             </li>
                                             <!-- <li class="nav-item pb-0">
                                                 <a class="nav-link d-flex px-1" id="friends-tab" data-toggle="tab" href="#friends" aria-controls="friends" role="tab" aria-selected="false"><i class="bx bx-message-alt"></i><span class="d-none d-md-block">Friends</span></a>
@@ -131,10 +141,50 @@ if (isset($_GET['ktsp'])) {
 
                             <!-- user profile content section start -->
                             <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <div class="card-body">
+                                                <h5>
+                                                    PRINT A NOTE REPORT TEMPLATE
+                                                </h5>
+                                                <form class="form" method="post" action="./print_note_template.php">
+                                                    <div class="form-goup">
+                                                        <select class="form-control" required name="new_class">
+                                                            <?php
+                                                            $query = mysqli_query($database, "SELECT * FROM classe WHERE date_academique = '$date_academique' AND matricule_etablissement = '$matricule_etablissement' ");
+                                                            while ($result = mysqli_fetch_assoc($query)) {
+                                                                $id_niveau = $result['id_niveau'];
+                                                                $query_1 = mysqli_query($database, "SELECT * FROM niveau WHERE id = '$id_niveau' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
+                                                                $result_1 = mysqli_fetch_assoc($query_1);
+                                                            ?>
+                                                            <option
+                                                                value="<?php echo $result['code_classe'] . "." . $code_examen; ?>">
+                                                                <?php echo $result['nom_classe'] . " " . $result_1['nom_niveau']; ?>
+                                                            </option>
+                                                            <?php
+                                                                // code...
+                                                            }
+                                                            ?>
+
+                                                        </select>
+                                                    </div><br>
+                                                    <div class="form-group">
+                                                        <button class="btn btn-light-success" type="submit"
+                                                            name="print_note_t">PRINT</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
                                 <!-- user profile nav tabs content start -->
                                 <div class="col-lg-12">
                                     <div class="tab-content">
-                                        <div class="tab-pane active" id="activity" aria-labelledby="activity-tab" role="tabpanel">
+                                        <div class="tab-pane active" id="activity" aria-labelledby="activity-tab"
+                                            role="tabpanel">
                                             <!-- Accordion with hover start -->
                                             <section id="accordion-hover-wrapper">
                                                 <div id="accordionExample3" data-toggle-hover="true">
@@ -151,30 +201,40 @@ if (isset($_GET['ktsp'])) {
                                                             $result_1 = mysqli_fetch_assoc($query_1);
                                                             $nom_niveau = $result_1['nom_niveau'];
                                                         ?>
-                                                            <div class="card collapse-header">
-                                                                <div class="card-header" id="heading300<?php echo $i ?>" data-toggle="collapse" role="button" data-target="#collapse300<?php echo $i ?>" aria-expanded="true" aria-controls="collapse300<?php echo $i ?>">
-                                                                    <span class="collapse-title"><?php echo $nom_classe . " | " . $nom_niveau ?></span>
-                                                                </div>
-                                                                <div id="collapse300<?php echo $i ?>" class="collapse" aria-labelledby="heading300<?php echo $i ?>" data-parent="#accordionExample3">
-                                                                    <section id="column-selectors">
-                                                                        <div class="row">
-                                                                            <div class="col-12">
-                                                                                <div class="card">
-                                                                                    <div class="card-content">
-                                                                                        <div class="card-body card-dashboard">
-                                                                                            <div class="table-responsive">
-                                                                                                <table class="table table-striped dataex-html5-selectors">
-                                                                                                    <thead>
-                                                                                                        <tr>
-                                                                                                            <th>Name</th>
-                                                                                                            <th>Exam</th>
-                                                                                                            <th>Courses</th>
-                                                                                                            <th>Note</th>
-                                                                                                            <th>Definitive</th>
-                                                                                                        </tr>
-                                                                                                    </thead>
-                                                                                                    <tbody>
-                                                                                                        <?php
+                                                        <div class="card collapse-header">
+                                                            <div class="card-header" id="heading300<?php echo $i ?>"
+                                                                data-toggle="collapse" role="button"
+                                                                data-target="#collapse300<?php echo $i ?>"
+                                                                aria-expanded="true"
+                                                                aria-controls="collapse300<?php echo $i ?>">
+                                                                <span
+                                                                    class="collapse-title"><?php echo $nom_classe . " | " . $nom_niveau ?></span>
+                                                            </div>
+                                                            <div id="collapse300<?php echo $i ?>" class="collapse"
+                                                                aria-labelledby="heading300<?php echo $i ?>"
+                                                                data-parent="#accordionExample3">
+                                                                <section id="column-selectors">
+                                                                    <div class="row">
+                                                                        <div class="col-12">
+                                                                            <div class="card">
+                                                                                <div class="card-content">
+                                                                                    <div
+                                                                                        class="card-body card-dashboard">
+                                                                                        <div class="table-responsive">
+                                                                                            <table
+                                                                                                class="table table-striped dataex-html5-selectors">
+                                                                                                <thead>
+                                                                                                    <tr>
+                                                                                                        <th>Name</th>
+                                                                                                        <th>Exam</th>
+                                                                                                        <th>Courses</th>
+                                                                                                        <th>Note</th>
+                                                                                                        <th>Definitive
+                                                                                                        </th>
+                                                                                                    </tr>
+                                                                                                </thead>
+                                                                                                <tbody>
+                                                                                                    <?php
                                                                                                         $query_1 = mysqli_query($database, "SELECT * FROM apprenant WHERE code_classe = '$code_classe' AND date_academique = '$date_academique' AND matricule_etablissement = '$matricule_etablissement' ");
                                                                                                         while ($result_1 = mysqli_fetch_assoc($query_1)) {
                                                                                                             $nom_apprenant = $result_1['nom_apprenant'];
@@ -194,46 +254,52 @@ if (isset($_GET['ktsp'])) {
                                                                                                                 $result_4 = mysqli_fetch_assoc($query_4);
                                                                                                                 $nom_discipline = $result_4['nom_discipline'];
                                                                                                         ?>
-                                                                                                                <tr>
-                                                                                                                    <td><?php echo $nom_apprenant . " " . $prenom_apprenant ?></td>
-                                                                                                                    <td><?php echo $nom_examen ?></td>
-                                                                                                                    <td><?php echo $nom_discipline ?></td>
-                                                                                                                    <td><?php echo $note ?></td>
-                                                                                                                    <td><?php echo $retVal = ($note >= $note_valid) ? "VALIDED" : "REJECTED"; ?></td>
-                                                                                                                </tr>
+                                                                                                    <tr>
+                                                                                                        <td><?php echo $nom_apprenant . " " . $prenom_apprenant ?>
+                                                                                                        </td>
+                                                                                                        <td><?php echo $nom_examen ?>
+                                                                                                        </td>
+                                                                                                        <td><?php echo $nom_discipline ?>
+                                                                                                        </td>
+                                                                                                        <td><?php echo $note ?>
+                                                                                                        </td>
+                                                                                                        <td><?php echo $retVal = ($note >= $note_valid) ? "VALIDED" : "REJECTED"; ?>
+                                                                                                        </td>
+                                                                                                    </tr>
 
-                                                                                                        <?php
+                                                                                                    <?php
                                                                                                                 # code...
                                                                                                             }
                                                                                                             # code...
                                                                                                         }
                                                                                                         ?>
 
-                                                                                                    </tbody>
-                                                                                                    <tfoot>
-                                                                                                        <tr>
-                                                                                                            <th>Name</th>
-                                                                                                            <th>Examen</th>
-                                                                                                            <th>Courses</th>
-                                                                                                            <th>Note</th>
-                                                                                                            <th>Definitive</th>
-                                                                                                        </tr>
-                                                                                                    </tfoot>
-                                                                                                </table>
-                                                                                            </div>
+                                                                                                </tbody>
+                                                                                                <tfoot>
+                                                                                                    <tr>
+                                                                                                        <th>Name</th>
+                                                                                                        <th>Examen</th>
+                                                                                                        <th>Courses</th>
+                                                                                                        <th>Note</th>
+                                                                                                        <th>Definitive
+                                                                                                        </th>
+                                                                                                    </tr>
+                                                                                                </tfoot>
+                                                                                            </table>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </section>
-                                                                    <!-- Column selectors with Export Options and print table -->
-                                                                </div>
+                                                                    </div>
+                                                                </section>
+                                                                <!-- Column selectors with Export Options and print table -->
+                                                            </div>
                                                             <?php
                                                             # code...
                                                         }
                                                             ?>
-                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </section>
