@@ -1,1 +1,0 @@
-$(document).ready(function(){$(".user-profile-like").click(function(){$(this).toggleClass("bx-heart bxs-heart").toggleClass("text-danger")});var e=$(".swiper-slide").length;e&&(e=Math.floor(e/2));new Swiper(".user-profile-stories",{slidesPerView:"auto",initialSlide:e,centeredSlides:!0,spaceBetween:15})});

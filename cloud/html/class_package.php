@@ -14,7 +14,7 @@ class system
    //3. mot de passe
    private $pssw = '';
    //4. base de données
-   private $dbb = 'scolaricx';
+   private $dbb = 'cloud';
    protected $database;
 
    function __construct()

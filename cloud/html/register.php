@@ -62,8 +62,10 @@ if (isset($_POST['create_new_acc'])) {
          <div class="card">
             <div class="card-body">
                <div class="text-center">
-                  <a class="header-brand" href="index.html"><i class="fa fa-graduation-cap brand-logo"></i></a>
-                  <h4>THIB SECURED FILES SERVER</h4>
+                  <img src="./logo.jpg" class="header-brand" alt="logo">
+
+                  <!-- <a class="header-brand" href="index.html"><i class="fa fa-graduation-cap brand-logo"></i></a> -->
+                  <!-- <h4>Secure Network for Customs Data Management and Archiving</h4> -->
                   <div class="card-title">Create new account</div>
                </div>
                <form class="form" action="" method="post">

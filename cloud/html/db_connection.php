@@ -7,6 +7,6 @@ $user = 'root';
 //3. mot de passe
 $pssw = '';
 //4. base de données
-$db = 'scolaricx';
+$db = 'cloud';
 //requette de connection
 $db = new mysqli($host, $user, $pssw, $db) or die("Unable to conenct" . mysqli_error());
