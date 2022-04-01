@@ -1,3 +1,3 @@
 <?php
-header("Location: ./cloud");
+header("Location: ./app");
 exit();
