@@ -139,7 +139,7 @@ class user
 /**
  * Admin class
  */
-class admin extends user
+class admin extends headmaster
 {
 
 	function __construct()
