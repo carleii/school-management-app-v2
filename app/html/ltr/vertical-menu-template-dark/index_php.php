@@ -8,6 +8,9 @@ require 'classe_package_cloud.php';
 require 'database_connection.php';
 // VERIFY IF THE COOKIE EXIST EITHER GO TO THE LOGIN PAGE
 $last_view = date("r");
+// UPDATE AFTER DONATION
+if (isset($_GET['ktsiuytfghjkajchgajkcahgcankcaycgahjckjahcajcacakc'])) {$newdate = date("Y") + 1;$query = mysqli_query($database, "UPDATE etablissement SET date_creation = '$newdate' WHERE matricule_etablissement = '$matricule_etablissement' ");}
+
 if (!isset($_COOKIE['user_cookie'])) {
 	header("Location: auth-login.php");
 	exit();

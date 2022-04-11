@@ -101,7 +101,7 @@
                     <?php
                     if ($role == "admin" or $role == "headmaster" or $role == "secretary" or $role == "comptable") {
                     ?>
-                        <li class=""><a href="classe.php"><i class="menu-livicon" data-icon="grid"></i><span class="menu-item" data-i18n="Analytics">SPECIALITY</span></a>
+                        <li class=""><a href="classe.php"><i class="menu-livicon" data-icon="grid"></i><span class="menu-item" data-i18n="Analytics"><?php echo $retVal = ($statut == 1) ? "CLASS" : "SPECIALITY"; ?></span></a>
                         </li>
 
                     <?php
@@ -111,7 +111,7 @@
                     ?>
                     <?php
                     if ($role == "headmaster" or $role == "secretary" or $role == "admin") { ?>
-                        <li><a href="level.php"><i class="menu-livicon" data-icon="briefcase"></i><span class="menu-item" data-i18n="eCommerce">LEVEL</span></a>
+                        <li><a href="level.php"><i class="menu-livicon" data-icon="briefcase"></i><span class="menu-item" data-i18n="eCommerce"><?php echo $retVal = ($statut == 1) ? "SECTION" : "LEVEL"; ?></span></a>
                         </li>
                         <li class=""><a href="matiere.php"><i class="menu-livicon" data-icon="square"></i><span class="menu-item" data-i18n="Analytics">SUBJECTS</span></a>
                         </li>

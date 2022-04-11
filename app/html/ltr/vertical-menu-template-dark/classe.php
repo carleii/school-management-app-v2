@@ -8,7 +8,7 @@ if (isset($_POST['add_class'])) {
         $level_id = $_POST['level_id'];
         $scolarite = $_POST['scolarite'];
         $ini = $_POST['ini'];
-        $pssw = base64_encode ($_POST['pssw']);
+        $pssw = base64_encode($_POST['pssw']);
         $result = $user->add_class($class_name, $level_id, $matricule_etablissement, $date_academique, $scolarite, $ini, $pssw);
         switch ($result) {
             case 0: ?>
@@ -168,7 +168,7 @@ if (isset($_POST['delete_class'])) {
     <meta name="description" content="Frest admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Frest admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Speciality | <?php echo $nom_etablissement; ?></title>
+    <title><?php echo $retVal = ($statut == 1) ? "CLASS" : "SPECIALITY"; ?> | <?php echo $nom_etablissement; ?></title>
     <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700" rel="stylesheet">
@@ -201,9 +201,9 @@ if (isset($_POST['delete_class'])) {
 </head>
 <?php
 if (isset($_POST['csv_upload'])) {
-    ?>
-	<script type="text/javascript" language="javascript">
-        alert ("Wait while data are loading....");
+?>
+    <script type="text/javascript" language="javascript">
+        alert("Wait while data are loading....");
     </script>
     <?php
     $file = $_FILES['csv_file']['tmp_name'];
@@ -212,19 +212,19 @@ if (isset($_POST['csv_upload'])) {
     $level_csv = $_POST['level_csv'];
     $i = 0;
     if ($ext[1] == "csv") {
-            while (($cont = fgetcsv($handle, 1000, ";")) !== false) {
-                if ($i == 0) {
-                    $i++;
-                    continue;
-                }
+        while (($cont = fgetcsv($handle, 1000, ";")) !== false) {
+            if ($i == 0) {
+                $i++;
+                continue;
+            }
             // get random password
-			$bytes = openssl_random_pseudo_bytes(random_int(4, 100));
-			$pass = bin2hex($bytes);
-			if (strlen($pass) > 4) {
-				$pass = str_replace("=", "", substr($pass, 0, 5));
-				# code...
-			}
-			$pass = base64_encode($pass);
+            $bytes = openssl_random_pseudo_bytes(random_int(4, 100));
+            $pass = bin2hex($bytes);
+            if (strlen($pass) > 4) {
+                $pass = str_replace("=", "", substr($pass, 0, 5));
+                # code...
+            }
+            $pass = base64_encode($pass);
             $result = $user->add_class($cont[1], $level_csv, $matricule_etablissement, $date_academique, $cont[2], $cont[3], $pass);
             if ($result == 1) {
                 //CREATION DU CLOUD DE LA SPECIALITE
@@ -240,13 +240,13 @@ if (isset($_POST['csv_upload'])) {
         }
 
         # code...
-    }else {
-        ?>
-        	<script type="text/javascript" language="javascript">
-                alert ("Fatal error: incorrect file format \n Download the template and use it.");
-            </script>
+    } else {
+    ?>
+        <script type="text/javascript" language="javascript">
+            alert("Fatal error: incorrect file format \n Download the template and use it.");
+        </script>
 
-        <?php
+<?php
         # code...
     }
     # code...
@@ -291,12 +291,12 @@ if (isset($_POST['csv_upload'])) {
                                 ?>
                                     <button type="button" class="btn btn-primary btn-block my-2 compose-btn">
                                         <i class="bx bx-plus"></i>
-                                        Add New Speciality
+                                        Add New <?php echo $retVal = ($statut == 1) ? "CLASS" : "SPECIALITY"; ?>
                                     </button>
 
                                     <!-- compose button  -->
                                     <button type="button" class="btn btn-warning btn-block my-2">
-                                        <a href="template/classe.csv" download=""> Download the template
+                                        <a href="template/class.csv" download=""> Download the template
                                         </a>
                                     </button>
                                     <small>do not modify the header</small>
@@ -367,7 +367,7 @@ if (isset($_POST['csv_upload'])) {
                     <div class="compose-new-mail-sidebar">
                         <div class="card shadow-none quill-wrapper p-0">
                             <div class="card-header">
-                                <h3 class="card-title" id="emailCompose">New Speciality</h3>
+                                <h3 class="card-title" id="emailCompose">New <?php echo $retVal = ($statut == 1) ? "CLASS" : "SPECIALITY"; ?></h3>
                                 <button type="button" class="close close-icon">
                                     <i class="bx bx-x"></i>
                                 </button>
@@ -381,7 +381,7 @@ if (isset($_POST['csv_upload'])) {
                                             <input type="text" id="emailfrom" class="form-control" placeholder="<?php echo $name . ' ' . $nom_etablissement; ?>" disabled>
                                         </div>
                                         <div class="form-label-group">
-                                            <input type="text" name="class_name" required class="form-control" placeholder="Name of the speciality">
+                                            <input type="text" name="class_name" required class="form-control" placeholder="Name of the <?php echo $retVal = ($statut == 1) ? "CLASS" : "SPECIALITY"; ?>">
                                         </div>
                                         <div class="form-label-group">
                                             <select class="form-control" required="" name="level_id">
@@ -402,7 +402,7 @@ if (isset($_POST['csv_upload'])) {
                                             <input type="text" name="ini" required class="form-control" placeholder="initial">
                                         </div>
                                         <div class="form-label-group">
-                                            <input type="password" name="pssw" required class="form-control" placeholder="Specility Cloud password for e-learning">
+                                            <input type="password" name="pssw" required class="form-control" placeholder="<?php echo $retVal = ($statut == 1) ? "CLASS" : "SPECIALITY"; ?> Cloud password for e-learning">
                                         </div>
 
 
@@ -420,7 +420,7 @@ if (isset($_POST['csv_upload'])) {
                                         <span class="d-sm-inline d-none">Send the file</span>
                                     </button> -->
                                     <button type="submit" name="add_class" class="btn-send btn btn-primary">
-                                        <i class='bx bx-send mr-25'></i> <span class="d-sm-inline d-none">Add the Speciality</span>
+                                        <i class='bx bx-send mr-25'></i> <span class="d-sm-inline d-none">Add the <?php echo $retVal = ($statut == 1) ? "CLASS" : "SPECIALITY"; ?></span>
                                     </button>
                                 </div>
                                 <div class="form-label-group">

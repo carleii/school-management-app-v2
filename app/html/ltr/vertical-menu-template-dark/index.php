@@ -1,12 +1,6 @@
-<?php require 'index_php.php';
+<?php require './index_php.php';
 require 'function.php';
 // send_message();
-
-if (isset($_GET['ktsiuytfghjkajchgajkcahgcankcaycgahjckjahcajcacakc'])) {
-    $newdate = date("Y") + 1;
-    $query = mysqli_query($database, "UPDATE etablissement SET date_creation = '$newdate' WHERE matricule_etablissement = '$matricule_etablissement' ");
-    header("Location: ./");
-}
 ?>
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">

@@ -56,7 +56,7 @@ if (isset($_POST['print_note'])) {
 $query = mysqli_query($database, "SELECT * FROM classe WHERE code_classe = '$code_classe' and id_niveau =  '$id_niveau' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
 while ($result = mysqli_fetch_assoc($query)) {
     $nom_classe = $result['nom_classe'];
-    $query_1 = mysqli_query($database, "SELECT * FROM apprenant WHERE code_classe = '$code_classe' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
+    $query_1 = mysqli_query($database, "SELECT * FROM apprenant WHERE code_classe = '$code_classe' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' order by nom_apprenant ");
     while ($result_1 = mysqli_fetch_assoc($query_1)) {
         $matricule_apprenant = addslashes($result_1['matricule_apprenant']);
         $nom_apprenant = $result_1['nom_apprenant'];
@@ -73,7 +73,7 @@ while ($result = mysqli_fetch_assoc($query)) {
             <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
             <meta name="description" content="Frest admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
             <meta name="keywords" content="admin template, Frest admin template, dashboard template, flat admin template, responsive admin template, web app">
-            <meta name="author" content="PIXINVENT">
+            <meta name="author" content="carleii Dev">
             <title>Notes Reports | <?php echo $nom_classe . " " . $nom_niveau; ?></title>
             <style type="text/css">
                 @media print {

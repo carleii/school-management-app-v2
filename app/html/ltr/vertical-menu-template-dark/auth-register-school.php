@@ -119,6 +119,16 @@ if (isset($_POST["add_school"])) {
                                                             <input type="text" class="form-control" name="full_name" required="" id="inputfirstname4" placeholder="School Full name">
                                                         </div>
                                                     </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12 mb-50">
+                                                            <label for="l1">Lycee/Colleage</label>
+                                                            <input type="radio" name="statut" value="1" class="" required id="l1" title="What is your type of school">
+                                                            <label for="l2">University/Superior School</label>
+                                                            <input type="radio" name="statut" value="2" class="" required checked id="l2" title="What is your type of school">
+
+                                                        </div>
+                                                    </div>
+
                                                     <div class="col-lg-12 col-md-12">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Logo</label>

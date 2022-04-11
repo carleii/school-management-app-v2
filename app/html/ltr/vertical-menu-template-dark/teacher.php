@@ -232,9 +232,9 @@ if (isset($_POST['delete_teacher'])) {
 
 <?php
 if (isset($_POST['csv_upload'])) {
-    ?>
-	<script type="text/javascript" language="javascript">
-        alert ("Wait while data are loading....");
+?>
+    <script type="text/javascript" language="javascript">
+        alert("Wait while data are loading....");
     </script>
     <?php
     $file = $_FILES['csv_file']['tmp_name'];
@@ -242,11 +242,11 @@ if (isset($_POST['csv_upload'])) {
     $handle = fopen($file, "r");
     $i = 0;
     if ($ext[1] == "csv") {
-            while (($cont = fgetcsv($handle, 1000, ";")) !== false) {
-                if ($i == 0) {
-                    $i++;
-                    continue;
-                }
+        while (($cont = fgetcsv($handle, 1000, ";")) !== false) {
+            if ($i == 0) {
+                $i++;
+                continue;
+            }
             $result = $user->add_teacher($cont[2], $cont[1], $cont[3], $cont[4], $cont[5], $cont[6], $matricule_etablissement, $date_academique);
             //CREATION DE LA LIBRAIRIE PERSONNELLE
             //creation du mot de passe
@@ -263,13 +263,13 @@ if (isset($_POST['csv_upload'])) {
         }
 
         # code...
-    }else {
-        ?>
-        	<script type="text/javascript" language="javascript">
-                alert ("Fatal error: incorrect file format \n Download the template and use it.");
-            </script>
+    } else {
+    ?>
+        <script type="text/javascript" language="javascript">
+            alert("Fatal error: incorrect file format \n Download the template and use it.");
+        </script>
 
-        <?php
+<?php
         # code...
     }
     # code...
@@ -315,7 +315,7 @@ if (isset($_POST['csv_upload'])) {
 
                                 <!-- compose button  -->
                                 <button type="button" class="btn btn-warning btn-block my-2">
-                                    <a href="template/enseignant.csv" download=""> Download the template
+                                    <a href="template/teacher.csv" download=""> Download the template
                                     </a>
                                 </button>
                                 <small>do not modify the header</small>

@@ -4,7 +4,7 @@
 if (isset($_POST['add_year'])) {
     if ($role == 'admin') {
         $year = addslashes($_POST['year']);
-        $result = $user->add_year($matricule_etablissement, $year, $nom_etablissement, $logo, $date_creation, $date_academique);
+        $result = $user->add_year($matricule_etablissement, $year, $nom_etablissement, $logo, $date_creation, $date_academique, $statut);
         # code...
     } else {
         # code...

@@ -1,5 +1,5 @@
 <?php
-if (date("Y") == $date_creation and $statut == 1) {
+if (date("Y") == $date_creation + 1) {
 ?>
   <footer class="footer footer-static footer-dark">
     <p class="clearfix mb-0">
@@ -10,8 +10,8 @@ if (date("Y") == $date_creation and $statut == 1) {
         </a>
       </span>
       <span class="float-right d-sm-inline-block d-none">
-        <a class="text-uppercase" href="https://s.htr.cm/KH4d" onclick="alert('You will be redirected to the donation page..thanks')" target="_blank">
-          <h1>Or make donation and continue your work</h1>
+        <a class="text-uppercase" onclick="alert('Redirection..\n you are going to be redirected to Mesomb to achieve your Donation after you will automatically bring back here.')" href="https://s.htr.cm/KH4d" onclick="alert('You will be redirected to the donation page..thanks')" target="_blank">
+          <h1>CLick-> make donation and continue your work</h1>
         </a>
       </span>
 

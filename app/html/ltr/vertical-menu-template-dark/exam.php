@@ -1,174 +1,174 @@
 <?php include 'index_php.php'; ?>
 <?php
-  //ADD A NEW EXAM TREATMENT
-  if (isset($_POST['add_exam'])) {
+//ADD A NEW EXAM TREATMENT
+if (isset($_POST['add_exam'])) {
     if ($role == 'admin' or $role == 'headmaster') {
-      $exam_name = $_POST['exam_name'];
-      $exam_period = $_POST['exam_period'];
-      $note_val = $_POST['note_val'];
-      $result = $user->add_exam($exam_name, $exam_period, $date_academique, $matricule_etablissement, $note_val);
-      switch ($result) {
-              case 0: ?>
-                  <div class="swal2-container swal2-center swal2-fade swal2-shown" style="overflow-y: auto;">
-                      <div aria-labelledby="swal2-title" aria-describedby="swal2-content" class="swal2-popup swal2-modal swal2-show" tabindex="-1" role="dialog" aria-live="assertive" aria-modal="true" style="display: flex;">
-                          <div class="swal2-header">
-                              <ul class="swal2-progresssteps" style="display: none;"></ul>
-                              <div class="swal2-icon swal2-error swal2-animate-error-icon" style="display: flex;">
-                                  <span class="swal2-x-mark"><span class="swal2-x-mark-line-left"></span>
-                                  <span class="swal2-x-mark-line-right"></span></span>
-                              </div>
-                              <div class="swal2-icon swal2-question" style="display: none;">
-                                  <span class="swal2-icon-text">?</span>
-                              </div>
-                              <div class="swal2-icon swal2-warning" style="display: none;">
-                                  <span class="swal2-icon-text">!</span>
-                              </div>
-                              <div class="swal2-icon swal2-info" style="display: none;">
-                                  <span class="swal2-icon-text">i</span>
-                              </div>
-                              <div class="swal2-icon swal2-success" style="display: none;">
-                                  <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
-                                  <span class="swal2-success-line-tip"></span>
-                                  <span class="swal2-success-line-long"></span>
-                                  <div class="swal2-success-ring"></div>
-                                  <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
-                                  <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
-                              </div>
-                              <img class="swal2-image" style="display: none;">
-                              <h2 class="swal2-title" id="swal2-title" style="display: flex;">Oops...</h2>
-                              <button type="button" class="swal2-close" style="display: none;">×</button>
-                          </div>
-                          <div class="swal2-content">
-                              <div id="swal2-content" style="display: block;"><?php echo 'The Exam have not been added, please try in few minutes'; ?></div>
-                              <input class="swal2-input" style="display: none;">
-                              <input type="file" class="swal2-file" style="display: none;">
-                              <div class="swal2-range" style="display: none;">
-                                  <input type="range"><output></output>
-                              </div>
-                              <select class="swal2-select" style="display: none;"></select>
-                              <div class="swal2-radio" style="display: none;"></div>
-                              <label for="swal2-checkbox" class="swal2-checkbox" style="display: none;"><input type="checkbox">
-                                  <span class="swal2-label"></span>
-                              </label>
-                              <textarea class="swal2-textarea" style="display: none;"></textarea>
-                              <div class="swal2-validation-message" id="swal2-validation-message" style="display: none;"></div>
-                          </div>
-                          <div class="swal2-actions" style="display: flex;">
-                              <a href=""><button type="button" class="swal2-confirm btn btn-primary" aria-label="">ok</button></a>
-                              </div>
-                          <div class="swal2-footer" style="display: flex;"><a href="">Why do I have this issue?</a></div>
-                      </div>
-                  </div>
-              <?php
-                  # code...
-                  break;
+        $exam_name = $_POST['exam_name'];
+        $exam_period = $_POST['exam_period'];
+        $note_val = $_POST['note_val'];
+        $result = $user->add_exam($exam_name, $exam_period, $date_academique, $matricule_etablissement, $note_val);
+        switch ($result) {
+            case 0: ?>
+                <div class="swal2-container swal2-center swal2-fade swal2-shown" style="overflow-y: auto;">
+                    <div aria-labelledby="swal2-title" aria-describedby="swal2-content" class="swal2-popup swal2-modal swal2-show" tabindex="-1" role="dialog" aria-live="assertive" aria-modal="true" style="display: flex;">
+                        <div class="swal2-header">
+                            <ul class="swal2-progresssteps" style="display: none;"></ul>
+                            <div class="swal2-icon swal2-error swal2-animate-error-icon" style="display: flex;">
+                                <span class="swal2-x-mark"><span class="swal2-x-mark-line-left"></span>
+                                    <span class="swal2-x-mark-line-right"></span></span>
+                            </div>
+                            <div class="swal2-icon swal2-question" style="display: none;">
+                                <span class="swal2-icon-text">?</span>
+                            </div>
+                            <div class="swal2-icon swal2-warning" style="display: none;">
+                                <span class="swal2-icon-text">!</span>
+                            </div>
+                            <div class="swal2-icon swal2-info" style="display: none;">
+                                <span class="swal2-icon-text">i</span>
+                            </div>
+                            <div class="swal2-icon swal2-success" style="display: none;">
+                                <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
+                                <span class="swal2-success-line-tip"></span>
+                                <span class="swal2-success-line-long"></span>
+                                <div class="swal2-success-ring"></div>
+                                <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
+                                <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
+                            </div>
+                            <img class="swal2-image" style="display: none;">
+                            <h2 class="swal2-title" id="swal2-title" style="display: flex;">Oops...</h2>
+                            <button type="button" class="swal2-close" style="display: none;">×</button>
+                        </div>
+                        <div class="swal2-content">
+                            <div id="swal2-content" style="display: block;"><?php echo 'The Exam have not been added, please try in few minutes'; ?></div>
+                            <input class="swal2-input" style="display: none;">
+                            <input type="file" class="swal2-file" style="display: none;">
+                            <div class="swal2-range" style="display: none;">
+                                <input type="range"><output></output>
+                            </div>
+                            <select class="swal2-select" style="display: none;"></select>
+                            <div class="swal2-radio" style="display: none;"></div>
+                            <label for="swal2-checkbox" class="swal2-checkbox" style="display: none;"><input type="checkbox">
+                                <span class="swal2-label"></span>
+                            </label>
+                            <textarea class="swal2-textarea" style="display: none;"></textarea>
+                            <div class="swal2-validation-message" id="swal2-validation-message" style="display: none;"></div>
+                        </div>
+                        <div class="swal2-actions" style="display: flex;">
+                            <a href=""><button type="button" class="swal2-confirm btn btn-primary" aria-label="">ok</button></a>
+                        </div>
+                        <div class="swal2-footer" style="display: flex;"><a href="">Why do I have this issue?</a></div>
+                    </div>
+                </div>
+            <?php
+                # code...
+                break;
 
-              default:
-                  # code...
-                  break;
-      }
-    }else {
-      include 'access_denieted.php';
+            default:
+                # code...
+                break;
+        }
+    } else {
+        include 'access_denieted.php';
     }
     // code...
-  }
-  //DELETE EXAM TREATMENT
-  if (isset($_POST['delete_exam'])) {
-    if ($role == 'admin' or $role == 'headmaster' ) {
-      $delete_exam = $_POST['delete_exam'];
-      $result = $user->delete_exam($delete_exam, $matricule_etablissement, $date_academique);
-      switch ($result) {
-              case 1: ?>
-                  <div class="swal2-container swal2-center swal2-fade swal2-shown" style="overflow-y: auto;">
-                      <div aria-labelledby="swal2-title" aria-describedby="swal2-content" class="swal2-popup swal2-modal swal2-show" tabindex="-1" role="dialog" aria-live="assertive" aria-modal="true" style="display: flex;">
-                          <div class="swal2-content">
-                              <div id="swal2-content" style="display: block;"><?php echo 'The Exam have been deleted'; ?></div>
-                              <input class="swal2-input" style="display: none;">
-                              <input type="file" class="swal2-file" style="display: none;">
-                              <div class="swal2-range" style="display: none;">
-                                  <input type="range"><output></output>
-                              </div>
-                              <select class="swal2-select" style="display: none;"></select>
-                              <div class="swal2-radio" style="display: none;"></div>
-                              <label for="swal2-checkbox" class="swal2-checkbox" style="display: none;"><input type="checkbox">
-                                  <span class="swal2-label"></span>
-                              </label>
-                              <textarea class="swal2-textarea" style="display: none;"></textarea>
-                              <div class="swal2-validation-message" id="swal2-validation-message" style="display: none;"></div>
-                          </div>
-                          <div class="swal2-actions" style="display: flex;">
-                              <a href=""><button type="button" class="swal2-confirm btn btn-success" aria-label="">ok</button></a>
-                              </div>
-                      </div>
-                  </div>
+}
+//DELETE EXAM TREATMENT
+if (isset($_POST['delete_exam'])) {
+    if ($role == 'admin' or $role == 'headmaster') {
+        $delete_exam = $_POST['delete_exam'];
+        $result = $user->delete_exam($delete_exam, $matricule_etablissement, $date_academique);
+        switch ($result) {
+            case 1: ?>
+                <div class="swal2-container swal2-center swal2-fade swal2-shown" style="overflow-y: auto;">
+                    <div aria-labelledby="swal2-title" aria-describedby="swal2-content" class="swal2-popup swal2-modal swal2-show" tabindex="-1" role="dialog" aria-live="assertive" aria-modal="true" style="display: flex;">
+                        <div class="swal2-content">
+                            <div id="swal2-content" style="display: block;"><?php echo 'The Exam have been deleted'; ?></div>
+                            <input class="swal2-input" style="display: none;">
+                            <input type="file" class="swal2-file" style="display: none;">
+                            <div class="swal2-range" style="display: none;">
+                                <input type="range"><output></output>
+                            </div>
+                            <select class="swal2-select" style="display: none;"></select>
+                            <div class="swal2-radio" style="display: none;"></div>
+                            <label for="swal2-checkbox" class="swal2-checkbox" style="display: none;"><input type="checkbox">
+                                <span class="swal2-label"></span>
+                            </label>
+                            <textarea class="swal2-textarea" style="display: none;"></textarea>
+                            <div class="swal2-validation-message" id="swal2-validation-message" style="display: none;"></div>
+                        </div>
+                        <div class="swal2-actions" style="display: flex;">
+                            <a href=""><button type="button" class="swal2-confirm btn btn-success" aria-label="">ok</button></a>
+                        </div>
+                    </div>
+                </div>
 
-              <?php
-                  # code...
-                  break;
-              case 0: ?>
-                  <div class="swal2-container swal2-center swal2-fade swal2-shown" style="overflow-y: auto;">
-                      <div aria-labelledby="swal2-title" aria-describedby="swal2-content" class="swal2-popup swal2-modal swal2-show" tabindex="-1" role="dialog" aria-live="assertive" aria-modal="true" style="display: flex;">
-                          <div class="swal2-header">
-                              <ul class="swal2-progresssteps" style="display: none;"></ul>
-                              <div class="swal2-icon swal2-error swal2-animate-error-icon" style="display: flex;">
-                                  <span class="swal2-x-mark"><span class="swal2-x-mark-line-left"></span>
-                                  <span class="swal2-x-mark-line-right"></span></span>
-                              </div>
-                              <div class="swal2-icon swal2-question" style="display: none;">
-                                  <span class="swal2-icon-text">?</span>
-                              </div>
-                              <div class="swal2-icon swal2-warning" style="display: none;">
-                                  <span class="swal2-icon-text">!</span>
-                              </div>
-                              <div class="swal2-icon swal2-info" style="display: none;">
-                                  <span class="swal2-icon-text">i</span>
-                              </div>
-                              <div class="swal2-icon swal2-success" style="display: none;">
-                                  <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
-                                  <span class="swal2-success-line-tip"></span>
-                                  <span class="swal2-success-line-long"></span>
-                                  <div class="swal2-success-ring"></div>
-                                  <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
-                                  <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
-                              </div>
-                              <img class="swal2-image" style="display: none;">
-                              <h2 class="swal2-title" id="swal2-title" style="display: flex;">Oops...</h2>
-                              <button type="button" class="swal2-close" style="display: none;">×</button>
-                          </div>
-                          <div class="swal2-content">
-                              <div id="swal2-content" style="display: block;"><?php echo 'The Exam have not been deleted, please try in few minutes'; ?></div>
-                              <input class="swal2-input" style="display: none;">
-                              <input type="file" class="swal2-file" style="display: none;">
-                              <div class="swal2-range" style="display: none;">
-                                  <input type="range"><output></output>
-                              </div>
-                              <select class="swal2-select" style="display: none;"></select>
-                              <div class="swal2-radio" style="display: none;"></div>
-                              <label for="swal2-checkbox" class="swal2-checkbox" style="display: none;"><input type="checkbox">
-                                  <span class="swal2-label"></span>
-                              </label>
-                              <textarea class="swal2-textarea" style="display: none;"></textarea>
-                              <div class="swal2-validation-message" id="swal2-validation-message" style="display: none;"></div>
-                          </div>
-                          <div class="swal2-actions" style="display: flex;">
-                              <a href=""><button type="button" class="swal2-confirm btn btn-primary" aria-label="">ok</button></a>
-                              </div>
-                          <div class="swal2-footer" style="display: flex;"><a href="">Why do I have this issue?</a></div>
-                      </div>
-                  </div>
-              <?php
-                  # code...
-                  break;
+            <?php
+                # code...
+                break;
+            case 0: ?>
+                <div class="swal2-container swal2-center swal2-fade swal2-shown" style="overflow-y: auto;">
+                    <div aria-labelledby="swal2-title" aria-describedby="swal2-content" class="swal2-popup swal2-modal swal2-show" tabindex="-1" role="dialog" aria-live="assertive" aria-modal="true" style="display: flex;">
+                        <div class="swal2-header">
+                            <ul class="swal2-progresssteps" style="display: none;"></ul>
+                            <div class="swal2-icon swal2-error swal2-animate-error-icon" style="display: flex;">
+                                <span class="swal2-x-mark"><span class="swal2-x-mark-line-left"></span>
+                                    <span class="swal2-x-mark-line-right"></span></span>
+                            </div>
+                            <div class="swal2-icon swal2-question" style="display: none;">
+                                <span class="swal2-icon-text">?</span>
+                            </div>
+                            <div class="swal2-icon swal2-warning" style="display: none;">
+                                <span class="swal2-icon-text">!</span>
+                            </div>
+                            <div class="swal2-icon swal2-info" style="display: none;">
+                                <span class="swal2-icon-text">i</span>
+                            </div>
+                            <div class="swal2-icon swal2-success" style="display: none;">
+                                <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
+                                <span class="swal2-success-line-tip"></span>
+                                <span class="swal2-success-line-long"></span>
+                                <div class="swal2-success-ring"></div>
+                                <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
+                                <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
+                            </div>
+                            <img class="swal2-image" style="display: none;">
+                            <h2 class="swal2-title" id="swal2-title" style="display: flex;">Oops...</h2>
+                            <button type="button" class="swal2-close" style="display: none;">×</button>
+                        </div>
+                        <div class="swal2-content">
+                            <div id="swal2-content" style="display: block;"><?php echo 'The Exam have not been deleted, please try in few minutes'; ?></div>
+                            <input class="swal2-input" style="display: none;">
+                            <input type="file" class="swal2-file" style="display: none;">
+                            <div class="swal2-range" style="display: none;">
+                                <input type="range"><output></output>
+                            </div>
+                            <select class="swal2-select" style="display: none;"></select>
+                            <div class="swal2-radio" style="display: none;"></div>
+                            <label for="swal2-checkbox" class="swal2-checkbox" style="display: none;"><input type="checkbox">
+                                <span class="swal2-label"></span>
+                            </label>
+                            <textarea class="swal2-textarea" style="display: none;"></textarea>
+                            <div class="swal2-validation-message" id="swal2-validation-message" style="display: none;"></div>
+                        </div>
+                        <div class="swal2-actions" style="display: flex;">
+                            <a href=""><button type="button" class="swal2-confirm btn btn-primary" aria-label="">ok</button></a>
+                        </div>
+                        <div class="swal2-footer" style="display: flex;"><a href="">Why do I have this issue?</a></div>
+                    </div>
+                </div>
+<?php
+                # code...
+                break;
 
-              default:
-                  # code...
-                  break;
-      }
-      // code...
+            default:
+                # code...
+                break;
+        }
+        // code...
     }
     // code...
-  }
- ?>
+}
+?>
 
 
 <!DOCTYPE html>
@@ -341,19 +341,19 @@
                                     <div class="card-body pt-0">
                                         <div class="form-group pb-50">
                                             <label for="emailfrom">from</label>
-                                            <input type="text" id="emailfrom" class="form-control" placeholder="<?php echo $name.' '.$nom_etablissement; ?>" disabled>
+                                            <input type="text" id="emailfrom" class="form-control" placeholder="<?php echo $name . ' ' . $nom_etablissement; ?>" disabled>
                                         </div>
                                         <div class="form-label-group">
-                                        	<input type="text" name="exam_name" required class="form-control" placeholder="Name of the Exam">
+                                            <input type="text" name="exam_name" required class="form-control" placeholder="Name of the Exam">
                                         </div>
                                         <div class="form-label-group">
-                                          <input type="date" required name="exam_period" class="form-control" placeholder="Exam period">
+                                            <input type="date" required name="exam_period" class="form-control" placeholder="Exam period">
                                         </div>
                                         <div class="form-label-group">
-                                          <input type="number" min="0" max="20" required name="note_val" class="form-control" placeholder="Note average to Success limit 20">
+                                            <input type="number" min="0" max="20" required name="note_val" class="form-control" placeholder="Note average to Success limit 20">
                                         </div>
                                         <div class="form-group mt-2">
-                                          <!--   <div class="custom-file">
+                                            <!--   <div class="custom-file">
                                                 <input type="file" name="level_file" class="custom-file-input" id="emailAttach" accept="csv">
                                                 <label class="custom-file-label" for="emailAttach">Add with csv file</label>
                                             </div> -->
@@ -361,7 +361,7 @@
                                     </div>
                                 </div>
                                 <div class="card-footer d-flex justify-content-end pt-0">
-                                   <!--  <button type="submit" name="add_file" class="btn btn-light-secondary cancel-btn mr-1">
+                                    <!--  <button type="submit" name="add_file" class="btn btn-light-secondary cancel-btn mr-1">
                                         <i class='bx bx-x mr-25'></i>
                                         <span class="d-sm-inline d-none">Send the file</span>
                                     </button> -->
@@ -370,18 +370,18 @@
                                     </button>
                                 </div>
                                 <div class="form-label-group">
-                                	<i>Example:</i><br>
-                                	<ul>
-                                		<li>
-                                			Controle continue
-                                		</li>
+                                    <i>Example:</i><br>
+                                    <ul>
+                                        <li>
+                                            Controle continue
+                                        </li>
 
 
-                                		<li>
-                                		session normale 1
-                                		</li>
+                                        <li>
+                                            Sequence 1
+                                        </li>
 
-                                	</ul>
+                                    </ul>
                                 </div>
                             </form>
                             <!-- form start end-->
@@ -402,122 +402,122 @@
                             <!-- Email list Area -->
                             <div class="email-app-list-wrapper">
                                 <div class="email-app-list">
-                                	<form action="" method="post">
-                                		 <div class="email-action">
-	                                        <!-- action left start here -->
-	                                        <div class="action-left d-flex align-items-center">
-	                                            <!-- select All checkbox -->
-	                                            <div class="checkbox checkbox-shadow checkbox-sm selectAll mr-50">
-	                                                <input type="checkbox" name="all_check" id="checkboxsmall">
-	                                                <label for="checkboxsmall"></label>
-	                                            </div>
-	                                        </div>
-	                                        <!-- action left end here -->
+                                    <form action="" method="post">
+                                        <div class="email-action">
+                                            <!-- action left start here -->
+                                            <div class="action-left d-flex align-items-center">
+                                                <!-- select All checkbox -->
+                                                <div class="checkbox checkbox-shadow checkbox-sm selectAll mr-50">
+                                                    <input type="checkbox" name="all_check" id="checkboxsmall">
+                                                    <label for="checkboxsmall"></label>
+                                                </div>
+                                            </div>
+                                            <!-- action left end here -->
 
-	                                        <!-- action right start here -->
-	                                        <div class="action-right d-flex flex-grow-1 align-items-center justify-content-around">
-	                                            <!-- search bar  -->
-	                                            <div class="email-fixed-search flex-grow-1">
-	                                                <div class="sidebar-toggle d-block d-lg-none">
-	                                                    <i class="bx bx-menu"></i>
-	                                                </div>
-	                                                <fieldset class="form-group position-relative has-icon-left m-0">
-	                                                    <input type="text" class="form-control" id="email-search" placeholder="Search ">
-	                                                    <div class="form-control-position">
-	                                                        <i class="bx bx-search"></i>
-	                                                    </div>
-	                                                </fieldset>
-	                                            </div>
-	                                            <!-- pagination and page count -->
-	                                            <span class="d-none d-sm-block">1-10 of 653</span>
-	                                            <button class="btn btn-icon email-pagination-prev d-none d-sm-block">
-	                                                <i class="bx bx-chevron-left"></i>
-	                                            </button>
-	                                            <button class="btn btn-icon email-pagination-next d-none d-sm-block">
-	                                                <i class="bx bx-chevron-right"></i>
-	                                            </button>
-	                                        </div>
-	                                    </div>
+                                            <!-- action right start here -->
+                                            <div class="action-right d-flex flex-grow-1 align-items-center justify-content-around">
+                                                <!-- search bar  -->
+                                                <div class="email-fixed-search flex-grow-1">
+                                                    <div class="sidebar-toggle d-block d-lg-none">
+                                                        <i class="bx bx-menu"></i>
+                                                    </div>
+                                                    <fieldset class="form-group position-relative has-icon-left m-0">
+                                                        <input type="text" class="form-control" id="email-search" placeholder="Search ">
+                                                        <div class="form-control-position">
+                                                            <i class="bx bx-search"></i>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <!-- pagination and page count -->
+                                                <span class="d-none d-sm-block">1-10 of 653</span>
+                                                <button class="btn btn-icon email-pagination-prev d-none d-sm-block">
+                                                    <i class="bx bx-chevron-left"></i>
+                                                </button>
+                                                <button class="btn btn-icon email-pagination-next d-none d-sm-block">
+                                                    <i class="bx bx-chevron-right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
 
-	                                    <!-- / action right -->
+                                        <!-- / action right -->
 
-	                                    <!-- email user list start -->
-	                                    <div class="email-user-list list-group">
-	                                        <ul class="users-list-wrapper media-list">
-	                                        	<!-- SORTING THE LEVELS -->
-	                                        	<?php
-	                                        		$query = mysqli_query($database, "SELECT * FROM examen WHERE matricule_etablissement = '$matricule_etablissement' and date_academique = '$date_academique' ");
-	                                        		while ($result = mysqli_fetch_assoc($query)) { ?>
-		                                        		<li class="media mail-read">
-			                                                <div class="user-action">
-			                                                    <div class="checkbox-con mr-25">
-			                                                        <div class="checkbox checkbox-shadow checkbox-sm">
-			                                                            <input type="checkbox" name="<?php echo 'checkboxsmall'.$result['code_examen']; ?>" id="checkboxsmall<?php echo $result['id']; ?>">
-			                                                            <label for="checkboxsmall<?php echo $result['code_examen']; ?>"></label>
-			                                                        </div>
-			                                                    </div>
-			                                                    <a href="examen_profile.php?ktsp=<?php echo base64_encode($result['code_examen'])  ?>">
-			                                                    	<button type="button"  class="btn btn-icon action-icon">
-				                                                        <span class="fonticon-wrap">
-				                                                        	<i class="bx bxs-left-top-arrow-circle"></i>
-				                                                            </i>
-				                                                        </span>
-				                                                    </button>
-			                                                    </a>
-			                                                    <span class="favorite warning">
-			                                                        <i class="bx bxs-star"></i>
-			                                                    </span>
-			                                                </div>
-			                                                <div class="pr-50">
-			                                                    <div class="avatar">
-			                                                        <img src="logo_data/<?php echo $logo; ?>" alt="avtar img holder">
-			                                                    </div>
-			                                                </div>
-			                                                <div class="media-body">
-			                                                    <div class="user-details">
-			                                                        <div class="mail-items">
-			                                                            <span class="list-group-item-text text-truncate"><?php echo $result['nom_examen']; ?></span>
-			                                                        </div>
+                                        <!-- email user list start -->
+                                        <div class="email-user-list list-group">
+                                            <ul class="users-list-wrapper media-list">
+                                                <!-- SORTING THE LEVELS -->
+                                                <?php
+                                                $query = mysqli_query($database, "SELECT * FROM examen WHERE matricule_etablissement = '$matricule_etablissement' and date_academique = '$date_academique' ");
+                                                while ($result = mysqli_fetch_assoc($query)) { ?>
+                                                    <li class="media mail-read">
+                                                        <div class="user-action">
+                                                            <div class="checkbox-con mr-25">
+                                                                <div class="checkbox checkbox-shadow checkbox-sm">
+                                                                    <input type="checkbox" name="<?php echo 'checkboxsmall' . $result['code_examen']; ?>" id="checkboxsmall<?php echo $result['id']; ?>">
+                                                                    <label for="checkboxsmall<?php echo $result['code_examen']; ?>"></label>
+                                                                </div>
+                                                            </div>
+                                                            <a href="examen_profile.php?ktsp=<?php echo base64_encode($result['code_examen'])  ?>">
+                                                                <button type="button" class="btn btn-icon action-icon">
+                                                                    <span class="fonticon-wrap">
+                                                                        <i class="bx bxs-left-top-arrow-circle"></i>
+                                                                        </i>
+                                                                    </span>
+                                                                </button>
+                                                            </a>
+                                                            <span class="favorite warning">
+                                                                <i class="bx bxs-star"></i>
+                                                            </span>
+                                                        </div>
+                                                        <div class="pr-50">
+                                                            <div class="avatar">
+                                                                <img src="logo_data/<?php echo $logo; ?>" alt="avtar img holder">
+                                                            </div>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <div class="user-details">
+                                                                <div class="mail-items">
+                                                                    <span class="list-group-item-text text-truncate"><?php echo $result['nom_examen']; ?></span>
+                                                                </div>
 
-			                                                        <div class="mail-meta-item">
-			                                                            <span class="float-right">
-                                                                          <button type="submit" name="delete_exam" value="<?php echo $result['code_examen']; ?>" class="btn btn-icon action-icon">
-                                                                              <span class="fonticon-wrap">
-                                                                                  <i class="livicon-evo" data-options="name: trash.svg; size: 24px; style: lines; strokeColor:#475f7b; eventOn:grandparent; duration:0.85;">
-                                                                                  </i>
-                                                                              </span>
-                                                                          </button>
-			                                                            </span>
-			                                                        </div>
-			                                                    </div>
-			                                                    <div class="mail-message">
-			                                                        <p class="list-group-item-text truncate mb-0"><?php echo $nom_etablissement.' '.$date_academique; ?>
-			                                                        </p>
-			                                                        <div class="mail-meta-item">
-			                                                            <span class="float-right">
-			                                                                <span class="bullet bullet-success bullet-sm"></span>
-			                                                            </span>
-			                                                        </div>
-			                                                    </div>
-			                                                </div>
-			                                            </li>
+                                                                <div class="mail-meta-item">
+                                                                    <span class="float-right">
+                                                                        <button type="submit" name="delete_exam" value="<?php echo $result['code_examen']; ?>" class="btn btn-icon action-icon">
+                                                                            <span class="fonticon-wrap">
+                                                                                <i class="livicon-evo" data-options="name: trash.svg; size: 24px; style: lines; strokeColor:#475f7b; eventOn:grandparent; duration:0.85;">
+                                                                                </i>
+                                                                            </span>
+                                                                        </button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mail-message">
+                                                                <p class="list-group-item-text truncate mb-0"><?php echo $nom_etablissement . ' ' . $date_academique; ?>
+                                                                </p>
+                                                                <div class="mail-meta-item">
+                                                                    <span class="float-right">
+                                                                        <span class="bullet bullet-success bullet-sm"></span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
 
 
 
-	                                        		 <?php
-	                                        			# code...
-	                                        		}
-	                                        	 ?>
-	                                        </ul>
-	                                        <!-- email user list end -->
+                                                <?php
+                                                    # code...
+                                                }
+                                                ?>
+                                            </ul>
+                                            <!-- email user list end -->
 
-	                                        <!-- no result when nothing to show on list -->
-	                                        <div class="no-results">
-	                                            <i class="bx bx-error-circle font-large-2"></i>
-	                                            <h5>No Items Found</h5>
-	                                        </div>
-	                                    </div>
-	                                </form>
+                                            <!-- no result when nothing to show on list -->
+                                            <div class="no-results">
+                                                <i class="bx bx-error-circle font-large-2"></i>
+                                                <h5>No Items Found</h5>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                             <!--/ Email list Area -->
@@ -563,4 +563,5 @@
 
 </body>
 <!-- END: Body-->
+
 </html>

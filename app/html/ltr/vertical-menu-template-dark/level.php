@@ -158,7 +158,7 @@ if (isset($_POST['delete_level'])) {
     <meta name="description" content="Frest admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Frest admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Level | <?php echo $nom_etablissement; ?></title>
+    <title><?php echo $retVal = ($statut == 1) ? "SECTION" : "LEVEL"; ?> | <?php echo $nom_etablissement; ?></title>
     <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700" rel="stylesheet">
@@ -192,9 +192,9 @@ if (isset($_POST['delete_level'])) {
 
 <?php
 if (isset($_POST['csv_upload'])) {
-    ?>
-	<script type="text/javascript" language="javascript">
-        alert ("Wait while data are loading....");
+?>
+    <script type="text/javascript" language="javascript">
+        alert("Wait while data are loading....");
     </script>
     <?php
     $file = $_FILES['csv_file']['tmp_name'];
@@ -202,24 +202,24 @@ if (isset($_POST['csv_upload'])) {
     $handle = fopen($file, "r");
     $i = 0;
     if ($ext[1] == "csv") {
-            while (($cont = fgetcsv($handle, 1000, ";")) !== false) {
-                if ($i == 0) {
-                    $i++;
-                    continue;
-                }
+        while (($cont = fgetcsv($handle, 1000, ";")) !== false) {
+            if ($i == 0) {
+                $i++;
+                continue;
+            }
             $result = $user->add_level($cont[1], $matricule_etablissement, $date_academique);
             $i++;
             # code...
         }
 
         # code...
-    }else {
-        ?>
-        	<script type="text/javascript" language="javascript">
-                alert ("Fatal error: incorrect file format \n Download the template and use it.");
-            </script>
+    } else {
+    ?>
+        <script type="text/javascript" language="javascript">
+            alert("Fatal error: incorrect file format \n Download the template and use it.");
+        </script>
 
-        <?php
+<?php
         # code...
     }
     # code...
@@ -260,12 +260,12 @@ if (isset($_POST['csv_upload'])) {
                                 <!-- compose button  -->
                                 <button type="button" class="btn btn-primary btn-block my-2 compose-btn">
                                     <i class="bx bx-plus"></i>
-                                    Add New Level
+                                    Add New <?php echo $retVal = ($statut == 1) ? "SECTION" : "LEVEL"; ?>
                                 </button>
                                 <hr>
                                 <!-- compose button  -->
                                 <button type="button" class="btn btn-warning btn-block my-2">
-                                    <a href="template/niveau.csv" download=""> Download the template
+                                    <a href="template/level.csv" download=""> Download the template
                                     </a>
                                 </button>
                                 <small>do not modify the header</small>
@@ -317,7 +317,7 @@ if (isset($_POST['csv_upload'])) {
                     <div class="compose-new-mail-sidebar">
                         <div class="card shadow-none quill-wrapper p-0">
                             <div class="card-header">
-                                <h3 class="card-title" id="emailCompose">New Level</h3>
+                                <h3 class="card-title" id="emailCompose">New <?php echo $retVal = ($statut == 1) ? "SECTIONON" : LEVEL ?></h3>
                                 <button type="button" class="close close-icon">
                                     <i class="bx bx-x"></i>
                                 </button>
@@ -331,8 +331,8 @@ if (isset($_POST['csv_upload'])) {
                                             <input type="text" id="emailfrom" class="form-control" placeholder="<?php echo $name . ' ' . $nom_etablissement; ?>" disabled>
                                         </div>
                                         <div class="form-label-group">
-                                            <input type="text" id="level_name" name="level_name" class="form-control" placeholder="name of the level" required>
-                                            <label for="level_name">Level's name</label>
+                                            <input type="text" id="level_name" name="level_name" class="form-control" placeholder="name of the <?php echo $retVal = ($statut == 1) ? "SECTION" : "LEVEL"; ?>" required>
+                                            <label for="level_name"><?php echo $retVal = ($statut == 1) ? "SECTION" : "LEVEL"; ?>'s name</label>
                                         </div>
                                     </div>
                                 </div>
@@ -342,23 +342,23 @@ if (isset($_POST['csv_upload'])) {
                                         <span class="d-sm-inline d-none">Send the file</span>
                                     </button> -->
                                     <button type="submit" name="add_level" class="btn-send btn btn-primary">
-                                        <i class='bx bx-send mr-25'></i> <span class="d-sm-inline d-none">Add the level</span>
+                                        <i class='bx bx-send mr-25'></i> <span class="d-sm-inline d-none">Add the <?php echo $retVal = ($statut == 1) ? "SECTION" : "LEVEL"; ?></span>
                                     </button>
                                 </div>
                                 <div class="form-label-group">
                                     <i>Example:</i><br>
                                     <ul>
                                         <li>
-                                            niveau 1
+                                            Cycle 1
                                         </li>
                                         <li>
                                             Industrielle Niveau 1
                                         </li>
                                         <li>
-                                            Industrielle Niveau 2
+                                            ANGLOPHONE SECTION
                                         </li>
                                         <li>
-                                            Add level according to the architecture of your establishment
+                                            Add <?php echo $retVal = ($statut == 1) ? "SECTION" : "LEVEL"; ?> according to the architecture of your establishment
                                         </li>
                                     </ul>
                                 </div>

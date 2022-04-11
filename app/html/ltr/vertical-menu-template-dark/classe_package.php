@@ -116,10 +116,10 @@ class user
 		$num_etab = mysqli_num_rows($query_matr) + 1;
 		$Q_matr_school = str_replace(" ", "", $Q_name) . '&' . $num_etab . date("d/M");
 		//MAKING DATE_CREATION
-		$Q_date_creation = date("d/D/M/Y");
+		$Q_date_creation = $Q_date_1;
 		try {
 
-			$query = mysqli_query($this->database, "INSERT INTO etablissement values(null, '$Q_matr_school', '$Q_date_academique', '$Q_name', '$Q_logo_name', '$Q_date_creation', 'free') ");
+			$query = mysqli_query($this->database, "INSERT INTO etablissement values(null, '$Q_matr_school', '$Q_date_academique', '$Q_name', '$Q_logo_name', '$Q_date_creation', 1) ");
 			if ($query) {
 				if (!empty($Q_logo_path)) {
 					// INSERT THE LOGO IN THE DATA DOC
@@ -152,7 +152,114 @@ class admin extends headmaster
 		}
 	}
 
-	public function add_year($matricule_etablissement, $year, $nom_etablissement, $logo, $date_creation, $date_academique)
+	// TEACHER FONCTIONS
+	public function save_note($matricule_apprenant, $exam_code, $code_discipline, $date_academique, $matricule_etablissement, $indexval)
+	{
+		//VERIFIER QUE LA NOTE N'EXISTE PAS DEJA POUR LE MEME ELEVE POUR LE MEME EXAMEN
+		$matricule_apprenant = addslashes($matricule_apprenant);
+		$exam_code = addslashes($exam_code);
+		$code_discipline = addslashes($code_discipline);
+		$query = mysqli_query($this->database, "SELECT * FROM note WHERE  matricule_apprenant = '$matricule_apprenant' AND code_examen = '$exam_code' AND code_discipline = '$code_discipline' AND date_academique = '$date_academique' AND matricule_etablissement = '$matricule_etablissement' ");
+		if (mysqli_num_rows($query) == 1) {
+			$query = mysqli_query($this->database, "UPDATE note set note = '$indexval' WHERE  matricule_apprenant = '$matricule_apprenant' AND code_examen = '$exam_code' AND code_discipline = '$code_discipline' AND date_academique = '$date_academique' AND matricule_etablissement = '$matricule_etablissement'  ");
+			if ($query) {
+				return 1;
+				# code...
+			} else {
+				return 0;
+			}
+			# code...
+		} else {
+			$query = mysqli_query($this->database, "INSERT INTO note values ( null, '$code_discipline', '$indexval', '$exam_code', '$matricule_apprenant', '$matricule_etablissement', '$date_academique' ) ");
+			if ($query) {
+				return 1;
+				# code...
+			} else {
+				return 0;
+			}
+			# code...
+		}
+
+		# code...
+	}
+
+	public function delete_note($code_examen, $code_discipline, $matricule_apprenant, $matricule_etablissement, $date_academique)
+	{
+		$query = mysqli_query($this->database, "DELETE FROM note WHERE matricule_apprenant = '$matricule_apprenant' AND code_examen = '$code_examen' AND code_discipline = '$code_discipline' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
+		if ($query) {
+			return 1;
+			# code...
+		} else {
+			return 0;
+		}
+		# code...
+	}
+
+
+	// COMPTABLE FONCTIONS
+	public function add_tranche($nom_tranche, $montant_tranche, $echeance_tranche, $code_classe, $matricule_etablissement, $date_academique)
+	{
+		$qq = mysqli_query($this->database, "SELECT scolarite FROM classe WHERE code_classe = '$code_classe' AND date_academique = '$date_academique' AND matricule_etablissement = '$matricule_etablissement' ");
+		$rqq = mysqli_fetch_assoc($qq);
+		$cm = $rqq['scolarite'];
+		$cm = floatval(str_replace(" ", "", $cm));
+		$q = mysqli_query($this->database, "SELECT SUM(montant) AS montant FROM tranche_paiement WHERE code_classe = '$code_classe' AND date_academique = '$date_academique' AND matricule_etablissement = '$matricule_etablissement' ");
+		$rq = mysqli_fetch_assoc($q);
+		$mtt = 0 + $rq['montant'];
+		if ($montant_tranche + $mtt <= $cm) {
+			$query = mysqli_query($this->database, "INSERT INTO tranche_paiement values(null, '$code_classe', '$matricule_etablissement', '$date_academique', '$montant_tranche', '$echeance_tranche', '$nom_tranche')");
+			if ($query) {
+				return 1;
+				# code...
+			} else {
+				return 0;
+			}
+			# code...
+		} else {
+			return 2;
+		}
+		// code...
+	}
+
+	public function delete_tranche($id_tranche, $code_classe, $date_academique, $matricule_etablissement)
+	{
+		$query = mysqli_query($this->database, "DELETE FROM tranche_paiement WHERE id = '$id_tranche' AND code_classe = '$code_classe' AND date_academique = '$date_academique' AND matricule_etablissement = '$matricule_etablissement' ");
+		if ($query) {
+			return 1;
+			# code...
+		} else {
+			return 0;
+			# code...
+		}
+
+		# code...
+	}
+	public function regler_tranche($id_tranche, $montant_tranche, $jour, $matricule_apprenant, $code_classe, $matricule_etablissement, $date_academique, $name)
+	{
+		$qq = mysqli_query($this->database, "SELECT montant FROM tranche_paiement WHERE id='$id_tranche' AND date_academique = '$date_academique' AND matricule_etablissement = '$matricule_etablissement' ");
+		$rqq = mysqli_fetch_assoc($qq);
+		$mm = $rqq['montant'];
+		$q = mysqli_query($this->database, "SELECT SUM(montant) as montant FROM compta WHERE id_tranche='$id_tranche' AND date_academique = '$date_academique' AND matricule_etablissement = '$matricule_etablissement' AND matricule_apprenant = '$matricule_apprenant' ");
+		$rq = mysqli_fetch_assoc($q);
+		$m = $rq['montant'] + 0;
+		if ($mm > $m and $mm + 1 > $m + $montant_tranche) {
+			$query = mysqli_query($this->database, "INSERT INTO compta values(null, '$id_tranche', '$matricule_apprenant', '$code_classe', '$matricule_etablissement', '$date_academique', '$montant_tranche', '$jour', '$name')");
+			if ($query) {
+				return 1;
+				# code...
+			} else {
+				return 0;
+			}
+			# code...
+
+			# code...
+		} else {
+			return 2;
+		}
+	}
+
+
+	public function add_year($matricule_etablissement, $year, $nom_etablissement, $logo, $date_creation, $date_academique, $statut)
 	{	//creation of the academic year
 		if ($year == $date_academique) {
 			return -1;
@@ -160,7 +267,7 @@ class admin extends headmaster
 		} else {
 			$logo = addslashes($logo);
 			$nom_etablissement = addslashes($nom_etablissement);
-			$query = mysqli_query($this->database, "INSERT INTO etablissement  VALUES (null, '$matricule_etablissement', '$year', '$nom_etablissement', '$logo', '$date_creation', 'free')");
+			$query = mysqli_query($this->database, "INSERT INTO etablissement  VALUES (null, '$matricule_etablissement', '$year', '$nom_etablissement', '$logo', '$date_creation', '$statut')");
 			if ($query) {
 				//keep the same school structure
 				//1.matter
@@ -297,15 +404,6 @@ class admin extends headmaster
 				//CREATION DE LA LIBRAIRIE PERSONNELLE
 				$user_ = new user_($nom_apprenant, $prenom_apprenant, $matricule_apprenant, base64_decode($pass), '', 0);
 				$result = $user_->auth_register(0, $matricule_etablissement);
-
-				//EMAIL DE NOTIFICATION D'AJOUT DANS LA PLATEFORME DE E-LEARNING
-?>
-				<!-- 	REDIRECTION VERS LA PAGE D'IMPRESSION DE LA FICHE D'INSCRIPTION -->
-				<!-- <script type="text/javascript" language="javascript">
-					window.open('pup_doc.php?fname=	<?php echo $nom_apprenant . "&" ?>
-							lname=<?php echo $prenom_apprenant . "&" ?>mat=<?php echo $matricule_apprenant . "&" ?>cls=<?php echo $code_classe . "&" ?>tel =<?php echo $telephone_apprenant . "&" ?>tutor=<?php echo $tutor_apprenant . "&" ?>other=<?php echo $other_info_apprenant . "&" ?>pass=<?php echo $pass ?> ');
-				</script> -->
-			<?php
 				return 1;
 				# code...
 			} else {
@@ -462,13 +560,6 @@ class headmaster extends user
 			$user_ = new user_($first_name, $last_name, $matri_teacher, base64_decode($pass), '', 2);
 			$result = $user_->auth_register(2, $matricule_etablissement);
 			//EMAIL DE NOTIFICATION D'AJOUT DANS LA PLATEFORME DE E-LEARNING
-			?>
-			<!-- 	REDIRECTION VERS LA PAGE D'IMPRESSION DE LA FICHE D'INSCRIPTION -->
-			<!-- <script type="text/javascript" language="javascript">
-				window.open('pup_doc.php?fname=	<?php echo $first_name . "&" ?>
-						lname=<?php echo $last_name . "&" ?>mat=<?php echo $matri_teacher . "&" ?>email=<?php echo $email . "&" ?>tel=<?php echo $telephone . "&" ?>adr=<?php echo $adresse . "&" ?>dis=<?php echo $disponibilite . "&" ?>pass=<?php echo $pass ?> ');
-			</script> -->
-			<?php
 
 			return 1;
 			# code...
@@ -551,14 +642,6 @@ class headmaster extends user
 				$user_ = new user_($nom_apprenant, $prenom_apprenant, $matricule_apprenant, base64_decode($pass), '', 0);
 				$result = $user_->auth_register(0, $matricule_etablissement);
 
-				//EMAIL DE NOTIFICATION D'AJOUT DANS LA PLATEFORME DE E-LEARNING
-			?>
-				<!-- 	REDIRECTION VERS LA PAGE D'IMPRESSION DE LA FICHE D'INSCRIPTION -->
-				<!-- <script type="text/javascript" language="javascript">
-					window.open('pup_doc.php?fname=	<?php echo $nom_apprenant . "&" ?>
-							lname=<?php echo $prenom_apprenant . "&" ?>mat=<?php echo $matricule_apprenant . "&" ?>cls=<?php echo $code_classe . "&" ?>tel =<?php echo $telephone_apprenant . "&" ?>tutor=<?php echo $tutor_apprenant . "&" ?>other=<?php echo $other_info_apprenant . "&" ?>pass=<?php echo $pass ?> ');
-				</script> -->
-<?php
 				return 1;
 				# code...
 			} else {
