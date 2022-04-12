@@ -3,49 +3,54 @@ include('phpqrcode/qrlib.php');
 // delete previous qrcode
 $dir = 'qrcode_saved';
 array_map('unlink', glob("{$dir}*.png"));
+
+// function for appreciation
+
+function appreciation(float $value): string
+{
+    if ($value >= 18) {
+        return "Excellent";
+        # code...
+    } elseif ($value < 18 and $value >= 16) {
+        return "Very good";
+        # code...
+    } elseif ($value < 16 and $value >= 14) {
+        return "Good";
+        # code...
+    } elseif ($value < 14 and $value > 11) {
+        return "Quite well";
+        # code...
+    } elseif ($value == 10 or $value == 1) {
+        return "Passable";
+    } elseif ($value < 10 and $value >= 8) {
+        return "Insufficient";
+        # code...
+    } elseif ($value < 8 and $value >= 5) {
+        return "Poor";
+        # code...
+    } else {
+        return "Very Poor";
+    }
+}
 ?>
 <?php
 if (isset($_POST['print_note'])) {
     $code_classe = base64_decode($_GET['ktsp']);
-    $_cent_s130 = $_POST['30_cent_s1'];
-    $_cent_s170 = $_POST['70_cent_s1'];
-    //get data semestre 1
-    $query = mysqli_query($database, "SELECT * FROM examen WHERE code_examen = '$_cent_s130' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
+    $trnmae = $_POST['trnmae'];
+    $code_exams1 = $_POST['s1'];
+    $query = mysqli_query($database, "SELECT * FROM examen WHERE code_examen = '{$code_exams1}' ");
     $result = mysqli_fetch_assoc($query);
-    $exam30s1 = $result['nom_examen'];
-    $notev30s1 = $result['note_valid'];
-    $query = mysqli_query($database, "SELECT * FROM examen WHERE code_examen = '$_cent_s170' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
+    $nom_exams1 = $result['nom_examen'];
+    $code_exams2 = $_POST['s2'];
+    $query = mysqli_query($database, "SELECT * FROM examen WHERE code_examen = '{$code_exams2}' ");
     $result = mysqli_fetch_assoc($query);
-    $exam70s1 = $result['nom_examen'];
-    $notev70s1 = $result['note_valid'];
-    $nbrdis30s1 = 0;
-    $countcrds30s1 = 0;
-    $nbrdis70s1 = 0;
-    $countcrds70s1 = 0;
-    //end get data semestre 1
-
-    $_cent_s230 = $_POST['30_cent_s2'];
-    $_cent_s270 = $_POST['70_cent_s2'];
-    //get data semestre 2
-    $query = mysqli_query($database, "SELECT * FROM examen WHERE code_examen = '$_cent_s230' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
-    $result = mysqli_fetch_assoc($query);
-    $exam30s2 = $result['nom_examen'];
-    $notev30s2 = $result['note_valid'];
-    $query = mysqli_query($database, "SELECT * FROM examen WHERE code_examen = '$_cent_s270' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
-    $result = mysqli_fetch_assoc($query);
-    $exam70s2 = $result['nom_examen'];
-    $notev70s2 = $result['note_valid'];
-    $nbrdis30s2 = 0;
-    $countcrds30s2 = 0;
-    $nbrdis70s2 = 0;
-    $countcrds70s2 = 0;
-    //end get data semestre 2
-
+    $nom_exams2 = $result['nom_examen'];
     $id_niveau = $_POST['id_niveau'];
-    //get niveau date_academique
-    $query = mysqli_query($database, "SELECT * FROM niveau WHERE id = '$id_niveau' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
+    $query = mysqli_query($database, "SELECT * FROM niveau WHERE id = '{$id_niveau}' ");
     $result = mysqli_fetch_assoc($query);
     $nom_niveau = $result['nom_niveau'];
+
+
     // code...
 } else {
     header("Location: bulletin.php");
@@ -131,10 +136,10 @@ while ($result = mysqli_fetch_assoc($query)) {
                         <div class="col-11">
                             <center>
                                 <span style="font-size : 21px">
-                                    <h2><b><?php echo $nom_etablissement; ?></b></h2>
+                                    <h2><b><?php echo strtoupper($nom_etablissement); ?></b></h2>
                                 </span>
                                 <span style="font-size : 13px">
-                                    <h5> <b> <?php echo $nom_etablissement; ?> </b></h5>
+                                    <h5> <b> <?php echo strtoupper($nom_etablissement); ?> </b></h5>
                                 </span>
                             </center>
                         </div>
@@ -143,6 +148,7 @@ while ($result = mysqli_fetch_assoc($query)) {
                     <hr>
                     <center>
                         <h3><b>RELEVE DE NOTES / STUDENT ACADEMIC RECORD</b></h3>
+                        <h4><b><?php echo $trnmae ?></b></h4>
                     </center>
 
                     <div class="row">
@@ -236,64 +242,79 @@ while ($result = mysqli_fetch_assoc($query)) {
                                                 <table class="table-bordered" width="100%">
                                                     <thead>
                                                         <tr>
-                                                            <th colspan="5" style="justify-content: center;">Semestre 1</th>
+                                                            <th colspan="9" style="justify-content: center;">
+                                                                <center><?php echo strtoupper($trnmae) ?></center>
+                                                            </th>
                                                         </tr>
                                                         <tr>
-                                                            <th style="text-align: center;">Sujets / <br> subjects</th>
-                                                            <th style="text-align: center;"><?php echo $exam30s1; ?> </th>
-                                                            <th style="text-align: center;"><?php echo $exam70s1; ?></th>
-                                                            <th style="text-align: center;">Moyenne / <br> Average </th>
-                                                            <th style="text-align: center;">Observations</th>
+                                                            <th style="text-align: center;" rowspan="2">Sujets / <br> subjects</th>
+                                                            <th style="text-align: center;" colspan="3"><?php echo $nom_exams1; ?> </th>
+                                                            <th style="text-align: center;" colspan="3"><?php echo $nom_exams2; ?></th>
+                                                            <th style="text-align: center;" rowspan="2">Moyenne / <br> Average </th>
+                                                            <th style="text-align: center;" rowspan="2">Observations</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th style="text-align: center;">NOTE</th>
+                                                            <th style="text-align: center;">CREDIT/COEF</th>
+                                                            <th style="text-align: center;">TOTAL</th>
+                                                            <th style="text-align: center;">NOTE</th>
+                                                            <th style="text-align: center;">CREDIT/COEF</th>
+                                                            <th style="text-align: center;">TOTAL</th>
+
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $nombre_ds1 = 0;
-                                                        $nombre_ds2 = 0;
-                                                        $noval1 = 0;
+                                                        $somme_de_cours = 0;
+                                                        $somme_de_credit = 0;
+                                                        $somme_notes1 = 0;
+                                                        $somme_notes2 = 0;
+                                                        $somme_notes1Xcredit = 0;
+                                                        $somme_notes2Xcredit = 0;
+                                                        $note_trimestre = 0;
                                                         $query0 = mysqli_query($database, "SELECT * FROM discipline_classe WHERE code_classe = '$code_classe' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
                                                         while ($result0 = mysqli_fetch_assoc($query0)) {
                                                             $code_discipline = addslashes($result0['code_discipline']);
-                                                            //check if the courses is choosen for the first semestre
-                                                            while ($index_tab = key($_POST)) {
-                                                                if ($index_tab == str_replace(" ", "_", $code_discipline) . "s1") {
-                                                                    //get the name
-                                                                    $querya = mysqli_query($database, "SELECT * FROM discipline WHERE code_discipline = '$code_discipline' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
-                                                                    $resulta = mysqli_fetch_assoc($querya);
-                                                                    $nom_discipline = $resulta['nom_discipline'];
-                                                                    //get note controle continue
-                                                                    $query00 = mysqli_query($database, "SELECT * FROM note WHERE code_examen = '$_cent_s130' AND code_discipline = '$code_discipline' AND matricule_apprenant = '$matricule_apprenant' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
-                                                                    $result00 = mysqli_fetch_assoc($query00);
-                                                                    $note30 = (isset($result00['note'])) ? $result00['note'] : 0;
-                                                                    //get note normalizer_normalize
-                                                                    $query000 = mysqli_query($database, "SELECT * FROM note WHERE code_examen = '$_cent_s170' AND code_discipline = '$code_discipline' AND matricule_apprenant = '$matricule_apprenant' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
-                                                                    $result000 = mysqli_fetch_assoc($query000);
-                                                                    $note70 = (isset($result000['note'])) ? $result000['note'] : 0;
-                                                                    if ($note30 != 0 or $note70 != 0) {
-                                                                        $nombre_ds1 += 1;
-                                                                        //cumuler les moyennes
-                                                                        $nbrdis30s1 += ($note30) * 30 / 100 + ($note70) * 70 / 100;
-                                                                        if ((($note30) * 30 / 100 + ($note70) * 70 / 100) >= (($notev30s1 + $notev70s1) / 2)) {
-                                                                            $noval1 += 1;
-                                                                            // code...
-                                                                        }
+                                                            $credit_discipline = $result0['heure'];
+                                                            $somme_de_credit = $somme_de_credit + $credit_discipline;
+                                                            $somme_de_cours++;
+                                                            if (1) {
+                                                                //get the name
+                                                                $querya = mysqli_query($database, "SELECT * FROM discipline WHERE code_discipline = '$code_discipline' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
+                                                                $resulta = mysqli_fetch_assoc($querya);
+                                                                $nom_discipline = $resulta['nom_discipline'];
+                                                                //get note controle continue
+                                                                $query00 = mysqli_query($database, "SELECT * FROM note WHERE code_examen = '{$code_exams1}' AND code_discipline = '$code_discipline' AND matricule_apprenant = '$matricule_apprenant' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
+                                                                $result00 = mysqli_fetch_assoc($query00);
+                                                                $notes1 = (isset($result00['note'])) ? $result00['note'] : 0;
+                                                                $somme_notes1 += $notes1;
+                                                                //get note normalizer_normalize
+                                                                $query000 = mysqli_query($database, "SELECT * FROM note WHERE code_examen = '{$code_exams2}' AND code_discipline = '$code_discipline' AND matricule_apprenant = '$matricule_apprenant' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
+                                                                $result000 = mysqli_fetch_assoc($query000);
+                                                                $notes2 = (isset($result000['note'])) ? $result000['note'] : 0;
+                                                                $somme_notes2 += $notes2;
+                                                                // note du trimestre de la discipline
+                                                                $note_trimestre = ($notes1 + $notes2) / 2;
+
                                                         ?>
-                                                                        <tr>
-                                                                            <td style="text-transform: uppercase;"><?php echo $nom_discipline; ?></td>
-                                                                            <td><?php echo $note30; ?></td>
-                                                                            <td><?php echo $note70; ?></td>
-                                                                            <td><?php echo ($note30) * 30 / 100 + ($note70) * 70 / 100; ?></td>
-                                                                            <td><?php echo $retVal = ((($note30) * 30 / 100 + ($note70) * 70 / 100) >= 10) ? "Va" : "NV"; ?></td>
-                                                                        </tr>
+                                                                <tr>
+                                                                    <td style="text-transform: uppercase;"><?php echo $nom_discipline; ?></td>
+
+                                                                    <td><?php echo $notes1; ?></td>
+                                                                    <td><?php echo $credit_discipline; ?></td>
+                                                                    <td><?php echo $notes1 * $credit_discipline ?></td>
+
+                                                                    <td><?php echo $notes2; ?></td>
+                                                                    <td><?php echo $credit_discipline; ?></td>
+                                                                    <td><?php echo $notes2 * $credit_discipline ?></td>
+                                                                    <td><?php echo $note_trimestre ?></td>
+                                                                    <td><?php echo appreciation($note_trimestre) ?></td>
+                                                                </tr>
 
                                                         <?php
 
-                                                                    }
-                                                                }
-                                                                next($_POST);
-                                                                # code...
                                                             }
-                                                            reset($_POST);
+                                                            # code...
                                                             // code...
                                                         }
                                                         ?>
@@ -301,62 +322,12 @@ while ($result = mysqli_fetch_assoc($query)) {
 
                                                     <tfoot>
                                                         <tr>
-                                                            <th colspan="5" style="justify-content: center;">Semestre 2</th>
-                                                        </tr>
-                                                        <tr>
                                                             <th style="text-align: center;">Sujets / <br> subjects</th>
-                                                            <th style="text-align: center;"><?php echo $exam30s2; ?> </th>
-                                                            <th style="text-align: center;"><?php echo $exam70s2; ?></th>
+                                                            <th style="text-align: center;" colspan="3"><?php echo $nom_exams1; ?> </th>
+                                                            <th style="text-align: center;" colspan="3"><?php echo $nom_exams2; ?></th>
                                                             <th style="text-align: center;">Moyenne / <br> Average </th>
                                                             <th style="text-align: center;">Observations</th>
                                                         </tr>
-                                                        <?php
-                                                        $query0 = mysqli_query($database, "SELECT * FROM discipline_classe WHERE code_classe = '$code_classe' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
-                                                        while ($result0 = mysqli_fetch_assoc($query0)) {
-                                                            $code_discipline = addslashes($result0['code_discipline']);
-                                                            //check if the courses is choosen for the first semestre
-                                                            while ($index_tab = key($_POST)) {
-                                                                if ($index_tab == str_replace(" ", "_", $code_discipline) . "s2") {
-                                                                    //get the name
-                                                                    $querya = mysqli_query($database, "SELECT * FROM discipline WHERE code_discipline = '$code_discipline' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
-                                                                    $resulta = mysqli_fetch_assoc($querya);
-                                                                    $nom_discipline = $resulta['nom_discipline'];
-
-                                                                    //get note controle continue
-                                                                    $query00 = mysqli_query($database, "SELECT * FROM note WHERE code_examen = '$_cent_s230' AND code_discipline = '$code_discipline' AND matricule_apprenant = '$matricule_apprenant' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
-                                                                    $result00 = mysqli_fetch_assoc($query00);
-                                                                    $note30 = (isset($result00['note'])) ? $result00['note'] : 0;
-                                                                    //get note normalizer_normalize
-                                                                    $query000 = mysqli_query($database, "SELECT * FROM note WHERE code_examen = '$_cent_s270' AND code_discipline = '$code_discipline' AND matricule_apprenant = '$matricule_apprenant' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
-                                                                    $result000 = mysqli_fetch_assoc($query000);
-                                                                    $note70 = (isset($result000['note'])) ? $result000['note'] : 0;
-                                                                    if ($note30 != 0 or $note70 != 0) {
-                                                                        $nombre_ds2 += 1;
-                                                                        //cumuler les moyennes
-                                                                        $nbrdis30s2 += ($note30) * 30 / 100 + ($note70) * 70 / 100;
-                                                                        if ((($note30) * 30 / 100 + ($note70) * 70 / 100) >= 10) {
-                                                                            $noval1 += 1;
-                                                                            // code...
-                                                                        }
-                                                        ?>
-                                                                        <tr>
-                                                                            <td style="text-transform: uppercase;"><?php echo $nom_discipline; ?></td>
-                                                                            <td><?php echo $note30; ?></td>
-                                                                            <td><?php echo $note70; ?></td>
-                                                                            <td><?php echo (($note30) * 30 / 100 + ($note70) * 70 / 100); ?></td>
-                                                                            <td><?php echo $retVal = ((($note30) * 30 / 100 + ($note70) * 70 / 100) >=  (($notev30s2 + $notev70s2) / 2)) ? "Va" : "NV"; ?></td>
-                                                                        </tr>
-                                                        <?php
-                                                                    }
-                                                                }
-                                                                next($_POST);
-                                                                # code...
-                                                            }
-                                                            reset($_POST);
-
-                                                            // code...
-                                                        }
-                                                        ?>
                                                     </tfoot>
 
                                                 </table>

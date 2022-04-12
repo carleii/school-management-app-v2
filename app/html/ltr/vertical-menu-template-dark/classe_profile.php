@@ -2046,255 +2046,315 @@ if (isset($_POST['csv_upload'])) {
                                                 <div class="card-header">
                                                 </div>
                                                 <div class="card-content">
-                                                    <form class="form form-horizontal" method="post" action="print_b_spe.php?ktsp=<?php echo base64_encode($code_classe) ?>" target="_blank">
+                                                    <form class="form form-horizontal" method="post" action="print_b_<?php echo $retVal = ($statut == 1) ? "cls" : "spe"; ?>.php?ktsp=<?php echo base64_encode($code_classe) ?>" target="_blank">
                                                         <div class="card-body card-dashboard">
                                                             <div class="form-body">
-                                                                <div class="row">
-                                                                    <div class="col-md-7">
-                                                                        <div class="mb-3">
-                                                                            <fieldset class="form-group position-relative has-icon-left">
-                                                                                <legend>Semestre 1 courses</legend>
-                                                                                <section id="column-selectors">
-                                                                                    <div class="row">
-                                                                                        <div class="col-12">
-                                                                                            <div class="card">
-                                                                                                <div class="card-content">
-                                                                                                    <div class="card-body card-dashboard">
-                                                                                                        <div class="table-responsive">
-                                                                                                            <section id="collapsible">
-                                                                                                                <div class="collapsible">
-                                                                                                                    <div class="card collapse-header">
-                                                                                                                        <div id="headingCollapse1" class="card-header" data-toggle="collapse" role="button" data-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
-                                                                                                                            <span class="collapse-title">
-                                                                                                                                OPEN/CLOSE
-                                                                                                                                HERE
-                                                                                                                            </span>
-                                                                                                                        </div>
-                                                                                                                        <div id="collapse1" role="tabpanel" aria-labelledby="headingCollapse1" class="collapse">
-                                                                                                                            <div class="card-content">
-                                                                                                                                <div class="card-body">
-                                                                                                                                    <table class="table nowrap">
-                                                                                                                                        <thead>
-                                                                                                                                            <tr>
-                                                                                                                                                <th>Course
-                                                                                                                                                    Name
-                                                                                                                                                </th>
-                                                                                                                                            </tr>
-                                                                                                                                        </thead>
-                                                                                                                                        <tbody>
-                                                                                                                                            <?php
+                                                                <?php
+                                                                if ($statut == 1) {
+                                                                ?>
+                                                                    <div class="row">
+                                                                        <div class="col-md-7">
+                                                                            <label for="">Trimestrial Note report</label>
+                                                                            <input type="text" name="trnmae" required class="form-control" id="" placeholder="Name of the Trimestrial report notes">
 
-                                                                                                                                            $queryo = mysqli_query($database, "SELECT DISTINCT(code_matiere) AS code_matiere FROM discipline WHERE  matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
-                                                                                                                                            while ($resulto = mysqli_fetch_assoc($queryo)) {
-                                                                                                                                                $code_matiere = $resulto['code_matiere'];
-                                                                                                                                            ?>
-                                                                                                                                                <?php
-                                                                                                                                                $query1 = mysqli_query($database, "SELECT * FROM discipline WHERE code_matiere = '$code_matiere' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
-                                                                                                                                                while ($result1 = mysqli_fetch_assoc($query1)) {
-                                                                                                                                                    $code_discipline = addslashes($result1['code_discipline']);
-                                                                                                                                                    $q = mysqli_query($database, "SELECT * FROM discipline_classe WHERE code_discipline = '$code_discipline' and code_classe = '$code_classe'  AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
-                                                                                                                                                    if ($q and mysqli_num_rows($q) != 1) {
-                                                                                                                                                        continue;
-                                                                                                                                                        # code...
-                                                                                                                                                    }
-                                                                                                                                                    $nom_discipline = $result1['nom_discipline'];
-                                                                                                                                                ?>
-                                                                                                                                                    <tr>
-                                                                                                                                                        <td style="text-transform: uppercase;">
-                                                                                                                                                            <input type="checkbox" name="<?php echo $code_discipline ?>s1" id="<?php echo $code_discipline ?>s1" value="<?php echo $code_discipline ?>s1">
-                                                                                                                                                            <label for="<?php echo $code_discipline ?>s1"><?php echo  $nom_discipline; ?></label>
-
-                                                                                                                                                        </td>
-                                                                                                                                                    </tr>
-                                                                                                                                            <?php
-                                                                                                                                                    // code...
-                                                                                                                                                }
-                                                                                                                                            }
-                                                                                                                                            ?>
-
-                                                                                                                                        </tbody>
-                                                                                                                                        <tfoot>
-                                                                                                                                            <tr>
-                                                                                                                                                <th>Course
-                                                                                                                                                    Name
-                                                                                                                                                </th>
-                                                                                                                                            </tr>
-                                                                                                                                        </tfoot>
-                                                                                                                                    </table>
-                                                                                                                                </div>
-                                                                                                                            </div>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            </section>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </section>
-                                                                            </fieldset>
                                                                         </div>
-                                                                        <div class="mb-3">
-                                                                            <fieldset class="form-group position-relative has-icon-left">
-                                                                                <h3>Semestre 2 courses</h3>
-                                                                                <section id="column-selectors">
-                                                                                    <div class="row">
-                                                                                        <div class="col-12">
-                                                                                            <div class="card">
-                                                                                                <div class="card-content">
-                                                                                                    <div class="card-body card-dashboard">
-                                                                                                        <div class="table-responsive">
-                                                                                                            <section id="collapsible">
-                                                                                                                <div class="collapsible">
-                                                                                                                    <div class="card collapse-header">
-                                                                                                                        <div id="headingCollapse1" class="card-header" data-toggle="collapse" role="button" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                                                                                                                            <span class="collapse-title">
-                                                                                                                                OPEN/CLOSE
-                                                                                                                                HERE
-                                                                                                                            </span>
-                                                                                                                        </div>
-                                                                                                                        <div id="collapse2" role="tabpanel" aria-labelledby="headingCollapse2" class="collapse">
-                                                                                                                            <div class="card-content">
-                                                                                                                                <div class="card-body">
-                                                                                                                                    <table class="table nowrap">
-                                                                                                                                        <thead>
-                                                                                                                                            <tr>
-                                                                                                                                                <th>Course
-                                                                                                                                                    Name
-                                                                                                                                                </th>
-                                                                                                                                            </tr>
-                                                                                                                                        </thead>
-                                                                                                                                        <tbody>
-                                                                                                                                            <?php
-
-                                                                                                                                            $queryo = mysqli_query($database, "SELECT DISTINCT(code_matiere) AS code_matiere FROM discipline WHERE  matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
-                                                                                                                                            while ($resulto = mysqli_fetch_assoc($queryo)) {
-                                                                                                                                                $code_matiere = $resulto['code_matiere'];
-                                                                                                                                            ?>
-                                                                                                                                                <?php
-                                                                                                                                                $query1 = mysqli_query($database, "SELECT * FROM discipline WHERE code_matiere = '$code_matiere' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
-                                                                                                                                                while ($result1 = mysqli_fetch_assoc($query1)) {
-                                                                                                                                                    $code_discipline = addslashes($result1['code_discipline']);
-                                                                                                                                                    $q = mysqli_query($database, "SELECT * FROM discipline_classe WHERE code_discipline = '$code_discipline' and code_classe = '$code_classe'  AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
-                                                                                                                                                    if ($q and mysqli_num_rows($q) != 1) {
-                                                                                                                                                        continue;
-                                                                                                                                                        # code...
-                                                                                                                                                    }
-
-                                                                                                                                                    $nom_discipline = $result1['nom_discipline'];
-                                                                                                                                                ?>
-                                                                                                                                                    <tr>
-                                                                                                                                                        <td style="text-transform: uppercase;">
-                                                                                                                                                            <input type="checkbox" name="<?php echo $code_discipline ?>s2" id="<?php echo $code_discipline ?>s2" value="<?php echo $code_discipline ?>s2">
-                                                                                                                                                            <label for="<?php echo $code_discipline ?>s2"><?php echo  $nom_discipline; ?></label>
-                                                                                                                                                        </td>
-                                                                                                                                                    </tr>
-                                                                                                                                            <?php
-                                                                                                                                                    // code...
-                                                                                                                                                }
-                                                                                                                                            }
-                                                                                                                                            ?>
-
-                                                                                                                                        </tbody>
-                                                                                                                                        <tfoot>
-                                                                                                                                            <tr>
-                                                                                                                                                <th>Course
-                                                                                                                                                    Name
-                                                                                                                                                </th>
-                                                                                                                                            </tr>
-                                                                                                                                        </tfoot>
-                                                                                                                                    </table>
-                                                                                                                                </div>
-                                                                                                                            </div>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            </section>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </section>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-5 form-group">
-                                                                        <div class="mb-3">
-                                                                            <fieldset class="form-group position-relative has-icon-left">
-                                                                                <legend>Semestre 1 Notes</legend>
-                                                                                <label for="">30%</label>
-                                                                                <select required class="form-control" name="30_cent_s1">
-                                                                                    <?php
-                                                                                    $query = mysqli_query($database, "SELECT * FROM examen WHERE matricule_etablissement = '$matricule_etablissement' AND date_academique ='$date_academique' ");
-                                                                                    while ($result = mysqli_fetch_assoc($query)) { ?>
-                                                                                        <option value="<?php echo addslashes($result['code_examen']); ?>">
-                                                                                            <?php echo $result['nom_examen']; ?>
-                                                                                        </option>
-                                                                                    <?php
-                                                                                        // code...
-                                                                                    }
-                                                                                    ?>
-                                                                                </select>
-                                                                                <label for="">70%</label>
-                                                                                <select required class="form-control" name="70_cent_s1">
-                                                                                    <<?php
+                                                                        <div class="col-md-5 form-group">
+                                                                            <div class="mb-3">
+                                                                                <fieldset class="form-group position-relative has-icon-left">
+                                                                                    <legend>Exam notes</legend>
+                                                                                    <label for="">First Exam</label>
+                                                                                    <select required class="form-control" name="s1">
+                                                                                        <?php
                                                                                         $query = mysqli_query($database, "SELECT * FROM examen WHERE matricule_etablissement = '$matricule_etablissement' AND date_academique ='$date_academique' ");
-                                                                                        while ($result = mysqli_fetch_assoc($query)) { ?> <option value="<?php echo addslashes($result['code_examen']); ?>">
-                                                                                        <?php echo $result['nom_examen']; ?>
-                                                                                        </option>
-                                                                                    <?php
+                                                                                        while ($result = mysqli_fetch_assoc($query)) { ?>
+                                                                                            <option value="<?php echo addslashes($result['code_examen']); ?>">
+                                                                                                <?php echo $result['nom_examen']; ?>
+                                                                                            </option>
+                                                                                        <?php
                                                                                             // code...
                                                                                         }
-                                                                                    ?>
-                                                                                </select>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                        <div class="mb-3">
-                                                                            <fieldset class="form-group position-relative has-icon-left">
-                                                                                <legend>Semestre 2 Notes</legend>
-                                                                                <label for="">30%</label>
-                                                                                <select class="form-control" name="30_cent_s2">
-                                                                                    <?php
-                                                                                    $query = mysqli_query($database, "SELECT * FROM examen WHERE matricule_etablissement = '$matricule_etablissement' AND date_academique ='$date_academique' ");
-                                                                                    while ($result = mysqli_fetch_assoc($query)) { ?>
-                                                                                        <option value="<?php echo addslashes($result['code_examen']); ?>">
+                                                                                        ?>
+                                                                                    </select>
+                                                                                    <label for="">Second Exam</label>
+                                                                                    <select required class="form-control" name="s2">
+                                                                                        <<?php
+                                                                                            $query = mysqli_query($database, "SELECT * FROM examen WHERE matricule_etablissement = '$matricule_etablissement' AND date_academique ='$date_academique' ");
+                                                                                            while ($result = mysqli_fetch_assoc($query)) { ?> <option value="<?php echo addslashes($result['code_examen']); ?>">
                                                                                             <?php echo $result['nom_examen']; ?>
-                                                                                        </option>
-                                                                                    <?php
-                                                                                        // code...
-                                                                                    }
-                                                                                    ?>
-                                                                                </select>
-                                                                                <label for="">70%</label>
-                                                                                <select class="form-control" name="70_cent_s2">
-                                                                                    <?php
-                                                                                    $query = mysqli_query($database, "SELECT * FROM examen WHERE matricule_etablissement = '$matricule_etablissement' AND date_academique ='$date_academique' ");
-                                                                                    while ($result = mysqli_fetch_assoc($query)) { ?>
-                                                                                        <option value="<?php echo addslashes($result['code_examen']); ?>">
-                                                                                            <?php echo $result['nom_examen']; ?>
-                                                                                        </option>
-                                                                                    <?php
-                                                                                        // code...
-                                                                                    }
-                                                                                    ?>
-                                                                                </select>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                        <div class="mb-3">
-                                                                            <fieldset class="form-group position-relative has-icon-left">
-                                                                                <!-- <legend>NIVEAU/LEVEL</legend> -->
-                                                                                <label for=""></label>
-                                                                                <input type="hidden" value="<?php echo $id_niveau; ?>" required class="form-control" name="id_niveau">
-                                                                                </input>
+                                                                                            </option>
+                                                                                        <?php
+                                                                                                // code...
+                                                                                            }
+                                                                                        ?>
+                                                                                    </select>
+                                                                                </fieldset>
+                                                                            </div>
+                                                                            <div class="mb-3">
+                                                                                <fieldset class="form-group position-relative has-icon-left">
+                                                                                    <!-- <legend>NIVEAU/LEVEL</legend> -->
+                                                                                    <label for=""></label>
+                                                                                    <input type="hidden" value="<?php echo $id_niveau; ?>" required class="form-control" name="id_niveau">
+                                                                                    </input>
 
-                                                                            </fieldset>
+                                                                                </fieldset>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
+
+                                                                <?php
+                                                                    # code...
+                                                                } else {
+                                                                ?>
+                                                                    <div class="row">
+                                                                        <div class="col-md-7">
+                                                                            <div class="mb-3">
+                                                                                <fieldset class="form-group position-relative has-icon-left">
+                                                                                    <legend>Semestre 1 courses</legend>
+                                                                                    <section id="column-selectors">
+                                                                                        <div class="row">
+                                                                                            <div class="col-12">
+                                                                                                <div class="card">
+                                                                                                    <div class="card-content">
+                                                                                                        <div class="card-body card-dashboard">
+                                                                                                            <div class="table-responsive">
+                                                                                                                <section id="collapsible">
+                                                                                                                    <div class="collapsible">
+                                                                                                                        <div class="card collapse-header">
+                                                                                                                            <div id="headingCollapse1" class="card-header" data-toggle="collapse" role="button" data-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                                                                                                                                <span class="collapse-title">
+                                                                                                                                    OPEN/CLOSE
+                                                                                                                                    HERE
+                                                                                                                                </span>
+                                                                                                                            </div>
+                                                                                                                            <div id="collapse1" role="tabpanel" aria-labelledby="headingCollapse1" class="collapse">
+                                                                                                                                <div class="card-content">
+                                                                                                                                    <div class="card-body">
+                                                                                                                                        <table class="table nowrap">
+                                                                                                                                            <thead>
+                                                                                                                                                <tr>
+                                                                                                                                                    <th>Course
+                                                                                                                                                        Name
+                                                                                                                                                    </th>
+                                                                                                                                                </tr>
+                                                                                                                                            </thead>
+                                                                                                                                            <tbody>
+                                                                                                                                                <?php
+
+                                                                                                                                                $queryo = mysqli_query($database, "SELECT DISTINCT(code_matiere) AS code_matiere FROM discipline WHERE  matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
+                                                                                                                                                while ($resulto = mysqli_fetch_assoc($queryo)) {
+                                                                                                                                                    $code_matiere = $resulto['code_matiere'];
+                                                                                                                                                ?>
+                                                                                                                                                    <?php
+                                                                                                                                                    $query1 = mysqli_query($database, "SELECT * FROM discipline WHERE code_matiere = '$code_matiere' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
+                                                                                                                                                    while ($result1 = mysqli_fetch_assoc($query1)) {
+                                                                                                                                                        $code_discipline = addslashes($result1['code_discipline']);
+                                                                                                                                                        $q = mysqli_query($database, "SELECT * FROM discipline_classe WHERE code_discipline = '$code_discipline' and code_classe = '$code_classe'  AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
+                                                                                                                                                        if ($q and mysqli_num_rows($q) != 1) {
+                                                                                                                                                            continue;
+                                                                                                                                                            # code...
+                                                                                                                                                        }
+                                                                                                                                                        $nom_discipline = $result1['nom_discipline'];
+                                                                                                                                                    ?>
+                                                                                                                                                        <tr>
+                                                                                                                                                            <td style="text-transform: uppercase;">
+                                                                                                                                                                <input type="checkbox" name="<?php echo $code_discipline ?>s1" id="<?php echo $code_discipline ?>s1" value="<?php echo $code_discipline ?>s1">
+                                                                                                                                                                <label for="<?php echo $code_discipline ?>s1"><?php echo  $nom_discipline; ?></label>
+
+                                                                                                                                                            </td>
+                                                                                                                                                        </tr>
+                                                                                                                                                <?php
+                                                                                                                                                        // code...
+                                                                                                                                                    }
+                                                                                                                                                }
+                                                                                                                                                ?>
+
+                                                                                                                                            </tbody>
+                                                                                                                                            <tfoot>
+                                                                                                                                                <tr>
+                                                                                                                                                    <th>Course
+                                                                                                                                                        Name
+                                                                                                                                                    </th>
+                                                                                                                                                </tr>
+                                                                                                                                            </tfoot>
+                                                                                                                                        </table>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </section>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </section>
+                                                                                </fieldset>
+                                                                            </div>
+                                                                            <div class="mb-3">
+                                                                                <fieldset class="form-group position-relative has-icon-left">
+                                                                                    <h3>Semestre 2 courses</h3>
+                                                                                    <section id="column-selectors">
+                                                                                        <div class="row">
+                                                                                            <div class="col-12">
+                                                                                                <div class="card">
+                                                                                                    <div class="card-content">
+                                                                                                        <div class="card-body card-dashboard">
+                                                                                                            <div class="table-responsive">
+                                                                                                                <section id="collapsible">
+                                                                                                                    <div class="collapsible">
+                                                                                                                        <div class="card collapse-header">
+                                                                                                                            <div id="headingCollapse1" class="card-header" data-toggle="collapse" role="button" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                                                                                                                                <span class="collapse-title">
+                                                                                                                                    OPEN/CLOSE
+                                                                                                                                    HERE
+                                                                                                                                </span>
+                                                                                                                            </div>
+                                                                                                                            <div id="collapse2" role="tabpanel" aria-labelledby="headingCollapse2" class="collapse">
+                                                                                                                                <div class="card-content">
+                                                                                                                                    <div class="card-body">
+                                                                                                                                        <table class="table nowrap">
+                                                                                                                                            <thead>
+                                                                                                                                                <tr>
+                                                                                                                                                    <th>Course
+                                                                                                                                                        Name
+                                                                                                                                                    </th>
+                                                                                                                                                </tr>
+                                                                                                                                            </thead>
+                                                                                                                                            <tbody>
+                                                                                                                                                <?php
+
+                                                                                                                                                $queryo = mysqli_query($database, "SELECT DISTINCT(code_matiere) AS code_matiere FROM discipline WHERE  matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
+                                                                                                                                                while ($resulto = mysqli_fetch_assoc($queryo)) {
+                                                                                                                                                    $code_matiere = $resulto['code_matiere'];
+                                                                                                                                                ?>
+                                                                                                                                                    <?php
+                                                                                                                                                    $query1 = mysqli_query($database, "SELECT * FROM discipline WHERE code_matiere = '$code_matiere' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
+                                                                                                                                                    while ($result1 = mysqli_fetch_assoc($query1)) {
+                                                                                                                                                        $code_discipline = addslashes($result1['code_discipline']);
+                                                                                                                                                        $q = mysqli_query($database, "SELECT * FROM discipline_classe WHERE code_discipline = '$code_discipline' and code_classe = '$code_classe'  AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
+                                                                                                                                                        if ($q and mysqli_num_rows($q) != 1) {
+                                                                                                                                                            continue;
+                                                                                                                                                            # code...
+                                                                                                                                                        }
+
+                                                                                                                                                        $nom_discipline = $result1['nom_discipline'];
+                                                                                                                                                    ?>
+                                                                                                                                                        <tr>
+                                                                                                                                                            <td style="text-transform: uppercase;">
+                                                                                                                                                                <input type="checkbox" name="<?php echo $code_discipline ?>s2" id="<?php echo $code_discipline ?>s2" value="<?php echo $code_discipline ?>s2">
+                                                                                                                                                                <label for="<?php echo $code_discipline ?>s2"><?php echo  $nom_discipline; ?></label>
+                                                                                                                                                            </td>
+                                                                                                                                                        </tr>
+                                                                                                                                                <?php
+                                                                                                                                                        // code...
+                                                                                                                                                    }
+                                                                                                                                                }
+                                                                                                                                                ?>
+
+                                                                                                                                            </tbody>
+                                                                                                                                            <tfoot>
+                                                                                                                                                <tr>
+                                                                                                                                                    <th>Course
+                                                                                                                                                        Name
+                                                                                                                                                    </th>
+                                                                                                                                                </tr>
+                                                                                                                                            </tfoot>
+                                                                                                                                        </table>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </section>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </section>
+                                                                                </fieldset>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-5 form-group">
+                                                                            <div class="mb-3">
+                                                                                <fieldset class="form-group position-relative has-icon-left">
+                                                                                    <legend>Semestre 1 Notes</legend>
+                                                                                    <label for="">30%</label>
+                                                                                    <select required class="form-control" name="30_cent_s1">
+                                                                                        <?php
+                                                                                        $query = mysqli_query($database, "SELECT * FROM examen WHERE matricule_etablissement = '$matricule_etablissement' AND date_academique ='$date_academique' ");
+                                                                                        while ($result = mysqli_fetch_assoc($query)) { ?>
+                                                                                            <option value="<?php echo addslashes($result['code_examen']); ?>">
+                                                                                                <?php echo $result['nom_examen']; ?>
+                                                                                            </option>
+                                                                                        <?php
+                                                                                            // code...
+                                                                                        }
+                                                                                        ?>
+                                                                                    </select>
+                                                                                    <label for="">70%</label>
+                                                                                    <select required class="form-control" name="70_cent_s1">
+                                                                                        <<?php
+                                                                                            $query = mysqli_query($database, "SELECT * FROM examen WHERE matricule_etablissement = '$matricule_etablissement' AND date_academique ='$date_academique' ");
+                                                                                            while ($result = mysqli_fetch_assoc($query)) { ?> <option value="<?php echo addslashes($result['code_examen']); ?>">
+                                                                                            <?php echo $result['nom_examen']; ?>
+                                                                                            </option>
+                                                                                        <?php
+                                                                                                // code...
+                                                                                            }
+                                                                                        ?>
+                                                                                    </select>
+                                                                                </fieldset>
+                                                                            </div>
+                                                                            <div class="mb-3">
+                                                                                <fieldset class="form-group position-relative has-icon-left">
+                                                                                    <legend>Semestre 2 Notes</legend>
+                                                                                    <label for="">30%</label>
+                                                                                    <select class="form-control" name="30_cent_s2">
+                                                                                        <?php
+                                                                                        $query = mysqli_query($database, "SELECT * FROM examen WHERE matricule_etablissement = '$matricule_etablissement' AND date_academique ='$date_academique' ");
+                                                                                        while ($result = mysqli_fetch_assoc($query)) { ?>
+                                                                                            <option value="<?php echo addslashes($result['code_examen']); ?>">
+                                                                                                <?php echo $result['nom_examen']; ?>
+                                                                                            </option>
+                                                                                        <?php
+                                                                                            // code...
+                                                                                        }
+                                                                                        ?>
+                                                                                    </select>
+                                                                                    <label for="">70%</label>
+                                                                                    <select class="form-control" name="70_cent_s2">
+                                                                                        <?php
+                                                                                        $query = mysqli_query($database, "SELECT * FROM examen WHERE matricule_etablissement = '$matricule_etablissement' AND date_academique ='$date_academique' ");
+                                                                                        while ($result = mysqli_fetch_assoc($query)) { ?>
+                                                                                            <option value="<?php echo addslashes($result['code_examen']); ?>">
+                                                                                                <?php echo $result['nom_examen']; ?>
+                                                                                            </option>
+                                                                                        <?php
+                                                                                            // code...
+                                                                                        }
+                                                                                        ?>
+                                                                                    </select>
+                                                                                </fieldset>
+                                                                            </div>
+                                                                            <div class="mb-3">
+                                                                                <fieldset class="form-group position-relative has-icon-left">
+                                                                                    <!-- <legend>NIVEAU/LEVEL</legend> -->
+                                                                                    <label for=""></label>
+                                                                                    <input type="hidden" value="<?php echo $id_niveau; ?>" required class="form-control" name="id_niveau">
+                                                                                    </input>
+
+                                                                                </fieldset>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                <?php
+                                                                }
+                                                                ?>
                                                                 <button type="submit" name="print_note" class="btn btn-danger">Print</button>
                                                             </div>
                                                         </div>
