@@ -8,7 +8,7 @@
             <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="bx bx-x d-block d-xl-none font-medium-4 primary"></i><i class="toggle-icon bx bx-disc font-medium-4 d-none d-xl-block primary" data-ticon="bx-disc"></i></a></li>
         </ul>
     </div>
-    <div class="shadow-bottom"></div>
+    <!-- <div class="shadow-bottom"></div> -->
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">
             <li class=" navigation-header"><a href="../../../html/ltr/vertical-menu-template-dark/index.php"><i class="menu-livicon" data-icon="desktop"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span><span class="badge badge-light-danger badge-pill badge-round float-right mr-2">5</span></a>
@@ -18,10 +18,10 @@
                             <?php
                             if ($role == "admin") {
                             ?>
-                                <li><a href="documentation/administrateur.pdf" target="_parent">DOCUMENTATION ADMIN</a></li>
-                                <li><a href="documentation/headmaster.pdf" target="_parent">DOCUMENTATION HEADMASTER</a></li>
-                                <li><a href="documentation/teacher.pdf" target="_parent">DOCUMENTATION TEACHER</a></li>
-                                <li><a href="documentation/comptable.pdf" target="_parent">DOCUMENTATION ACCOUNTANT</a>
+                                <li><a href="documentation/administrateur.pdf" target="_blanck">DOCUMENTATION ADMIN</a></li>
+                                <li><a href="documentation/headmaster.pdf" target="_blanck">DOCUMENTATION HEADMASTER</a></li>
+                                <li><a href="documentation/teacher.pdf" target="_blanck">DOCUMENTATION TEACHER</a></li>
+                                <li><a href="documentation/comptable.pdf" target="_blanck">DOCUMENTATION ACCOUNTANT</a>
                                 </li>
 
 
@@ -31,21 +31,21 @@
                                 # code...
                             } elseif ($role == "headmaster") {
                             ?>
-                                <li><a href="documentation/headmaster.pdf" target="_parent">DOCUMENTATION</a></li>
+                                <li><a href="documentation/headmaster.pdf" target="_blanck">DOCUMENTATION</a></li>
 
                             <?php
 
                                 # code...
                             } elseif ($role == "teacher") {
                             ?>
-                                <li><a href="documentation/teacher.pdf" target="_parent">DOCUMENTATION</a></li>
+                                <li><a href="documentation/teacher.pdf" target="_blanck">DOCUMENTATION</a></li>
 
                             <?php
 
                                 # code...
                             } elseif ($role == "comptable") {
                             ?>
-                                <li> <a href="documentation/comptable.pdf" target="_parent">DOCUMENTATION</a>
+                                <li> <a href="documentation/comptable.pdf" target="_blanck">DOCUMENTATION</a>
                                 </li>
 
                             <?php
@@ -72,6 +72,7 @@
                         <li class=""><a href="#"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="GESTION SCOLAIRE">SCHOOL MANAGEMENT</span></a>
                             <ul class="menu-content">
                                 <li><a href="management.php"><span class="menu-item" data-i18n="NOUVELLE SESSION">NEW ACADEMIC SESSION</span></a></li>
+                                <li><a href="setting.php"><span class="menu-item" data-i18n="parametre">Settings</span></a></li>
                             </ul>
                         </li>
 
@@ -79,7 +80,7 @@
                     }
                     ?>
                     <?php
-                    if ($role == 'comptable' or $role = "admin") { ?>
+                    if ($role == 'comptable' or $role == "admin") { ?>
                         <li class=""><a href="comptable.php"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="COMPTABILITE">ACCOUNTANCY</span></a>
                         </li>
                     <?php
@@ -91,12 +92,13 @@
                 </ul>
             </li>
 
-            <li class=" navigation-header"><span>Academic</span>
+            <li class="navigation-header"><span>Academic</span>
                 <?php
                 if (1) { ?>
-            <li class=" nav-item"><a href="../../../html/ltr/vertical-menu-template-dark/index.php"><i class="menu-livicon" data-icon="desktop"></i><span class="menu-title" data-i18n="">Academic Admin</span><span class="badge badge-light-danger badge-pill badge-round float-right mr-2">7</span></a>
+            <li class="nav-item"><a href="../../../html/ltr/vertical-menu-template-dark/index.php"><i class="menu-livicon" data-icon="desktop"></i><span class="menu-title" data-i18n="">Academic Admin</span><span class="badge badge-light-danger badge-pill badge-round float-right mr-2">7</span></a>
                 <ul class="menu-content">
-                    <li class="active"><a href="student.php"> <i class="menu-livicon" data-icon="user"></i><span class="menu-item" data-i18n="Analytics">STUDENTS</span></a>
+                    <li class="active"></li>
+                    <li><a href="student.php"> <i class="menu-livicon" data-icon="user"></i><span class="menu-item" data-i18n="Analytics">STUDENTS</span></a>
                     </li>
                     <?php
                     if ($role == "admin" or $role == "headmaster" or $role == "secretary" or $role == "comptable") {

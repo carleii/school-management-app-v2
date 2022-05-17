@@ -3,12 +3,12 @@
 <?php
 if (isset($_POST['add_teacher'])) {
     if ($role == "admin" or $role == "headmaster") {
-        $first_name = $_POST['first_name'];
-        $last_name = $_POST['last_name'];
-        $telephone = $_POST['telephone'];
-        $email = $_POST['email'];
-        $adresse = $_POST['adresse'];
-        $disponibilite = addslashes($_POST['disponibilite']);
+        $first_name = get_safe_input ($_POST['first_name']);
+        $last_name = get_safe_input ($_POST['last_name']);
+        $telephone = get_safe_input ($_POST['telephone']);
+        $email = get_safe_input ($_POST['email']);
+        $adresse = get_safe_input ($_POST['adresse']);
+        $disponibilite = get_safe_input ($_POST['disponibilite']);
         $result = $user->add_teacher($first_name, $last_name, $telephone, $email, $adresse, $disponibilite, $matricule_etablissement, $date_academique);
         switch ($result) {
             case 0: ?>
@@ -247,12 +247,12 @@ if (isset($_POST['csv_upload'])) {
                 $i++;
                 continue;
             }
-            $result = $user->add_teacher($cont[2], $cont[1], $cont[3], $cont[4], $cont[5], $cont[6], $matricule_etablissement, $date_academique);
+            $result = $user->add_teacher(get_safe_input ($cont[2]), get_safe_input ($cont[1]), get_safe_input ($cont[3]), get_safe_input ($cont[4]), get_safe_input ($cont[5]), get_safe_input ($cont[6]), $matricule_etablissement, $date_academique);
             //CREATION DE LA LIBRAIRIE PERSONNELLE
             //creation du mot de passe
             $byte = openssl_random_pseudo_bytes(4);
             $pass = bin2hex($byte);
-            $user_ = new user_($cont[2], $cont[1], $cont[4], $pass, '', 2);
+            $user_ = new user_(get_safe_input ($cont[2]), get_safe_input ($cont[1]), get_safe_input ($cont[4]), $pass, '', 2);
             $result = $user_->auth_register(2, $matricule_etablissement);
             if ($result == 1) {
                 //NOTIFICATION PAR MAIL

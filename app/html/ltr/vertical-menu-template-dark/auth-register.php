@@ -8,12 +8,6 @@ require 'classe_package.php';
 <!-- BEGIN: Head-->
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <meta name="description" content="Scolarix is the best of web school software. Creat your shool and manage it as well as a preofessionnal.">
-    <meta name="keywords" content="admin school, school, school manager, web app, Scolarix">
-    <meta name="author" content="Tsimi Jean">
     <title>Register | <?php include 'site_title.php'; ?></title>
     <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
@@ -46,11 +40,11 @@ require 'classe_package.php';
 <!-- END: Head-->
 <?php
 if (isset($_POST["register"])) {
-    $nom = addslashes($_POST["nom"]);
-    $prenom = addslashes($_POST["prenom"]);
-    $tel = $_POST["tel"];
-    $email = $_POST["email"];
-    $password = base64_encode($_POST["password"]);
+    $nom = get_safe_input($_POST["nom"]);
+    $prenom = get_safe_input($_POST["prenom"]);
+    $tel = get_safe_input($_POST["tel"]);
+    $email = get_safe_input($_POST["email"]);
+    $password = get_safe_input (base64_encode($_POST["password"]));
     $user = new user;
     //CHECKING FOR DATABASE
     $result = $user->user_regist($nom, $prenom, $email, $tel, $password);
@@ -70,7 +64,7 @@ if (isset($_POST["register"])) {
         case 1:
             //ENVOI DE MAIL POUR VALIDER LE COMPTE
 
-            //CREATION DE LA LIBRAIRIE 
+            //CREATION DE LA LIBRAIRIE
             $user_ = new user_($nom, $prenom, $email, base64_decode($password), 'me');
             $result = $user_->auth_register();
             //CREATIONDE L'ETABLISSEMENT

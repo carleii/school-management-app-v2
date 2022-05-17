@@ -24,12 +24,6 @@ if (isset($_COOKIE['user_cookie'])) {
 <!-- BEGIN: Head-->
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <meta name="description" content="Scolarix is the best of web school software. Creat your shool and manage it as well as a preofessionnal.">
-    <meta name="keywords" content="admin school, school, school manager, web app, Scolarix">
-    <meta name="author" content="Tsimi Jean">
     <title>Login <?php include 'site_title.php'; ?> </title>
     <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
@@ -63,9 +57,9 @@ if (isset($_COOKIE['user_cookie'])) {
 <?php
 // CONNECTING TREATMENT
 if (isset($_POST["connect"])) {
-    $user_email = $_POST["user_email"];
-    $user_pssw = base64_encode($_POST["user_pssw"]);
-    $date_academique = $_POST["date_academique"];
+    $user_email =get_safe_input($_POST["user_email"]);
+    $user_pssw =get_safe_input(base64_encode($_POST["user_pssw"]));
+    $date_academique =($_POST["date_academique"]);
     $user = new user;
     //SEND THE USER CONNECTION REQUEST
     $result = $user->user_connection($user_pssw, $user_email, $date_academique);
@@ -162,7 +156,7 @@ if (isset($_POST["connect"])) {
                                                 </div> -->
                                                 <form method="POST">
                                                     <div class="form-group mb-50">
-                                                        <label class="text-bold-600" for="user_email">User Name or Email</label>
+                                                        <label class="text-bold-600" autofill  for="user_email">User Name or Email</label>
                                                         <input type="text" class="form-control" id="user_email" name="user_email" placeholder="Nom d'utilisateur" required="">
                                                     </div>
                                                     <div class="form-group">

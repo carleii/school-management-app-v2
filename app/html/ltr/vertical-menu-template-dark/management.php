@@ -3,8 +3,8 @@
 //new academique year add
 if (isset($_POST['add_year'])) {
     if ($role == 'admin') {
-        $year = addslashes($_POST['year']);
-        $result = $user->add_year($matricule_etablissement, $year, $nom_etablissement, $logo, $date_creation, $date_academique, $statut);
+        $year = get_safe_input($_POST['year']);
+        $result = $user->add_year($matricule_etablissement, $year, $nom_etablissement, $logo, $date_creation, $date_academique, $statut,$slogan,$location,$email_s,$tel,$director, $web);
         # code...
     } else {
         # code...
@@ -17,12 +17,6 @@ if (isset($_POST['add_year'])) {
 <!-- BEGIN: Head-->
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <meta name="description" content="Frest admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
-    <meta name="keywords" content="admin template, Frest admin template, dashboard template, flat admin template, responsive admin template, web app">
-    <meta name="author" content="PIXINVENT">
     <title>Management | <?php echo $nom_etablissement; ?></title>
     <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">

@@ -15,7 +15,7 @@ class user
 	public $host = "localhost";
 	public $user = "root";
 	public $pssw = "";
-	public $database = "scolaricx";
+	public $db = "scolaricx";
 	public $query_1 = null;
 	public $matricule_etablissement = null;
 	public $date_academique = null;
@@ -23,7 +23,7 @@ class user
 	function __construct()
 	{
 		try {
-			$this->database = new mysqli($this->host, $this->user, $this->pssw, $this->database) or die("unable to connect");
+			$this->database = new mysqli($this->host, $this->user, $this->pssw, $this->db) or die("unable to connect");
 		} catch (Exception $e) {
 			echo "someting wrong;" . $e;
 			exit();
@@ -102,7 +102,7 @@ class user
 		# code...
 	}
 
-	public function creat_school($Q_name, $Q_logo_name, $Q_logo_path) //creation of a school
+	public function creat_school($Q_name, $Q_logo_name, $Q_logo_path, $statut,$slogan,$location,$email_s,$tel,$director, $web) //creation of a school
 	{
 		$Q_name = htmlentities(addslashes($Q_name));
 		$Q_date_1 = date("Y");
@@ -119,7 +119,7 @@ class user
 		$Q_date_creation = $Q_date_1;
 		try {
 
-			$query = mysqli_query($this->database, "INSERT INTO etablissement values(null, '$Q_matr_school', '$Q_date_academique', '$Q_name', '$Q_logo_name', '$Q_date_creation', 1) ");
+			$query = mysqli_query($this->database, "INSERT INTO etablissement values(null, '$Q_matr_school', '$Q_date_academique', '$Q_name', '$Q_logo_name', '$Q_date_creation', '$statut', '$slogan', '$location', '$email_s', '$tel', '$director', '$web' ) ");
 			if ($query) {
 				if (!empty($Q_logo_path)) {
 					// INSERT THE LOGO IN THE DATA DOC
@@ -145,7 +145,7 @@ class admin extends headmaster
 	function __construct()
 	{
 		try {
-			$this->database = new mysqli($this->host, $this->user, $this->pssw, $this->database) or die("unable to connect");
+			$this->database = new mysqli($this->host, $this->user, $this->pssw, $this->db) or die("unable to connect");
 		} catch (Exception $e) {
 			echo "someting wrong;" . $e;
 			exit();
@@ -156,9 +156,9 @@ class admin extends headmaster
 	public function save_note($matricule_apprenant, $exam_code, $code_discipline, $date_academique, $matricule_etablissement, $indexval)
 	{
 		//VERIFIER QUE LA NOTE N'EXISTE PAS DEJA POUR LE MEME ELEVE POUR LE MEME EXAMEN
-		$matricule_apprenant = addslashes($matricule_apprenant);
-		$exam_code = addslashes($exam_code);
-		$code_discipline = addslashes($code_discipline);
+		$matricule_apprenant = ($matricule_apprenant);
+		$exam_code = ($exam_code);
+		$code_discipline = ($code_discipline);
 		$query = mysqli_query($this->database, "SELECT * FROM note WHERE  matricule_apprenant = '$matricule_apprenant' AND code_examen = '$exam_code' AND code_discipline = '$code_discipline' AND date_academique = '$date_academique' AND matricule_etablissement = '$matricule_etablissement' ");
 		if (mysqli_num_rows($query) == 1) {
 			$query = mysqli_query($this->database, "UPDATE note set note = '$indexval' WHERE  matricule_apprenant = '$matricule_apprenant' AND code_examen = '$exam_code' AND code_discipline = '$code_discipline' AND date_academique = '$date_academique' AND matricule_etablissement = '$matricule_etablissement'  ");
@@ -259,7 +259,7 @@ class admin extends headmaster
 	}
 
 
-	public function add_year($matricule_etablissement, $year, $nom_etablissement, $logo, $date_creation, $date_academique, $statut)
+	public function add_year($matricule_etablissement, $year, $nom_etablissement, $logo, $date_creation, $date_academique, $statut,$slogan,$location,$email_s,$tel,$director, $web)
 	{	//creation of the academic year
 		if ($year == $date_academique) {
 			return -1;
@@ -267,7 +267,7 @@ class admin extends headmaster
 		} else {
 			$logo = addslashes($logo);
 			$nom_etablissement = addslashes($nom_etablissement);
-			$query = mysqli_query($this->database, "INSERT INTO etablissement  VALUES (null, '$matricule_etablissement', '$year', '$nom_etablissement', '$logo', '$date_creation', '$statut')");
+			$query = mysqli_query($this->database, "INSERT INTO etablissement  VALUES (null, '$matricule_etablissement', '$year', '$nom_etablissement', '$logo', '$date_creation', '$statut','$slogan', '$location', '$email_s', '$tel', '$director', '$web' ) ");
 			if ($query) {
 				//keep the same school structure
 				//1.matter
@@ -409,8 +409,6 @@ class admin extends headmaster
 			} else {
 				return 0;
 			}
-		} else {
-			return -1;
 		}
 
 		# code...
@@ -424,7 +422,7 @@ class headmaster extends user
 	function __construct()
 	{
 		try {
-			$this->database = new mysqli($this->host, $this->user, $this->pssw, $this->database) or die("unable to connect");
+			$this->database = new mysqli($this->host, $this->user, $this->pssw, $this->db) or die("unable to connect");
 		} catch (Exception $e) {
 			echo "someting wrong;" . $e;
 			exit();
@@ -458,11 +456,18 @@ class headmaster extends user
 	public function add_class($class_name, $level_id, $matricule_etablissement, $date_academique, $scolarite, $ini, $pssw)
 	{
 		$code_classe = $level_id . $class_name . $date_academique;
+		try {
 		$query = mysqli_query($this->database, "INSERT INTO classe values(null, '$code_classe', '$level_id', '$matricule_etablissement', '$date_academique', '$class_name', '$scolarite', '$ini', '$pssw') ");
 		if ($query) {
 			return 1;
 			# code...
 		} else {
+			return 0;
+		}
+
+			//code...
+		} catch (\Throwable $th) {
+			//throw $th;
 			return 0;
 		}
 		# code...
@@ -483,12 +488,19 @@ class headmaster extends user
 	public function add_matter($matter_name, $matricule_etablissement, $date_academique)
 	{
 		$code_matter = str_replace(" ", "_", $matter_name . $matricule_etablissement . $date_academique);
+		try {
 		$query = mysqli_query($this->database, "INSERT INTO matiere values(null, '$code_matter', '$matricule_etablissement', '$date_academique', '$matter_name') ");
 		if ($query) {
 			return 1;
 			# code...
 		} else {
 			return 0;
+		}
+
+			//code...
+		} catch (\Throwable $th) {
+			return 0;
+			//throw $th;
 		}
 		# code...
 	}
@@ -523,8 +535,6 @@ class headmaster extends user
 
 	public function delete_dis($code_delete_dis, $code_matiere, $matricule_etablissement, $date_academique)
 	{
-		$code_delete_dis = $code_delete_dis;
-		$code_matiere  = $code_matiere;
 		$query = mysqli_query($this->database, "DELETE FROM discipline WHERE code_discipline = '$code_delete_dis' AND code_matiere = '$code_matiere' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
 		if ($query) {
 			$query = mysqli_query($this->database, "DELETE FROM discipline_classe WHERE code_discipline = '$code_delete_dis' AND matricule_etablissement= '$matricule_etablissement' AND date_academique = '$date_academique' ");
@@ -584,15 +594,20 @@ class headmaster extends user
 
 	public function add_dis_class($code_dis, $code_classe, $code_teacher, $hour, $matricule_etablissement, $date_academique)
 	{
-		$code_dis = addslashes($code_dis);
-		$code_classe = addslashes($code_classe);
-		$code_teacher = addslashes($code_teacher);
+		$code_dis = ($code_dis);
+		$code_classe = ($code_classe);
+		$code_teacher = ($code_teacher);
+		try {
 		$query = mysqli_query($this->database, "INSERT INTO discipline_classe values(null, '$code_dis', '$code_classe', '$code_teacher', '$matricule_etablissement', '$date_academique', '$hour') ");
 		if ($query) {
 			return 1;
 			# code...
-		} else {
+		}
+
+			//code...
+		} catch (\Throwable $th) {
 			return 0;
+			//throw $th;
 		}
 		# code...
 	}
@@ -614,7 +629,7 @@ class headmaster extends user
 
 	public function update_dis_class($dis_classe, $dis_teacher, $dis_credit, $matricule_etablissement, $date_academique)
 	{
-		$query = mysqli_query($this->database, "UPDATE discipline_classe SET matricule_enseignant = '$dis_teacher', credit = '$dis_credit' WHERE code_classe = '$dis_classe' AND matricule_etablissement = 'matricule_etablissement' AND date_academique = '$date_academique' ");
+		$query = mysqli_query($this->database, "UPDATE discipline_classe SET matricule_enseignant = '$dis_teacher', credit = '$dis_credit' WHERE code_classe = '$dis_classe' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
 		if ($query) {
 			return 1;
 			# code...
@@ -626,6 +641,20 @@ class headmaster extends user
 
 	public function add_student($nom_apprenant, $prenom_apprenant, $telephone_apprenant, $adresse_apprenant, $other_info_apprenant, $tutor_apprenant, $matricule_etablissement, $code_classe, $date_academique, $ini)
 	{
+		// check if the student already exists
+		$query = mysqli_query($this->database, "SELECT * FROM apprenant WHERE code_classe = '$code_classe' and nom_apprenant = '$nom_apprenant' and prenom_apprenant = '$prenom_apprenant' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
+		if (mysqli_num_rows($query)==1) {
+			return 0;
+			# code...
+		}
+
+		// check if we reach the max amount of student in the classe: 999
+		$query = mysqli_query($this->database, "SELECT count(id) As nbr  FROM apprenant WHERE code_classe = '$code_classe' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
+		$result = mysqli_fetch_assoc($query);
+		if (intval ($result['nbr']) == 999) {
+			return 0;
+			# code...
+		}
 		if (1 == 1) {
 			$matricule_apprenant = date("y") . "THIB" . $ini . "0" . random_int(1, 999);
 			// get random password
@@ -636,19 +665,25 @@ class headmaster extends user
 				# code...
 			}
 			$pass = base64_encode($pass);
+			try {
 			$query = mysqli_query($this->database, "INSERT INTO apprenant values(null, '$matricule_apprenant', '$code_classe', '$matricule_etablissement', '$date_academique', '$nom_apprenant', '$prenom_apprenant', '$telephone_apprenant', '$adresse_apprenant', '$tutor_apprenant', '$other_info_apprenant', '$pass') ");
+			while (!$query) {
+				$matricule_apprenant = date("y") . "THIB" . $ini . "0" . random_int(1, 999);
+				$query = mysqli_query($this->database, "INSERT INTO apprenant values(null, '$matricule_apprenant', '$code_classe', '$matricule_etablissement', '$date_academique', '$nom_apprenant', '$prenom_apprenant', '$telephone_apprenant', '$adresse_apprenant', '$tutor_apprenant', '$other_info_apprenant', '$pass') ");
+				# code...
+			}
 			if ($query) {
-				//CREATION DE LA LIBRAIRIE PERSONNELLE
+				// CREATION DE LA LIBRAIRIE PERSONNELLE
 				$user_ = new user_($nom_apprenant, $prenom_apprenant, $matricule_apprenant, base64_decode($pass), '', 0);
 				$result = $user_->auth_register(0, $matricule_etablissement);
-
 				return 1;
 				# code...
-			} else {
-				return 0;
 			}
-		} else {
-			return -1;
+				//code...
+			} catch (\Throwable $th) {
+				return 0;
+				//throw $th;
+			}
 		}
 
 		# code...
@@ -684,14 +719,18 @@ class headmaster extends user
 		# code...
 	}
 
-	public function change_class($matricule_apprenant, $new_class, $date_academique, $matricule_etablissement)
+	public function change_class($matricule_apprenant, $new_matricule, $new_class, $date_academique, $matricule_etablissement)
 	{
-		$query = mysqli_query($this->database, "UPDATE apprenant SET code_classe = '$new_class' WHERE matricule_apprenant = '$matricule_apprenant' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
+		try {
+		$query = mysqli_query($this->database, "UPDATE apprenant SET code_classe = '$new_class', matricule_apprenant = '$new_matricule'   WHERE matricule_apprenant = '$matricule_apprenant' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
 		if ($query) {
 			return 1;
 			// code...
-		} else {
+		}
+			//code...
+		} catch (\Throwable $th) {
 			return 0;
+			//throw $th;
 		}
 		// code...
 	}
@@ -761,7 +800,7 @@ class comptable extends user
 	function __construct()
 	{
 		try {
-			$this->database = new mysqli($this->host, $this->user, $this->pssw, $this->database) or die("unable to connect");
+			$this->database = new mysqli($this->host, $this->user, $this->pssw, $this->db) or die("unable to connect");
 		} catch (Exception $e) {
 			echo "someting wrong;" . $e;
 			exit();
@@ -854,7 +893,7 @@ class teacher extends user
 	function __construct()
 	{
 		try {
-			$this->database = new mysqli($this->host, $this->user, $this->pssw, $this->database) or die("unable to connect");
+			$this->database = new mysqli($this->host, $this->user, $this->pssw, $this->db) or die("unable to connect");
 		} catch (Exception $e) {
 			echo "someting wrong;" . $e;
 			exit();
@@ -915,7 +954,7 @@ class cookie_session extends user
 	function __construct($Q_date_academique, $Q_user_email)
 	{
 		try {
-			$this->database = new mysqli($this->host, $this->user, $this->pssw, $this->database) or die("unable to connect");
+			$this->database = new mysqli($this->host, $this->user, $this->pssw, $this->db) or die("unable to connect");
 		} catch (Exception $e) {
 			echo "someting wrong;" . $e;
 			exit();
@@ -929,7 +968,20 @@ class cookie_session extends user
 		$this->date_academique = $result_1["date_academique"];
 		$this->cookie_value = $matricule_user . "µ" . $matricule_etablissement . "£" . $this->date_academique;
 		setcookie("user_cookie", $this->cookie_value, time() + 60 * 60);
-		return 1;
 		# code...
 	}
+}
+
+
+// FONCTIONS
+
+/**
+ * Function get_safe_input utilisé pour assainir les données recues par formulaire
+ * @param string $var: donnée reçue en input
+ * @return string
+ */
+function get_safe_input($var)
+{
+   return  strip_tags (addslashes(str_replace("=", "", htmlspecialchars(htmlentities($var)))));
+    # code...
 }

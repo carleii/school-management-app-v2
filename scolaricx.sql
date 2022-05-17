@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : ven. 01 avr. 2022 à 12:47
+-- Généré le : jeu. 12 mai 2022 à 20:41
 -- Version du serveur : 10.4.22-MariaDB
--- Version de PHP : 7.4.27
+-- Version de PHP : 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -70,13 +70,13 @@ CREATE TABLE `classe` (
   `id` int(11) NOT NULL,
   `code_classe` varchar(250) NOT NULL,
   `id_niveau` int(250) DEFAULT NULL,
-  `matricule_etablissement` varchar(250) NOT NULL,
-  `date_academique` varchar(250) NOT NULL,
-  `nom_classe` varchar(250) NOT NULL,
-  `scolarite` varchar(250) NOT NULL,
-  `ini` varchar(50) NOT NULL,
-  `pssw` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `matricule_etablissement` varchar(250) CHARACTER SET utf8mb4 NOT NULL,
+  `date_academique` varchar(250) CHARACTER SET utf8mb4 NOT NULL,
+  `nom_classe` varchar(250) CHARACTER SET utf8mb4 NOT NULL,
+  `scolarite` varchar(250) CHARACTER SET utf8mb4 NOT NULL,
+  `ini` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
+  `pssw` varchar(250) CHARACTER SET utf8mb4 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -328,7 +328,13 @@ CREATE TABLE `etablissement` (
   `nom_etablissement` varchar(250) NOT NULL,
   `logo` varchar(250) DEFAULT NULL,
   `date_creation` varchar(250) NOT NULL,
-  `statut` varchar(250) NOT NULL
+  `statut` varchar(250) NOT NULL,
+  `slogan` varchar(250) NOT NULL,
+  `location` varchar(250) NOT NULL,
+  `email` varchar(250) NOT NULL,
+  `tel` varchar(250) DEFAULT NULL,
+  `director` varchar(250) NOT NULL,
+  `web` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -442,15 +448,15 @@ CREATE TABLE `tranche_paiement` (
 
 CREATE TABLE `utilisateur` (
   `id` int(11) NOT NULL,
-  `matricule_utlisateur` mediumtext NOT NULL,
-  `nom_utilisateur` mediumtext NOT NULL,
-  `prenom_utilisateur` mediumtext NOT NULL,
-  `email_utilisateur` mediumtext NOT NULL,
-  `telephone_utilisateur` mediumtext DEFAULT NULL,
-  `pssw` mediumtext NOT NULL,
-  `role` mediumtext NOT NULL,
-  `matricule_etablissement` mediumtext DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `matricule_utlisateur` mediumtext CHARACTER SET utf8mb4 NOT NULL,
+  `nom_utilisateur` mediumtext CHARACTER SET utf8mb4 NOT NULL,
+  `prenom_utilisateur` mediumtext CHARACTER SET utf8mb4 NOT NULL,
+  `email_utilisateur` mediumtext CHARACTER SET utf8mb4 NOT NULL,
+  `telephone_utilisateur` mediumtext CHARACTER SET utf8mb4 DEFAULT NULL,
+  `pssw` mediumtext CHARACTER SET utf8mb4 NOT NULL,
+  `role` mediumtext CHARACTER SET utf8mb4 NOT NULL,
+  `matricule_etablissement` mediumtext CHARACTER SET utf8mb4 DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Index pour les tables déchargées
@@ -461,6 +467,7 @@ CREATE TABLE `utilisateur` (
 --
 ALTER TABLE `apprenant`
   ADD PRIMARY KEY (`matricule_apprenant`,`matricule_etablissement`,`date_academique`) USING BTREE,
+  ADD UNIQUE KEY `unicity` (`nom_apprenant`,`prenom_apprenant`,`code_classe`) USING BTREE,
   ADD KEY `id` (`id`),
   ADD KEY `code_classe` (`code_classe`);
 
@@ -478,6 +485,7 @@ ALTER TABLE `calendrier`
 --
 ALTER TABLE `classe`
   ADD PRIMARY KEY (`code_classe`) USING BTREE,
+  ADD UNIQUE KEY `unicity` (`nom_classe`,`id_niveau`,`date_academique`,`matricule_etablissement`) USING BTREE,
   ADD KEY `id` (`id`) USING BTREE,
   ADD KEY `classe_ibfk_1` (`id_niveau`),
   ADD KEY `pssw` (`pssw`);
@@ -570,6 +578,7 @@ ALTER TABLE `cldnotif`
 --
 ALTER TABLE `clduser_`
   ADD PRIMARY KEY (`CODE_USER`),
+  ADD UNIQUE KEY `F_NAME` (`F_NAME`,`L_NAME`),
   ADD KEY `ID` (`ID`);
 
 --
@@ -604,7 +613,8 @@ ALTER TABLE `discipline_classe`
   ADD PRIMARY KEY (`id`) USING BTREE,
   ADD UNIQUE KEY `code_discipline` (`code_discipline`,`code_classe`),
   ADD KEY `code_classe` (`code_classe`),
-  ADD KEY `matricule_enseignant` (`matricule_enseignant`);
+  ADD KEY `matricule_enseignant` (`matricule_enseignant`),
+  ADD KEY `matricule_etablissement` (`matricule_etablissement`,`date_academique`);
 
 --
 -- Index pour la table `enseignant`
@@ -836,10 +846,23 @@ ALTER TABLE `utilisateur`
 --
 
 --
+-- Contraintes pour la table `apprenant`
+--
+ALTER TABLE `apprenant`
+  ADD CONSTRAINT `apprenant_ibfk_1` FOREIGN KEY (`code_classe`) REFERENCES `classe` (`code_classe`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `calendrier`
+--
+ALTER TABLE `calendrier`
+  ADD CONSTRAINT `calendrier_ibfk_1` FOREIGN KEY (`code_classe`) REFERENCES `classe` (`code_classe`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `calendrier_ibfk_2` FOREIGN KEY (`code_discipline`) REFERENCES `discipline` (`code_discipline`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Contraintes pour la table `classe`
 --
 ALTER TABLE `classe`
-  ADD CONSTRAINT `classe_ibfk_1` FOREIGN KEY (`id_niveau`) REFERENCES `niveau` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `classe_ibfk_1` FOREIGN KEY (`id_niveau`) REFERENCES `niveau` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `cldallow`
@@ -912,21 +935,23 @@ ALTER TABLE `clduser_part_of_cloud`
 -- Contraintes pour la table `compta`
 --
 ALTER TABLE `compta`
-  ADD CONSTRAINT `compta_ibfk_3` FOREIGN KEY (`id_tranche`) REFERENCES `tranche_paiement` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `compta_ibfk_4` FOREIGN KEY (`matricule_apprenant`) REFERENCES `apprenant` (`matricule_apprenant`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `compta_ibfk_3` FOREIGN KEY (`id_tranche`) REFERENCES `tranche_paiement` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `compta_ibfk_4` FOREIGN KEY (`matricule_apprenant`) REFERENCES `apprenant` (`matricule_apprenant`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `compta_ibfk_5` FOREIGN KEY (`code_classe`) REFERENCES `classe` (`code_classe`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `discipline`
 --
 ALTER TABLE `discipline`
-  ADD CONSTRAINT `discipline_ibfk_1` FOREIGN KEY (`code_matiere`) REFERENCES `matiere` (`code_matiere`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `discipline_ibfk_1` FOREIGN KEY (`code_matiere`) REFERENCES `matiere` (`code_matiere`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `discipline_classe`
 --
 ALTER TABLE `discipline_classe`
-  ADD CONSTRAINT `discipline_classe_ibfk_2` FOREIGN KEY (`code_discipline`) REFERENCES `discipline` (`code_discipline`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `discipline_classe_ibfk_3` FOREIGN KEY (`matricule_enseignant`) REFERENCES `enseignant` (`matricule_enseignant`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `discipline_classe_ibfk_1` FOREIGN KEY (`code_classe`) REFERENCES `classe` (`code_classe`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `discipline_classe_ibfk_2` FOREIGN KEY (`code_discipline`) REFERENCES `discipline` (`code_discipline`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `discipline_classe_ibfk_3` FOREIGN KEY (`matricule_enseignant`) REFERENCES `enseignant` (`matricule_enseignant`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `niveau`
@@ -938,9 +963,15 @@ ALTER TABLE `niveau`
 -- Contraintes pour la table `note`
 --
 ALTER TABLE `note`
-  ADD CONSTRAINT `note_ibfk_2` FOREIGN KEY (`code_examen`) REFERENCES `examen` (`code_examen`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `note_ibfk_3` FOREIGN KEY (`code_discipline`) REFERENCES `discipline` (`code_discipline`) ON DELETE CASCADE,
-  ADD CONSTRAINT `note_ibfk_4` FOREIGN KEY (`matricule_apprenant`) REFERENCES `apprenant` (`matricule_apprenant`) ON DELETE CASCADE;
+  ADD CONSTRAINT `note_ibfk_2` FOREIGN KEY (`code_examen`) REFERENCES `examen` (`code_examen`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `note_ibfk_3` FOREIGN KEY (`code_discipline`) REFERENCES `discipline` (`code_discipline`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `note_ibfk_4` FOREIGN KEY (`matricule_apprenant`) REFERENCES `apprenant` (`matricule_apprenant`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `tranche_paiement`
+--
+ALTER TABLE `tranche_paiement`
+  ADD CONSTRAINT `tranche_paiement_ibfk_1` FOREIGN KEY (`code_classe`) REFERENCES `classe` (`code_classe`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

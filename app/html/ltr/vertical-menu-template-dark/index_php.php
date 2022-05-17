@@ -30,6 +30,12 @@ if (!isset($_COOKIE['user_cookie'])) {
 	$result = mysqli_fetch_assoc($query);
 	$logo = $result['logo'];
 	$statut = $result['statut'];
+	$slogan = $result['slogan'];
+	$location = $result['location'];
+	$email_s = $result['email'];
+	$tel = $result['tel'];
+	$director = $result['director'];
+	$web = $result['web'];
 	$date_creation = $result['date_creation'];
 	$nom_etablissement = $result['nom_etablissement'];
 	$date_academique = $tab_1[1];

@@ -4,11 +4,11 @@
 <?php
 if (isset($_POST['add_class'])) {
     if ($role == "admin" or $role == "headmaster") {
-        $class_name = addslashes($_POST['class_name']);
-        $level_id = $_POST['level_id'];
-        $scolarite = $_POST['scolarite'];
-        $ini = $_POST['ini'];
-        $pssw = base64_encode($_POST['pssw']);
+        $class_name = get_safe_input ($_POST['class_name']);
+        $level_id = get_safe_input ($_POST['level_id']);
+        $scolarite = get_safe_input ($_POST['scolarite']);
+        $ini = get_safe_input ($_POST['ini']);
+        $pssw = base64_encode(get_safe_input ($_POST['pssw']));
         $result = $user->add_class($class_name, $level_id, $matricule_etablissement, $date_academique, $scolarite, $ini, $pssw);
         switch ($result) {
             case 0: ?>
@@ -162,13 +162,7 @@ if (isset($_POST['delete_class'])) {
 <!-- BEGIN: Head-->
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <meta name="description" content="Frest admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
-    <meta name="keywords" content="admin template, Frest admin template, dashboard template, flat admin template, responsive admin template, web app">
-    <meta name="author" content="PIXINVENT">
-    <title><?php echo $retVal = ($statut == 1) ? "CLASS" : "SPECIALITY"; ?> | <?php echo $nom_etablissement; ?></title>
+    <title><?php echo $retVal = ($statut == 1) ? "CLASS" : "SPECIALITY"; ?> | <?php echo "$nom_etablissement"; ?></title>
     <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700" rel="stylesheet">
@@ -201,11 +195,6 @@ if (isset($_POST['delete_class'])) {
 </head>
 <?php
 if (isset($_POST['csv_upload'])) {
-?>
-    <script type="text/javascript" language="javascript">
-        alert("Wait while data are loading....");
-    </script>
-    <?php
     $file = $_FILES['csv_file']['tmp_name'];
     $ext = explode(".", $_FILES['csv_file']['name']);
     $handle = fopen($file, "r");
@@ -321,7 +310,7 @@ if (isset($_POST['csv_upload'])) {
                                             </select>
                                             <label class="custom-input-label" for="level_csv">Level</label>
                                         </div>
-                                        <button type="submit" name="csv_upload" class="btn btn-success btn-block my-2">
+                                        <button type="submit" name="csv_upload" onclick="alert('Info.. \n Wait while data are loading')"  class="btn btn-success btn-block my-2">
                                             Upload file's data
                                         </button>
 
@@ -526,15 +515,21 @@ if (isset($_POST['csv_upload'])) {
                                                             </span>
                                                         </div>
                                                         <div class="pr-50">
+                                                            <a href="classe_profile.php?ktsp=<?php echo base64_encode($result['id'])  ?>">
                                                             <div class="avatar">
-                                                                <img src="logo_data/<?php echo $logo; ?>" alt="avtar img holder">
+                                                                <img src="logo_data/<?php echo "$logo"; ?>" alt="avtar img holder">
                                                             </div>
+
+                                                        </a>
                                                         </div>
                                                         <div class="media-body">
                                                             <div class="user-details">
+                                                            <a href="classe_profile.php?ktsp=<?php echo base64_encode($result['id'])  ?>">
                                                                 <div class="mail-items">
                                                                     <span class="list-group-item-text text-truncate"><?php echo $result['nom_classe']; ?></span>
                                                                 </div>
+                                                            </a>
+
                                                                 <?php
                                                                 $id_niveau = $result['id_niveau'];
                                                                 $query_1 = mysqli_query($database, "SELECT * FROM niveau WHERE id = '$id_niveau' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");

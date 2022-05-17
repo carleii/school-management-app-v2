@@ -5,7 +5,7 @@ if (date("Y") == $date_creation + 1) {
     <p class="clearfix mb-0">
       <span class="float-left d-inline-block"><?php echo date("Y") ?> &copy; </span>
       <span class="float-right d-sm-inline-block d-none">
-        <a class="text-uppercase" href="mailto:devcarle@gmail.com" target="_blank">
+        <a class="text-uppercase" onclick="alert('Mailing.. \n You are going to send a mail to the administrator')"  href="mailto:devcarle@gmail.com" target="_blank">
           <h1>NEED UPDATES.. CONTACT ADMINISTRATOR</h1>
         </a>
       </span>

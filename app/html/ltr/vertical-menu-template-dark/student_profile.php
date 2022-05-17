@@ -29,12 +29,12 @@ if (isset($_GET['ktsp'])) {
         //UPDATE STUDENT INFOS
         if (isset($_POST['update_student'])) {
             if ($role == 'admin' or $role == 'headmaster') {
-                $nom_apprenant = $_POST['nom_apprenant'];
-                $prenom_apprenant = $_POST['prenom_apprenant'];
-                $telephone = $_POST['telephone_apprenant'];
-                $adresse = $_POST['adresse_apprenant'];
-                $information_tierce = $_POST['other_info_apprenant'];
-                $tutor_apprenant = $_POST['tutor_apprenant'];
+                $nom_apprenant = get_safe_input ($_POST['nom_apprenant']);
+                $prenom_apprenant = get_safe_input ($_POST['prenom_apprenant']);
+                $telephone = get_safe_input ($_POST['telephone_apprenant']);
+                $adresse = get_safe_input ($_POST['adresse_apprenant']);
+                $information_tierce = get_safe_input ($_POST['other_info_apprenant']);
+                $tutor_apprenant = get_safe_input ($_POST['tutor_apprenant']);
                 $result = mysqli_query($database, "UPDATE apprenant SET nom_apprenant = '$nom_apprenant', prenom_apprenant = '$prenom_apprenant', telephone = '$telephone', adresse = '$adresse', contact_parentale = '$contact_parentale', information_tierce = '{$information_tierce}' WHERE matricule_apprenant = '$matricule_apprenant' ");
                 # code...
             } else {
@@ -46,12 +46,21 @@ if (isset($_GET['ktsp'])) {
         if (isset($_POST['change_class'])) {
             if ($role == 'admin' or $role == 'headmaster') {
                 $code_classe = $_POST['new_class'];
-                $result = $user->change_class($matricule_apprenant, $new_class, $date_academique, $matricule_etablissement);
-                // $query = mysqli_query($database, "UPDATE compta SET code_classe = '$new_class' WHERE matricule_apprenant = '$matricule_apprenant' ");
+                $query = mysqli_query($database, "SELECT * from classe WHERE code_classe = '$code_classe' ");
+                $result = mysqli_fetch_assoc($query);
+                $ini = $result['ini'];
+                $new_matricule =date("y") . "THIB" . $ini . "0" . random_int(1, 999);
+                $result = 0;
+                while ($result == 0) {
+                $new_matricule =date("y") . "THIB" . $ini . "0" . random_int(1, 999);
+                $result = $user->change_class($matricule_apprenant, $new_matricule, $code_classe, $date_academique, $matricule_etablissement);
+                }
                 switch ($result) {
                     case 1:
+                        $matricule_apprenant = $new_matricule;
+                        $query = mysqli_query($database, "UPDATE compta SET code_classe = '$code_classe' WHERE matricule_apprenant = '$new_matricule' ");
 ?>
-                        <div class="swal2-container swal2-center swal2-fade swal2-shown" style="overflow-y: auto;">
+                        <!-- <div class="swal2-container swal2-center swal2-fade swal2-shown" style="overflow-y: auto;">
                             <div aria-labelledby="swal2-title" aria-describedby="swal2-content" class="swal2-popup swal2-modal swal2-show" tabindex="-1" role="dialog" aria-live="assertive" aria-modal="true" style="display: flex;">
                                 <div class="swal2-content">
                                     <div id="swal2-content" style="display: block;"><?php echo 'The student class have been updated'; ?></div>
@@ -72,7 +81,7 @@ if (isset($_GET['ktsp'])) {
                                     <a href=""><button type="button" class="swal2-confirm btn btn-success" aria-label="">ok</button></a>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                     <?php
                         # code...
@@ -204,7 +213,7 @@ if (isset($_GET['ktsp'])) {
 if (isset($_POST['regler_tranche'])) {
     if ($role == 'comptable' or $role == "admin") {
         $id_tranche = $_POST['id_tranche'];
-        $montant_tranche = $_POST['montant_tranche'];
+        $montant_tranche = get_safe_input ($_POST['montant_tranche']);
         $jour = $_POST['jour'];
         $result = $user->regler_tranche($id_tranche, $montant_tranche, $jour, $matricule_apprenant, $code_classe, $matricule_etablissement, $date_academique, $name);
         switch ($result) {
@@ -431,7 +440,7 @@ if (isset($_POST['delete_tranche'])) {
 if (isset($_POST['save'])) {
     if ($role == 'teacher' or $role == "admin") {
         $bool = 1;
-        $exam_code = $_POST['exam_code'];
+        $exam_code = ($_POST['exam_code']);
         $query = mysqli_query($database, "SELECT * FROM discipline_classe WHERE code_classe = '$code_classe' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
         while ($result = mysqli_fetch_assoc($query)) {
             $code_discipline = $result['code_discipline'];
@@ -833,7 +842,7 @@ if (isset($_POST['delete_A_s'])) {
                                                                                     <div class="card-footer p-0">
                                                                                         <span class=" float-sm-right d-flex flex-sm-row flex-column justify-content-end">
                                                                                             <!-- <button class="btn btn-light-primary mr-0 my-1 my-sm-0 mr-sm-1">Preview</button> -->
-                                                                                            <button type="submit" name="regler_tranche" class="btn btn-danger">Regler</button>
+                                                                                            <button type="submit" name="regler_tranche" class="btn btn-success">Payement</button>
                                                                                         </span>
                                                                                     </div>
                                                                                 </form>
@@ -861,13 +870,9 @@ if (isset($_POST['delete_A_s'])) {
                                                                         $id_tranche = null;
                                                                         $m = 0;
                                                                         $mm = 0;
-                                                                        $query = mysqli_query($database, "SELECT * FROM compta WHERE matricule_apprenant = '$matricule_apprenant' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ORDER BY id_tranche desc ");
+                                                                        $query = mysqli_query($database, "SELECT distinct(id_tranche) As disIdtranche FROM compta WHERE matricule_apprenant = '$matricule_apprenant' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ORDER BY id_tranche desc ");
                                                                         while ($result = mysqli_fetch_assoc($query)) {
-                                                                            if ($id_tranche == $result['id_tranche']) {
-                                                                                continue;
-                                                                                # code...
-                                                                            }
-                                                                            $id_tranche = $result['id_tranche'];
+                                                                            $id_tranche = $result['disIdtranche'];
                                                                             $query_0 = mysqli_query($database, "SELECT * FROM tranche_paiement WHERE id = '$id_tranche' AND date_academique = '$date_academique' AND matricule_etablissement = '$matricule_etablissement' ");
                                                                             if (mysqli_num_rows($query_0) == 0) {
                                                                                 continue;
