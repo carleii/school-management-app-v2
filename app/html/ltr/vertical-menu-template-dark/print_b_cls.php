@@ -130,7 +130,7 @@ while ($result = mysqli_fetch_assoc($query)) {
                     <div class="row">
                         <div class="col-1">
                             <div class="user-profile-images">
-                                <img src="logo_data/<?php echo $logo ?>" style="margin-left: 50px;" class="user-profile-image rounded" alt="school logo" height="50" width="90">
+                                <img src="logo_data/<?php echo "$logo" ?>" style="margin-left: 50px;" class="user-profile-image rounded" alt="school logo" height="50" width="90">
                             </div>
                         </div>
                         <div class="col-11">
@@ -216,7 +216,7 @@ while ($result = mysqli_fetch_assoc($query)) {
 
                             $codeContents = $matricule_apprenant;
 
-                            // we need to generate filename somehow, 
+                            // we need to generate filename somehow,
                             // with md5 or with database ID used to obtains $codeContents...
                             $fileName = base64_encode($codeContents) . '.png';
                             // $fileName = uniqid() . base64_encode($codeContents) . '.png';
@@ -439,7 +439,7 @@ while ($result = mysqli_fetch_assoc($query)) {
                     <!-- <div class="row" style="position: fixed; bottom:0; width:100%">
                         <div class="col-1">
                             <div class="user-profile-images">
-                                <img src="logo_data/<?php echo $logo ?>" style="margin-left: 50px;" class="user-profile-image rounded" alt="user profile image" height="57" width="50">
+                                <img src="logo_data/<?php echo "$logo "?>" style="margin-left: 50px;" class="user-profile-image rounded" alt="user profile image" height="57" width="50">
                             </div>
                         </div>
                         <div class="col-11">

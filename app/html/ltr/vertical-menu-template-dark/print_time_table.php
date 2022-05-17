@@ -76,16 +76,16 @@
             <div class="row">
                 <div class="col-1">
                     <div class="user-profile-images">
-                        <img src="logo_data/<?php echo $logo ?>" style="margin-left: 50px;" class="user-profile-image rounded" alt="school logo" height="107" width="90">
+                        <img src="logo_data/<?php echo "$logo" ?>" style="margin-left: 50px;" class="user-profile-image rounded" alt="school logo" height="107" width="90">
                     </div>
                 </div>
                 <div class="col-11">
                     <center>
                         <span style="font-size : 20px">
-                            <h2><b><?php echo $nom_etablissement ?></b></h2>
+                            <h2><b><?php echo "$nom_etablissement" ?></b></h2>
                         </span>
                         <span style="font-size : 20px">
-                            <h2> <b> <?php echo $nom_etablissement ?> </b></h2>
+                            <h2> <b> <?php echo "$nom_etablissement" ?> </b></h2>
                             <h3>TIME TABLE/ EMPLOI DE TEMPS</h3>
                             <?php
                             if (isset($_GET['ktsp'])) {
@@ -226,7 +226,7 @@
                     <hr>
                         <div class="col-1">
                             <div class="user-profile-images">
-                                <img src="logo_data/<?php echo $logo ?>" style="margin-left: 50px;" class="user-profile-image rounded" alt="user profile image" height="57" width="50">
+                                <img src="logo_data/<?php echo "$logo" ?>" style="margin-left: 50px;" class="user-profile-image rounded" alt="user profile image" height="57" width="50">
                             </div>
                         </div>
                         <div class="col-11">
@@ -235,7 +235,7 @@
                                     <h6 style="color : red"><b><i><?php echo htmlspecialchars_decode ($slogan) ?></i></b></h6>
                                 </span>
                                 <span style="font-size: 20px;">
-                                    <h6><b><i><?php echo htmlspecialchars_decode ($location) ?> Email: <i><?php echo $email_s ?></i> <!-- Campus de Douala / Village, face PICASO --></i></b></h6>
+                                    <h6><b><i><?php echo htmlspecialchars_decode ($location) ?> Email: <i><?php echo "$email_s "?></i> <!-- Campus de Douala / Village, face PICASO --></i></b></h6>
 
                                 </span>
                                 <span style="font : cursive 20px">

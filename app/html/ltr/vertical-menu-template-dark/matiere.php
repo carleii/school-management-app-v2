@@ -150,7 +150,7 @@ if (isset($_POST['delete_matter'])) {
 <!-- BEGIN: Head-->
 
 <head>
-    <title>Matter | <?php echo $nom_etablissement; ?></title>
+    <title>Matter | <?php echo "$nom_etablissement"; ?></title>
     <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700" rel="stylesheet">
@@ -444,7 +444,7 @@ if (isset($_POST['csv_upload'])) {
                                                         <div class="pr-50">
                                                             <a href="matiere_profile.php?ktsp=<?php echo $result['id'] ?>">
                                                             <div class="avatar">
-                                                                <img src="logo_data/<?php echo $logo; ?>" alt="avtar img holder">
+                                                                <img src="logo_data/<?php echo "$logo"; ?>" alt="avtar img holder">
                                                             </div>
                                                 </a>
                                                         </div>

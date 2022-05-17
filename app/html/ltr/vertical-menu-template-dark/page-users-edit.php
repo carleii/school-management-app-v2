@@ -258,7 +258,7 @@ if (isset($_POST['add_user'])) {
                                                     </div>
                                                     <div class="form-group">
                                                         <label>School</label>
-                                                        <input type="text" class="form-control" readonly="" value="<?php echo $nom_etablissement ?>" placeholder="<?php echo $nom_etablissement ?>">
+                                                        <input type="text" class="form-control" readonly="" value="<?php echo "$nom_etablissement" ?>" placeholder="<?php echo "$nom_etablissement" ?>">
                                                     </div>
                                                     <div class="form-group">
                                                         <!-- <label>You can left the user choose his own password and left this field empty </label> -->

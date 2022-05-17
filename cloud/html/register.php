@@ -19,8 +19,6 @@ if (isset($_POST['create_new_acc'])) {
       case 1:
          header("location: login.php");
          exit();
-         // code...
-         break;
       case 3:
          $message .= "<h5 class=\" text-warning\"><i class=\"icon-user-unfollow text-warning\"></i> <span>User name Already existe. if is you please Sign in instead.</span></h5>";
          break;

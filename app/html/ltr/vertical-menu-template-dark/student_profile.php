@@ -731,7 +731,7 @@ if (isset($_POST['delete_A_s'])) {
                                         <!-- user timeline image -->
                                         <img src="../../../app-assets/images/profile/post-media/profile-banner-co.jpg" class="img-fluid rounded-top user-timeline-image" alt="user timeline image">
                                         <!-- user profile image -->
-                                        <img src="logo_data/<?php echo $logo ?>" class="user-profile-image rounded" alt="user profile image" height="140" width="140">
+                                        <img src="logo_data/<?php echo "$logo" ?>" class="user-profile-image rounded" alt="user profile image" height="140" width="140">
                                     </div>
                                     <div class="user-profile-text">
                                         <h4 class="mb-0 text-bold-500 profile-text-color">
@@ -809,7 +809,7 @@ if (isset($_POST['delete_A_s'])) {
                                                                                     <div class="form-group row">
                                                                                         <div class="col-sm-1 col-2">
                                                                                             <div class="avatar">
-                                                                                                <img src="logo_data/<?php echo $logo ?>" alt="user image" width="32" height="32">
+                                                                                                <img src="logo_data/<?php echo "$logo" ?>" alt="user image" width="32" height="32">
                                                                                                 <span class="avatar-status-online"></span>
                                                                                             </div>
                                                                                         </div>
@@ -1271,7 +1271,7 @@ if (isset($_POST['delete_A_s'])) {
                                                             <div class="col-12">
                                                                 <div class="row">
                                                                     <div class="col-12 col-sm-3 text-center mb-1 mb-sm-0">
-                                                                        <img src="logo_data/<?php echo $logo ?>" class="rounded" alt="group image" height="120" width="120" />
+                                                                        <img src="logo_data/<?php echo "$logo "?>" class="rounded" alt="group image" height="120" width="120" />
                                                                     </div>
                                                                     <div class="col-12 col-sm-9">
                                                                         <div class="row">
