@@ -180,7 +180,7 @@ while ($result = mysqli_fetch_assoc($query)) {
                                 </div>
                                 <div class="media d-flex align-items-center mb-1">
                                     <span class="float-right" style="margin-left: 60px">
-                                        <strong>SPECIALITE (SPECIALITY)</strong>
+                                        <strong><?php echo $retVal = ($statut == 1) ? "CLASSE (CLASS)" : "SPECIALITE (SPECIALITY)"; ?></strong>
                                     </span>
                                     <div class="media-body ml-1">
                                         <h6 class="media-heading mb-0" style="text-align:justify;"><?php echo $nom_classe; ?></h6>
@@ -218,7 +218,8 @@ while ($result = mysqli_fetch_assoc($query)) {
 
                             // we need to generate filename somehow, 
                             // with md5 or with database ID used to obtains $codeContents...
-                            $fileName = uniqid() . base64_encode($codeContents) . '.png';
+                            $fileName = base64_encode($codeContents) . '.png';
+                            // $fileName = uniqid() . base64_encode($codeContents) . '.png';
                             $pngAbsoluteFilePath = $tempDir . $fileName;
                             $urlRelativeFilePath = $tempDir . $fileName;
 

@@ -222,28 +222,30 @@
 
             <div class="sidenav-overlay"></div>
             <div class="drag-target"></div>
-            <!-- <div class="row" style="position: fixed; bottom:0; width:100%">
-                <div class="col-1">
-                    <div class="user-profile-images">
-                        <img src="logo_data/<?php echo $logo ?>" style="margin-left: 50px;" class="user-profile-image rounded" alt="user profile image" height="57" width="50">
+                    <div class="row" style="position: fixed; bottom:0; width:100%">
+                    <hr>
+                        <div class="col-1">
+                            <div class="user-profile-images">
+                                <img src="logo_data/<?php echo $logo ?>" style="margin-left: 50px;" class="user-profile-image rounded" alt="user profile image" height="57" width="50">
+                            </div>
+                        </div>
+                        <div class="col-11">
+                            <center>
+                                <span style="font-size: 20px;">
+                                    <h6 style="color : red"><b><i><?php echo htmlspecialchars_decode ($slogan) ?></i></b></h6>
+                                </span>
+                                <span style="font-size: 20px;">
+                                    <h6><b><i><?php echo htmlspecialchars_decode ($location) ?> Email: <i><?php echo $email_s ?></i> <!-- Campus de Douala / Village, face PICASO --></i></b></h6>
+
+                                </span>
+                                <span style="font : cursive 20px">
+                                    <h6><b><i>telephone :<strong><?php echo $tel ?> web :</strong><?php echo $web ?> <strong> <?php echo $tel ?>.</strong></i></b></h6>
+                                </span>
+
+                            </center>
+                        </div>
+
                     </div>
-                </div>
-                <div class="col-11">
-                    <center>
-                        <span style="font-size: 20px;">
-                            <h6 style="color : red"><b><i>Le pôle de l'execellence Universitaire pour la formation Profssionnelle</i></b></h6>
-                        </span>
-                        <span style="font-size: 20px;">
-                            <h6><b><i>Campus de Bafoussam / Entrée de la ville Email: <i>tchonanguniversity@yahoo.com</i> Campus de Douala / Village, face PICASO</i></b></h6>
-                        </span>
-                        <span style="font : cursive 20px">
-                            <h6><b><i><strong>Tel: 675-246-10-08 690-98-65-95. web</strong>www.tchonanguniversity.org <strong>Tel: 675-246-10-08 690-98-65-95.</strong></i></b></h6>
-                        </span>
-
-                    </center>
-                </div>
-
-            </div> -->
 
             <!-- BEGIN: Footer-->
             <?php include 'footer.php'; ?>

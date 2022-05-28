@@ -15,11 +15,18 @@ if (isset($_GET['kpjsc']) and !empty($_GET['kpjsc'])) {
 <?php
 //ADD SCHOOL
 if (isset($_POST["add_school"])) {
-    $full_name = $_POST["full_name"];
-    $logo_name = $_FILES["logo"]["name"];
-    $logo_path = $_FILES["logo"]["tmp_name"];
+    $full_name =get_safe_input($_POST["full_name"]);
+    $slogan = get_safe_input($_POST["slogan"]);
+    $location =get_safe_input($_POST["location"]);
+    $email_s =get_safe_input($_POST["email"]);
+    $tel =get_safe_input($_POST["tel"]);
+    $director =get_safe_input($_POST["director"]);
+    $web =get_safe_input($_POST["web"]);
+    $logo_name = get_safe_input($_FILES["logo"]["name"]);
+    $logo_path = get_safe_input($_FILES["logo"]["tmp_name"]);
+    $statut =  $_POST['statut'];
     $user = new user;
-    $result = $user->creat_school($full_name, $logo_name, $logo_path);
+    $result = $user->creat_school($full_name, $logo_name, $logo_path, $statut, $slogan,$location,$email_s,$tel,$director,$web);
     if ($result == false) {
         # code...
     } else {
@@ -30,9 +37,8 @@ if (isset($_POST["add_school"])) {
         $query = mysqli_query($database, "UPDATE utilisateur SET matricule_etablissement = '$matricule_etablissement' WHERE email_utilisateur = '$email'");
         //UPDATE THE CLOUD
         $query = mysqli_query($database, "UPDATE clduser_ SET MATRICULE_ETABLISSEMENT = '$matricule_etablissement' WHERE CODE_USER = '$email' ");
-        //IF THE QUERY WORK SET THE COOKIE 
+        //IF THE QUERY WORK SET THE COOKIE
         if ($query) {
-            $query = mysqli_query($database, "SELECT * utilisateur WHERE email_utlisateur = '$email' ");
             header("Location: index.php");
             $cookie = new cookie_session($date_academique, $email);
             # code...
@@ -46,12 +52,6 @@ if (isset($_POST["add_school"])) {
 <!-- BEGIN: Head-->
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <meta name="description" content="Scolarix is the best of web school software. Creat your shool and manage it as well as a preofessionnal.">
-    <meta name="keywords" content="admin school, school, school manager, web app, Scolarix">
-    <meta name="author" content="Tsimi Jean">
     <title>Creat a School | <?php include 'site_title.php'; ?></title>
     <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
@@ -121,8 +121,46 @@ if (isset($_POST["add_school"])) {
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-12 mb-50">
-                                                            <label for="l1">Lycee/Colleage</label>
-                                                            <input type="radio" name="statut" value="1" class="" required id="l1" title="What is your type of school">
+                                                            <label for="">Slogan</label>
+                                                            <input type="text" class="form-control" name="slogan" required="" id="" placeholder="">
+                                                        </div>
+                                                    </div>
+                                                                                                        <div class="form-row">
+                                                        <div class="form-group col-md-12 mb-50">
+                                                            <label for="">Location</label>
+                                                            <input type="text" class="form-control" name="location" required="" id="" placeholder="">
+                                                        </div>
+                                                    </div>
+                                                                                                        <div class="form-row">
+                                                        <div class="form-group col-md-12 mb-50">
+                                                            <label for="">Email</label>
+                                                            <input type="email" class="form-control" name="email" required="" id="" placeholder="">
+                                                        </div>
+                                                    </div>
+                                                                                                        <div class="form-row">
+                                                        <div class="form-group col-md-12 mb-50">
+                                                            <label for="">Phone (international format)</label>
+                                                            <input type="tel" class="form-control" name="tel"  placeholder="">
+                                                        </div>
+                                                    </div>
+                                                                                                        <div class="form-row">
+                                                        <div class="form-group col-md-12 mb-50">
+                                                            <label for="">Director name</label>
+                                                            <input type="text" class="form-control" name="director" required="" id="" placeholder="">
+                                                        </div>
+                                                    </div>
+                                                                                                                                                            <div class="form-row">
+                                                        <div class="form-group col-md-12 mb-50">
+                                                            <label for="">Website</label>
+                                                            <input type="text" class="form-control" name="web"  id="" placeholder="">
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12 mb-50">
+                                                            <label for="l1">Lycee/College</label>
+                                                            <input type="radio" name="statut" value="1" class="" required id="l1" title="What is your type of school"><br>
                                                             <label for="l2">University/Superior School</label>
                                                             <input type="radio" name="statut" value="2" class="" required checked id="l2" title="What is your type of school">
 

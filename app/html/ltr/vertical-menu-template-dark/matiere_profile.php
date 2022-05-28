@@ -23,7 +23,7 @@ if (isset($_GET['ktsp'])) {
 
 if (isset($_POST['add_dis'])) {
     if ($role == 'admin' or $role == 'headmaster') {
-        $dis_name = addslashes($_POST['dis_name']);
+        $dis_name = get_safe_input($_POST['dis_name']);
         $result = $user->add_dis($dis_name, $code_matiere, $date_academique, $matricule_etablissement);
     } else {
         include 'access_denieted.php';
@@ -136,12 +136,6 @@ if (isset($_POST['delete_dis'])) {
 <!-- BEGIN: Head-->
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <meta name="description" content="Frest admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
-    <meta name="keywords" content="admin template, Frest admin template, dashboard template, flat admin template, responsive admin template, web app">
-    <meta name="author" content="PIXINVENT">
     <title>Matter | <?php include 'site_title.php'; ?></title>
     <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
@@ -192,7 +186,7 @@ if (isset($_POST['csv_upload'])) {
                     $i++;
                     continue;
                 }
-            $result = $user->add_dis($cont[1], $code_matiere, $date_academique, $matricule_etablissement);
+            $result = $user->add_dis(get_safe_input($cont[1]), $code_matiere, $date_academique, $matricule_etablissement);
             $i++;
             # code...
         }
@@ -276,7 +270,7 @@ if (isset($_POST['csv_upload'])) {
                                             <!-- user profile nav tabs feed start -->
                                             <div class="row">
                                                 <!-- user profile nav tabs feed middle section start -->
-                                                <div class="col-lg-12">
+                                                <div class="col-lg-7">
                                                     <!-- user profile nav tabs feed middle section post card start -->
                                                     <div class="card">
                                                         <div class="card-content">
@@ -341,7 +335,9 @@ if (isset($_POST['csv_upload'])) {
                                                         </div>
                                                     </div>
                                                     <!-- user profile nav tabs feed middle section post card ends -->
-                                                    <!-- user profile nav tabs activity start -->
+                                                </div>
+                                                <div class="col-lg-5">
+                                                                                                        <!-- user profile nav tabs activity start -->
                                                     <div class="card">
                                                         <div class="card-content">
                                                             <div class="card-body">
@@ -382,6 +378,7 @@ if (isset($_POST['csv_upload'])) {
                                                         </div>
                                                     </div>
                                                     <!-- user profile nav tabs activity start -->
+
                                                 </div>
                                                 <!-- user profile nav tabs feed middle section ends -->
                                             </div>

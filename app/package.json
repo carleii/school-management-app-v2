@@ -2,14 +2,14 @@
   "name": "Scolarix",
   "version": "1.0.0",
   "description": "",
-  "author": "Tsimi jean",
+  "author": "carledev",
   "repository": {
     "type": "git",
     "url": ""
   },
-  "license": "none",
-  "private": true,
-  "homepage": "../index.php",
+  "license": "GNU GENERAL PUBLIC LICENSE",
+  "private": false,
+  "homepage": "./",
   "main": "gulpfile.js",
   "dependencies": {
     "async": "^3.1.0",

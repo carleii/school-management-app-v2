@@ -3,9 +3,9 @@
 //ADD A NEW EXAM TREATMENT
 if (isset($_POST['add_exam'])) {
     if ($role == 'admin' or $role == 'headmaster') {
-        $exam_name = $_POST['exam_name'];
-        $exam_period = $_POST['exam_period'];
-        $note_val = $_POST['note_val'];
+        $exam_name = get_safe_input ($_POST['exam_name']);
+        $exam_period = get_safe_input ($_POST['exam_period']);
+        $note_val = get_safe_input ($_POST['note_val']);
         $result = $user->add_exam($exam_name, $exam_period, $date_academique, $matricule_etablissement, $note_val);
         switch ($result) {
             case 0: ?>
@@ -176,13 +176,7 @@ if (isset($_POST['delete_exam'])) {
 <!-- BEGIN: Head-->
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <meta name="description" content="Frest admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
-    <meta name="keywords" content="admin template, Frest admin template, dashboard template, flat admin template, responsive admin template, web app">
-    <meta name="author" content="PIXINVENT">
-    <title>Exam | <?php echo $nom_etablissement ?></title>
+    <title>Exam | <?php echo "$nom_etablissement" ?></title>
     <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700" rel="stylesheet">
@@ -470,7 +464,7 @@ if (isset($_POST['delete_exam'])) {
                                                         </div>
                                                         <div class="pr-50">
                                                             <div class="avatar">
-                                                                <img src="logo_data/<?php echo $logo; ?>" alt="avtar img holder">
+                                                                <img src="logo_data/<?php echo "$logo"; ?>" alt="avtar img holder">
                                                             </div>
                                                         </div>
                                                         <div class="media-body">

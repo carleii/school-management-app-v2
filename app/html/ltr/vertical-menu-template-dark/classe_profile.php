@@ -24,7 +24,7 @@ if (isset($_GET['ktsp'])) {
         $ini = $result['ini'];
         $code_cloud = base64_decode($result['pssw']);
 
-        // DELETE THE <?php echo $retVal = ($statut == 1) ? "CLASS" : "SPECIALITY"; 
+        // DELETE THE <?php echo $retVal = ($statut == 1) ? "CLASS" : "SPECIALITY";
         if (isset($_POST['delete_s'])) {
             if ($role == "admin" or $role == "headmaster") {
                 $result = $user->delete_class($code_classe, $matricule_etablissement, $date_academique);
@@ -40,10 +40,10 @@ if (isset($_GET['ktsp'])) {
         // UPDATE CLASS INFOS
         if (isset($_POST['update_sp'])) {
             if ($role == "admin" or $role == "headmaster") {
-                $nom_classe = $_POST['nom_classe'];
-                $scolarite = $_POST['tuition'];
-                $ini = $_POST['init'];
-                $code_cloud = base64_encode($_POST['password']);
+                $nom_classe = get_safe_input($_POST['nom_classe']);
+                $scolarite =get_safe_input( $_POST['tuition']);
+                $ini = get_safe_input($_POST['init']);
+                $code_cloud = get_safe_input(base64_encode($_POST['password']));
                 $query = mysqli_query($database, "UPDATE classe SET nom_classe = '$nom_classe', scolarite = '$scolarite', pssw = '$code_cloud', ini = '$ini' WHERE code_classe = '$code_classe'");
                 $code_cloud = base64_decode($code_cloud);
                 # code...
@@ -89,12 +89,6 @@ if (isset($_GET['ktsp'])) {
 <!-- BEGIN: Head-->
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta name="author" content="PIXINVENT">
     <title><?php echo $nom_classe . " " . $nom_niveau; ?> | <?php echo $nom_etablissement . " " . $date_academique; ?>
     </title>
     <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
@@ -135,9 +129,9 @@ if (isset($_GET['ktsp'])) {
 <?php
 if (isset($_POST['add_dis_class'])) {
     if ($role == 'admin' or $role == 'headmaster') {
-        $code_dis = $_POST['dis_name'];
-        $code_teacher = $_POST['dis_teacher'];
-        $hour = $_POST['dis_hour'];
+        $code_dis = ( $_POST['dis_name']);
+        $code_teacher =  ($_POST['dis_teacher']);
+        $hour =get_safe_input ( $_POST['dis_hour']);
         $result = $user->add_dis_class($code_dis, $code_classe, $code_teacher, $hour, $matricule_etablissement, $date_academique);
         switch ($result) {
             case 0: ?>
@@ -357,12 +351,12 @@ if (isset($_POST['update_dis_class'])) {
 //ADD A STUDENT TO THE CLASS TREATMENT
 if (isset($_POST['add_student'])) {
     if ($role == 'admin' or $role == 'headmaster') {
-        $nom_apprenant = $_POST['nom_apprenant'];
-        $prenom_apprenant = $_POST['prenom_apprenant'];
-        $telephone_apprenant = $_POST['telephone_apprenant'];
-        $adresse_apprenant = $_POST['adresse_apprenant'];
-        $other_info_apprenant = $_POST['other_info_apprenant'];
-        $tutor_apprenant = $_POST['tutor_apprenant'];
+        $nom_apprenant = get_safe_input ($_POST['nom_apprenant']);
+        $prenom_apprenant = get_safe_input ($_POST['prenom_apprenant']);
+        $telephone_apprenant = get_safe_input ($_POST['telephone_apprenant']);
+        $adresse_apprenant = get_safe_input ($_POST['adresse_apprenant']);
+        $other_info_apprenant = get_safe_input ($_POST['other_info_apprenant']);
+        $tutor_apprenant = get_safe_input ($_POST['tutor_apprenant']);
         $result = $user->add_student($nom_apprenant, $prenom_apprenant, $telephone_apprenant, $adresse_apprenant, $other_info_apprenant, $tutor_apprenant, $matricule_etablissement, $code_classe, $date_academique, $ini);
         # code...
     } else {
@@ -373,7 +367,7 @@ if (isset($_POST['add_student'])) {
 // DELETE * STUDENT
 if (isset($_POST['delete_A_en'])) {
     if ($role == "headmaster" or $role == "admin") {
-        $query = mysqli_query($database, "DELETE FROM apprenant WHERE date_academique = '$date_academique' ");
+        $query = mysqli_query($database, "DELETE FROM apprenant WHERE date_academique = '$date_academique' and code_classe ='$code_classe' ");
         # code...
     }
     # code...
@@ -485,8 +479,8 @@ if (isset($_POST['week_del'])) {
 //ADD TRANCHE DE PAIEMENT
 if (isset($_POST['add_tranche'])) {
     if ($role == 'comptable' or $role == "admin") {
-        $nom_tranche = $_POST['nom_tranche'];
-        $montant_tranche = $_POST['montant_tranche'];
+        $nom_tranche = get_safe_input ($_POST['nom_tranche']);
+        $montant_tranche = get_safe_input ($_POST['montant_tranche']);
         $echeance_tranche = $_POST['echeance_tranche'];
         $result = $user->add_tranche($nom_tranche, $montant_tranche, $echeance_tranche, $code_classe, $matricule_etablissement, $date_academique);
         // code...
@@ -567,11 +561,6 @@ if (isset($_POST['delete_tranche'])) {
 // UPLOAD STUDENT DATA FILE
 // CSV UPLOAD
 if (isset($_POST['csv_upload'])) {
-    ?>
-    <script type="text/javascript" language="javascript">
-        alert("Wait while data are loading....");
-    </script>
-    <?php
     $file = $_FILES['csv_file']['tmp_name'];
     $ext = explode(".", $_FILES['csv_file']['name']);
     $handle = fopen($file, "r");
@@ -582,11 +571,14 @@ if (isset($_POST['csv_upload'])) {
                 $i++;
                 continue;
             }
-            $result = $user->add_student($cont[1], $cont[2], $cont[3], $cont[4] . " " . $cont[5], $cont[7], $cont[6], $matricule_etablissement, $code_classe, $date_academique, $ini);
+            $result = $user->add_student(get_safe_input( $cont[1]), get_safe_input( $cont[2]), get_safe_input( $cont[3]), get_safe_input( $cont[4]) . " " . get_safe_input( $cont[5]), get_safe_input( $cont[7]), get_safe_input( $cont[6]), $matricule_etablissement, $code_classe, $date_academique, $ini);
+            if ($result == 0) {
+            $result = $user->add_student(get_safe_input( $cont[1]), get_safe_input( $cont[2]), get_safe_input( $cont[3]), get_safe_input( $cont[4]) . " " . get_safe_input( $cont[5]), get_safe_input( $cont[7]), get_safe_input( $cont[6]), $matricule_etablissement, $code_classe, $date_academique, $ini);
+                # code...
+            }
             $i++;
             # code...
         }
-
         # code...
     } else {
     ?>
@@ -597,6 +589,12 @@ if (isset($_POST['csv_upload'])) {
 <?php
         # code...
     }
+    ?>
+        <script type="text/javascript" language="javascript">
+            alert("Info: Press F5\n while all the students have not been uploaded press F5; else just Click Ok .");
+        </script>
+
+    <?php
     # code...
 }
 
@@ -633,7 +631,7 @@ if (isset($_POST['csv_upload'])) {
                                 <div class="card-content">
                                     <div class="user-profile-images">
                                         <img src="../../../app-assets/images/profile/post-media/profile-banner-co.jpg" class="img-fluid rounded-top user-timeline-image" alt="user timeline image">
-                                        <img src="logo_data/<?php echo $logo ?>" class="user-profile-image rounded" alt="user profile image" height="140" width="140">
+                                        <img src="logo_data/<?php echo "$logo" ?>" class="user-profile-image rounded" alt="user profile image" height="140" width="140">
                                     </div>
                                     <div class="user-profile-text">
                                         <h4 class="mb-0 text-bold-500 profile-text-color">
@@ -790,37 +788,31 @@ if (isset($_POST['csv_upload'])) {
                                                                                 $query = mysqli_query($database, "SELECT * FROM apprenant WHERE code_classe = '$code_classe' and matricule_etablissement = '$matricule_etablissement' and date_academique = '$date_academique' ORDER BY id asc ");
                                                                                 while ($result = mysqli_fetch_assoc($query)) {
                                                                                     $matricule_apprenant = $result['matricule_apprenant'];
-                                                                                    $code_classe = addslashes($result['code_classe']);
-                                                                                    $query_1 = mysqli_query($database, "SELECT * FROM classe WHERE code_classe = '$code_classe' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
-                                                                                    $result_1 = mysqli_fetch_assoc($query_1);
-                                                                                    $id_level = $result_1['id_niveau'];
-                                                                                    $result_2 = mysqli_fetch_assoc(mysqli_query($database, "SELECT * FROM niveau WHERE id = '$id_level' AND date_academique = '$date_academique' AND matricule_etablissement = '$matricule_etablissement' "));
-                                                                                    $query0 = mysqli_query($database, "SELECT * FROM tranche_paiement WHERE code_classe = '$code_classe' AND date_academique = '$date_academique' AND matricule_etablissement = '$matricule_etablissement' ");
-                                                                                    while ($result0 = mysqli_fetch_assoc($query0)) {
-                                                                                        $id_tranche = $result0['id'];
+                                                                                    $queryp = mysqli_query($database, "SELECT distinct(id_tranche) As IdTranche FROM compta WHERE  matricule_apprenant = '$matricule_apprenant' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
+                                                                                    while ($resultyp = mysqli_fetch_assoc($queryp)) {
+                                                                                        $id_tranche = $resultyp['IdTranche'];
+                                                                                        $query0 = mysqli_query($database, "SELECT * FROM tranche_paiement WHERE id = '$id_tranche' AND date_academique = '$date_academique' AND matricule_etablissement = '$matricule_etablissement' ");
+                                                                                        $result0 = mysqli_fetch_assoc($query0);
                                                                                         $amount = $result0['montant'];
                                                                                         $echeance_tranche = $result0['echeance'];
                                                                                         $nom_tranche = $result0['nom_tranche'];
-                                                                                        $count = 0;
-                                                                                        $queryp = mysqli_query($database, "SELECT * FROM compta WHERE id_tranche = '$id_tranche' AND matricule_apprenant = '$matricule_apprenant' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
-                                                                                        while ($resultp =  mysqli_fetch_assoc($queryp)) {
-                                                                                            $count += $resultp['montant'];
-                                                                                            // code...
-                                                                                        }
+                                                                                        $querypp = mysqli_query($database, "SELECT SUM(montant) As mont FROM compta WHERE id_tranche = '$id_tranche' AND matricule_apprenant = '$matricule_apprenant' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
+                                                                                        $resultpp =  mysqli_fetch_assoc($querypp);
+                                                                                        $count = $resultpp['mont'] +0;
 
-                                                                                ?>
+                                                                                         ?>
                                                                                         <tr>
                                                                                             <td> <a href="student_profile.php?ktsp=<?php echo base64_encode($result['matricule_apprenant']);  ?>">
                                                                                                     <button type="button" class="btn btn-icon action-icon">
                                                                                                         <span class="fonticon-wrap">
                                                                                                             <i class="bx bxs-left-top-arrow-circle"></i>
                                                                                                             </i>
+                                                                                                <?php echo  $result['nom_apprenant']." "; ?>
+                                                                                                <?php echo $result['prenom_apprenant']; ?>
+
                                                                                                         </span>
                                                                                                     </button>
                                                                                                 </a>
-                                                                                                <?php echo  $result['nom_apprenant']; ?>
-                                                                                                <br>
-                                                                                                <?php echo $result['prenom_apprenant']; ?>
                                                                                             </td>
                                                                                             <td><?php echo $nom_tranche; ?></td>
                                                                                             <td><?php echo $amount . ""; ?></td>
@@ -828,7 +820,7 @@ if (isset($_POST['csv_upload'])) {
                                                                                             </td>
                                                                                             <td><?php echo $count . ""; ?></td>
                                                                                         </tr>
-                                                                                <?php
+                                                                                        <?php
                                                                                         // code...
                                                                                     }
 
@@ -901,7 +893,7 @@ if (isset($_POST['csv_upload'])) {
                                                                                                                     <div class="form-group row">
                                                                                                                         <div class="col-sm-1 col-2">
                                                                                                                             <div class="avatar">
-                                                                                                                                <img src="logo_data/<?php echo $logo ?>" alt="user image" width="32" height="32">
+                                                                                                                                <img src="logo_data/<?php echo "$logo" ?>" alt="user image" width="32" height="32">
                                                                                                                                 <span class="avatar-status-online"></span>
                                                                                                                             </div>
                                                                                                                         </div>
@@ -1008,7 +1000,7 @@ if (isset($_POST['csv_upload'])) {
                                                                         $query = mysqli_query($database, "SELECT * FROM discipline_classe WHERE code_classe = '$code_classe' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ORDER by id desc ");
                                                                         while ($result = mysqli_fetch_assoc($query)) {
 
-                                                                            $code_discipline = addslashes($result['code_discipline']);
+                                                                            $code_discipline = ($result['code_discipline']);
                                                                             $hour = $result['heure'];
                                                                             $matricule_enseignant = addslashes($result['matricule_enseignant']);
                                                                             $query_1 = mysqli_query($database, "SELECT * FROM enseignant WHERE matricule_enseignant = '$matricule_enseignant' AND matricule_etablissement = '$matricule_etablissement' AND date_academique = '$date_academique' ");
@@ -1072,7 +1064,7 @@ if (isset($_POST['csv_upload'])) {
                                                                                     <div class="form-group row">
                                                                                         <div class="col-sm-1 col-2">
                                                                                             <div class="avatar">
-                                                                                                <img src="logo_data/<?php echo $logo ?>" alt="user image" width="32" height="32">
+                                                                                                <img src="logo_data/<?php echo "$logo" ?>" alt="user image" width="32" height="32">
                                                                                                 <span class="avatar-status-online"></span>
                                                                                             </div>
                                                                                         </div>
@@ -1160,7 +1152,7 @@ if (isset($_POST['csv_upload'])) {
                                             <div class="tab-content pl-0">
                                                 <div class="tab-pane active" id="user-status" aria-labelledby="user-status-tab" role="tabpanel">
                                                     <div class="row">
-                                                        <div class="col-12">
+                                                        <div class="col-6">
                                                             <form action="" method="post">
                                                                 <section id="form-and-scrolling-components">
                                                                     <div class="row">
@@ -1216,6 +1208,8 @@ if (isset($_POST['csv_upload'])) {
                                                                     </div>
                                                                 </section>
                                                             </form>
+                                                        </div>
+                                                        <div class="col-6">
                                                             <div class="form-group form-group-compose">
                                                                 <!-- compose button  -->
                                                                 <button type="button" class="btn btn-warning btn-block my-2">
@@ -1223,7 +1217,8 @@ if (isset($_POST['csv_upload'])) {
                                                                         Download the template
                                                                     </a>
                                                                 </button>
-                                                                <small>do not modify the header</small>
+                                                                <small>do not modify the header</small><br>
+                                                                <strong>Please upload max 400 students each time </strong>
 
                                                                 <form action="#" method="post" enctype="multipart/form-data">
                                                                     <div class="form-group mt-2">
@@ -1232,13 +1227,12 @@ if (isset($_POST['csv_upload'])) {
                                                                             <label class="custom-file-label" for="emailAttach">Attach File</label>
                                                                         </div>
                                                                     </div>
-                                                                    <button type="submit" name="csv_upload" class="btn btn-success btn-block my-2">
+                                                                    <button type="submit" onclick="alert('Info.. \n Wait a moment until your data being Loaded')" name="csv_upload" class="btn btn-success btn-block my-2">
                                                                         Upload file's data
                                                                     </button>
 
                                                                 </form>
                                                             </div>
-
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1282,10 +1276,11 @@ if (isset($_POST['csv_upload'])) {
                                                                                                         <span class="fonticon-wrap">
                                                                                                             <i class="bx bxs-left-top-arrow-circle"></i>
                                                                                                             </i>
+                                                                                                                                                                                                            <?php echo  $result['nom_apprenant']; ?>
+
                                                                                                         </span>
                                                                                                     </button>
                                                                                                 </a>
-                                                                                                <?php echo  $result['nom_apprenant']; ?>
                                                                                             </td>
                                                                                             <td><?php echo $result['prenom_apprenant']; ?>
                                                                                             </td>
@@ -1295,12 +1290,12 @@ if (isset($_POST['csv_upload'])) {
                                                                                             </td>
                                                                                             <td>
                                                                                                 <?php echo $result['matricule_apprenant']; ?>
-                                                                                                <button type="submit" name="delete_student" value="<?php echo $result['matricule_apprenant']; ?>" class="btn btn-icon action-icon">
+                                                                                                <!-- <button type="submit" name="delete_student" value="<?php echo $result['matricule_apprenant']; ?>" class="btn btn-icon action-icon">
                                                                                                     <span class="fonticon-wrap">
                                                                                                         <i class="livicon-evo" data-options="name: trash.svg; size: 24px; style: lines; strokeColor:#475f7b; eventOn:grandparent; duration:0.85;">
                                                                                                         </i>
                                                                                                     </span>
-                                                                                                </button>
+                                                                                                </button> -->
                                                                                             </td>
                                                                                             <td><?php echo $result['adresse']; ?>
                                                                                             </td>
@@ -2355,7 +2350,7 @@ if (isset($_POST['csv_upload'])) {
                                                                 <?php
                                                                 }
                                                                 ?>
-                                                                <button type="submit" name="print_note" class="btn btn-danger">Print</button>
+                                                                <button type="submit" onclick="alert('Info.. \n Wait a moment until your data have being Loaded')"  name="print_note" class="btn btn-danger">Print</button>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -2475,7 +2470,7 @@ if (isset($_POST['csv_upload'])) {
                                     <div class="card">
                                         <div class="card-content">
                                             <div class="card-body">
-                                                <h5 class="card-title mb-1">Others <?php echo $retVal = ($statut == 1) ? "CLASS" : "SPECIALITY"; ?>
+                                                <h5 class="card-title mb-1">Others <?php echo $retVal = ($statut == 1) ? "CLASSES" : "SPECIALITIES"; ?>
                                                     <i class="cursor-pointer bx bx-dots-vertical-rounded align-top float-right"></i>
                                                 </h5>
                                                 <?php
@@ -2487,7 +2482,7 @@ if (isset($_POST['csv_upload'])) {
                                                 ?>
                                                     <div class="media d-flex align-items-center mb-1">
                                                         <a href="JavaScript:void(0);">
-                                                            <img src="logo_data/<?php echo $logo ?>" class="rounded" alt="group image" height="64" width="64" />
+                                                            <img src="logo_data/<?php echo "$logo" ?>" class="rounded" alt="group image" height="64" width="64" />
                                                         </a>
                                                         <div class="media-body ml-1">
                                                             <h4 class="media-heading mb-0"><small><a href="classe_profile.php?ktsp=<?php echo base64_encode($result['id']) ?>"><?php echo $result['nom_classe']; ?></a></small>

@@ -1,5 +1,5 @@
 <?php require 'index_php.php';
-include('phpqrcode/qrlib.php');
+require_once './phpqrcode/qrlib.php';
 // delete previous qrcode
 $dir = 'qrcode_saved';
 array_map('unlink', glob("{$dir}*.png"));
@@ -79,8 +79,27 @@ while ($result = mysqli_fetch_assoc($query)) {
             <title>Notes Reports | <?php echo $nom_classe . " " . $nom_niveau; ?></title>
             <style type="text/css">
                 @media print {
+                    @page{
+                        size: 210mm 297mm;
+                        margin: auto ;
+                    }
+
                     footer {
                         page-break-after: always;
+                    }
+
+                    table{
+                        page-break-inside: auto;
+                    }
+                    tr{
+                        page-break-inside: avoid;
+                        page-break-after: auto;
+                    }
+                    thead{
+                        display: table-header-group;
+                    }
+                    tfoot{
+                        display: table-footer-group;
                     }
                 }
             </style>
@@ -120,12 +139,12 @@ while ($result = mysqli_fetch_assoc($query)) {
 
             <!-- BEGIN: Content-->
             <!-- user profile heading section start -->
-            <div class="" style="margin-top: 100px;">
+            <div class="" style="margin-top: 1;">
                 <div class="">
                     <div class="row">
                         <div class="col-1">
                             <div class="user-profile-images">
-                                <img src="logo_data/<?php echo $logo ?>" style="margin-left: 50px;" class="user-profile-image rounded" alt="school logo" height="50" width="90">
+                                <img src="logo_data/<?php echo $logo ?>" style="margin-left: 80px;" class="user-profile-image rounded" alt="school logo" height="110" width="180">
                             </div>
                         </div>
                         <div class="col-11">
@@ -142,59 +161,59 @@ while ($result = mysqli_fetch_assoc($query)) {
                     </div>
                     <hr>
                     <center>
-                        <h3><b>RELEVE DE NOTES / STUDENT ACADEMIC RECORD</b></h3>
+                        <h2><b>RELEVE DE NOTES / STUDENT ACADEMIC RECORD</b></h2>
                     </center>
 
                     <div class="row">
                         <div class="col-8">
                             <center>
                                 <div class="media d-flex align-items-center mb-1">
-                                    <span class="float-right" style="margin-left: 60px">
+                                    <span class="float-right" style="font-size:17px; margin-left: ">
                                         <strong> ANNEE ACADEMIQUE / ACADEMIC YEAR</strong>
                                     </span>
                                     <div class="media-body ml-1">
-                                        <h6 class="media-heading mb-0" style="text-align:justify;"><?php echo $date_academique; ?></< /h6>
+                                        <h6 class="media-heading mb-0" style="font-size:17px; text-align:justify;"><?php echo $date_academique; ?></< /h6>
                                     </div>
                                 </div>
                                 <div class="media d-flex align-items-center mb-1">
-                                    <span class="float-right" style="margin-left: 60px">
+                                    <span class="float-right" style="font-size:17px; margin-left: ">
                                         <strong>NOM ET PRENOM (S) (FIRST AND LAST NAME)</strong>
                                     </span>
                                     <div class="media-body ml-1">
-                                        <h6 class="media-heading mb-0" style="text-align:justify;"><?php echo strtoupper($nom_apprenant . "  " . $prenom_apprenant); ?></h6>
+                                        <h6 class="media-heading mb-0" style="font-size:17px; text-align:justify;"><?php echo strtoupper($nom_apprenant . "  " . $prenom_apprenant); ?></h6>
                                     </div>
                                 </div>
                                 <div class="media d-flex align-items-center mb-1">
-                                    <span class="float-right" style="margin-left: 60px">
-                                        <strong>DATE ET LIEU DE NAISSANCE (DATE AND PLACE OF BIRTH)</strong>
+                                    <span class="float-right" style="font-size:17px; margin-left: ">
+                                        <strong>DATE AND PLACE OF BIRTH</strong>
                                     </span>
                                     <div class="media-body ml-1">
-                                        <h6 class="media-heading mb-0" style="text-align:justify;"><?php echo $adresse; ?></h6>
+                                        <h6 class="media-heading mb-0" style="font-size:17px; text-align:justify;"><?php echo $adresse; ?></h6>
                                     </div>
                                 </div>
                                 <div class="media d-flex align-items-center mb-1">
-                                    <span class="float-right" style="margin-left: 60px">
+                                    <span class="float-right" style="font-size:17px; margin-left: ">
                                         <strong>SPECIALITE (SPECIALITY)</strong>
                                     </span>
                                     <div class="media-body ml-1">
-                                        <h6 class="media-heading mb-0" style="text-align:justify;"><?php echo $nom_classe; ?></h6>
+                                        <h6 class="media-heading mb-0" style="font-size:17px; text-align:justify;"><?php echo $nom_classe; ?></h6>
                                     </div>
                                 </div>
                                 <div class="media d-flex align-items-center mb-1">
-                                    <span class="float-right" style="margin-left: 60px">
+                                    <span class="float-right" style="font-size:17px; margin-left: ">
                                         <strong>NIVEAU (LEVEL)</strong>
                                     </span>
                                     <div class="media-body ml-1">
-                                        <h6 class="media-heading mb-0" style="text-align:justify; "><?php echo $nom_niveau; ?></h6>
+                                        <h6 class="media-heading mb-0" style="font-size:17px; text-align:justify; "><?php echo $nom_niveau; ?></h6>
                                     </div>
                                 </div>
 
                                 <div class="media d-flex align-items-center mb-1">
-                                    <span class="float-right" style="margin-left: 60px">
+                                    <span class="float-right" style="font-size:17px; margin-left: ">
                                         <strong> MATRICULE (REGISTRATION NUMBER)</strong>
                                     </span>
                                     <div class="media-body ml-1">
-                                        <h6 class="media-heading mb-0" style="text-align:justify;"><?php echo $matricule_apprenant; ?></h6>
+                                        <h6 class="media-heading mb-0" style="font-size:17px; text-align:justify;"><?php echo $matricule_apprenant; ?></h6>
                                     </div>
                                 </div>
 
@@ -205,25 +224,30 @@ while ($result = mysqli_fetch_assoc($query)) {
                         <div class="col-4">
                             <?php
                             // how to save PNG codes to server
-
                             $tempDir = "qrcode_saved/";
 
                             $codeContents = $matricule_apprenant;
 
-                            // we need to generate filename somehow, 
+                            // we need to generate filename somehow,
                             // with md5 or with database ID used to obtains $codeContents...
-                            $fileName = uniqid() . base64_encode($codeContents) . '.png';
+                            $fileName = base64_encode($codeContents) . '.png';
+                            // $fileName = uniqid() . base64_encode($codeContents) . '.png';
                             $pngAbsoluteFilePath = $tempDir . $fileName;
                             $urlRelativeFilePath = $tempDir . $fileName;
 
                             // generating
                             if (!file_exists($pngAbsoluteFilePath)) {
-                                QRcode::png($codeContents, $pngAbsoluteFilePath, "Q");
+                                try {
+                                     QRcode::png($codeContents, $pngAbsoluteFilePath, "Q");
+                                    //code...
+                                } catch (\Throwable $th) {
+                                    // throw $th;
+                                }
                             }
 
                             // displaying
-                            echo '<img height="200" width="200" src="' . $urlRelativeFilePath . '" />';
-                            ?>
+                            echo '<img height="200" width="200" src="' . $urlRelativeFilePath . '" alt = "Qrcode" />';
+?>
                         </div>
                     </div>
                     <section id="headers">
@@ -233,7 +257,7 @@ while ($result = mysqli_fetch_assoc($query)) {
                                     <div class="card-content">
                                         <div class="card-body">
                                             <div class="table-responsive">
-                                                <table class="table-bordered" width="100%">
+                                                <table class="table-bordered"style="font-size:14px;  text-align: center;" width="100%">
                                                     <thead>
                                                         <tr>
                                                             <th colspan="5" style="justify-content: center;">Semestre 1</th>
@@ -372,7 +396,7 @@ while ($result = mysqli_fetch_assoc($query)) {
                         <div class="col-7">
                             <center>
                                 <div class="media d-flex align-items-center mb-1">
-                                    <a class="float-right" style="margin-left: 60px">
+                                    <a class="float-right" style="margin-left: ">
                                         Moyenne générale (general average):
                                     </a>
                                     <div class="media-body ml-1">
@@ -393,7 +417,7 @@ while ($result = mysqli_fetch_assoc($query)) {
                                     </div>
                                 </div>
                                 <div class="media d-flex align-items-center mb-1">
-                                    <a href="" class="float-right" style="margin-left: 60px">
+                                    <a href="" class="float-right" style="margin-left: ">
                                         MENTION / RESULT CLASSIFICATION:
                                     </a>
                                     <div class="media-body ml-1">
@@ -423,7 +447,7 @@ while ($result = mysqli_fetch_assoc($query)) {
                                     </div>
                                 </div>
                                 <div class="media d-flex align-items-center mb-1">
-                                    <a href="" class="float-right" style="margin-left: 60px">
+                                    <a href="" class="float-right" style="margin-left: ">
                                         <?php
                                         if (($nombre_ds1 == 0) and ($nombre_ds2 == 0)) {
                                             $nombre_ds2 = 1;
@@ -445,7 +469,7 @@ while ($result = mysqli_fetch_assoc($query)) {
                             <center>
                                 <b><small>Légende(key): Va : validé(validated)<br> Nv: Non validé (non validated) </small></b>
                                 <div class="media d-flex align-items-center mb-1">
-                                    <a href="" class="float-right" style="margin-left: 60px">
+                                    <a href="" class="float-right" style="margin-left: ">
                                         Decision/decision:
                                     </a>
                                     <div class="media-body ml-1">
@@ -453,39 +477,41 @@ while ($result = mysqli_fetch_assoc($query)) {
                                     </div>
                                 </div>
                                 <div class="media d-flex align-items-center mb-1">
-                                    <a href="" class="float-right" style="margin-left: 60px">
+                                    <a href="" class="float-right" style="margin-left: ">
                                         <?php echo  date("D-d-M-Y"); ?> <br>
                                         <b>Le chef d'etablissement</b><br>
                                         The director <br><br><br><br>
-                                        <b>XXXXX</b>
+                                        <b><?php echo $director ?></b>
                                     </a>
                                 </div>
                             </center>
                         </div>
 
                     </div>
-                    <!-- <div class="row" style="position: fixed; bottom:0; width:100%">
+                    <div class="row" style="position: fixed; bottom:0; width:100%">
+                    <hr>
                         <div class="col-1">
                             <div class="user-profile-images">
-                                <img src="logo_data/<?php echo $logo ?>" style="margin-left: 50px;" class="user-profile-image rounded" alt="user profile image" height="57" width="50">
+                                <img src="logo_data/<?php echo $logo ?>" style="margin-left: 80px;" class="user-profile-image rounded" alt="user profile image" height="77" width="70">
                             </div>
                         </div>
                         <div class="col-11">
                             <center>
-                                <span style="font-size: 20px;">
-                                    <h6 style="color : red"><b><i>Le pôle de l'execellence Universitaire pour la formation Profssionnelle</i></b></h6>
+                                <span style="font-size: 17px; ">
+                                    <h6 style="color : red"><b><i><?php echo htmlspecialchars_decode ($slogan) ?></i></b></h6>
                                 </span>
-                                <span style="font-size: 20px;">
-                                    <h6><b><i>Campus de Bafoussam / Entrée de la ville Email: <i>tchonanguniversity@yahoo.com</i> Campus de Douala / Village, face PICASO</i></b></h6>
+                                <span style="font-size: 17px; ">
+                                    <h6><b><i><?php echo htmlspecialchars_decode($location) ?> Email: <i><?php echo $email_s ?></i> <!-- Campus de Douala / Village, face PICASO --></i></b></h6>
+
                                 </span>
-                                <span style="font : cursive 20px">
-                                    <h6><b><i><strong>Tel: 675-246-10-08 690-98-65-95. web</strong>www.tchonanguniversity.org <strong>Tel: 675-246-10-08 690-98-65-95.</strong></i></b></h6>
+                                <span style="font : cursive 17px" >
+                                    <h6><b><i><strong><?php echo $tel ?> web</strong><?php echo $web ?> <strong> <?php echo $tel ?>.</strong></i></b></h6>
                                 </span>
 
                             </center>
                         </div>
 
-                    </div> -->
+                    </div>
 
 
                 </div>

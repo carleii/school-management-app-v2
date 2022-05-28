@@ -48,11 +48,11 @@
 //ADD USER TREAMENT
 if (isset($_POST['add_user'])) {
     if ($role == "admin") {
-        $user_addnom = $_POST['nom'];
-        $user_addprenom = $_POST['prenom'];
-        $user_addemail = $_POST['email'];
-        $user_addrole = $_POST['role'];
-        $user_addpassword = base64_encode($_POST['password']);
+        $user_addnom = get_safe_input ($_POST['nom']);
+        $user_addprenom = get_safe_input ($_POST['prenom']);
+        $user_addemail =get_safe_input ( $_POST['email']);
+        $user_addrole = get_safe_input ($_POST['role']);
+        $user_addpassword = base64_encode(get_safe_input($_POST['password']));
         //SENDING DATA TO THE CLASS PACKAGE
         $result = $user->add_user($user_addnom, $user_addprenom, $user_addemail, $user_addrole, $user_addpassword, $matricule_etablissement);
         switch ($result) {
