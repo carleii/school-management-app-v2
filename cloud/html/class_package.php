@@ -63,7 +63,7 @@ class system
          $result = mysqli_fetch_assoc($query);
          //si l'utilisateur n'est pas bani
          if ($result['ban'] == 0) {
-            $user_->role = $result['role'];
+            // $user_->role = $result['role'];
             //mise à jour de la derniere connexion
             $this->update_last_view($u_code, $cl_code, $last_view);
             return 1;
@@ -77,7 +77,7 @@ class system
       }
       // code...
    }
-   public function auth(string $u_code, string $pssw): int
+   public function auth(string $u_code, string $pssw)
    {
       //encodage du mot de passe
       $pssw = base64_encode($pssw);
@@ -224,7 +224,7 @@ class user_ extends system
       // code...
    }
 
-   public function auth_register(): int
+   public function auth_register()
    {
       $pssw_encoded = base64_encode($this->pssw);
       $system = new system;

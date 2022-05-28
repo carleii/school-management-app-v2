@@ -95,7 +95,7 @@ if (isset($_POST['delete_room'])) {
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="author" content="Tsimi Jean">
-    <title>Rooms | <?php echo $nom_etablissement; ?></title>
+    <title>Rooms | <?php echo "$nom_etablissement"; ?></title>
     <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700" rel="stylesheet">
@@ -366,7 +366,7 @@ if (isset($_POST['csv_upload'])) {
                                                         </div>
                                                         <div class="pr-50">
                                                             <div class="avatar">
-                                                                <img src="logo_data/<?php echo $logo; ?>" alt="avtar img holder">
+                                                                <img src="logo_data/<?php echo" $logo"; ?>" alt="avtar img holder">
                                                             </div>
                                                         </div>
                                                         <div class="media-body">

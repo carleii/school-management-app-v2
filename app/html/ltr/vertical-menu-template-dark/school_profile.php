@@ -217,10 +217,10 @@ if (isset($_POST['migrate'])) {
                                         <!-- user timeline image -->
                                         <img src="../../../app-assets/images/profile/post-media/profile-banner-co.jpg" class="img-fluid rounded-top user-timeline-image" alt="user timeline image">
                                         <!-- user profile image -->
-                                        <img src="logo_data/<?php echo $logo ?>" class="user-profile-image rounded" alt="user profile image" height="140" width="140">
+                                        <img src="logo_data/<?php echo "$logo" ?>" class="user-profile-image rounded" alt="user profile image" height="140" width="140">
                                     </div>
                                     <div class="user-profile-text">
-                                        <h4 class="mb-0 text-bold-500 profile-text-color"><?php echo $nom_etablissement ?></h4>
+                                        <h4 class="mb-0 text-bold-500 profile-text-color"><?php echo "$nom_etablissement" ?></h4>
                                         <small><?php echo $date_academique ?></small>
                                     </div>
                                     <!-- user profile nav tabs start -->

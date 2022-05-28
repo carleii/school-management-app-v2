@@ -152,7 +152,11 @@ if (isset($_POST['delete_level'])) {
 <!-- BEGIN: Head-->
 
 <head>
+<<<<<<< HEAD
     <title><?php echo $retVal = ($statut == 1) ? "SECTION" : "LEVEL"; ?> | <?php echo $nom_etablissement; ?></title>
+=======
+    <title><?php echo $retVal = ($statut == 1) ? "SECTION" : "LEVEL"; ?> | <?php echo "$nom_etablissement"; ?></title>
+>>>>>>> 7680b2b4b185c0f8881ecb7801c52a1ec48f7c9b
     <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700" rel="stylesheet">
@@ -437,7 +441,7 @@ if (isset($_POST['csv_upload'])) {
                                                         </div>
                                                         <div class="pr-50">
                                                             <div class="avatar">
-                                                                <img src="logo_data/<?php echo $logo; ?>" alt="avtar img holder">
+                                                                <img src="logo_data/<?php echo "$logo"; ?>" alt="avtar img holder">
                                                             </div>
                                                         </div>
                                                         <div class="media-body">

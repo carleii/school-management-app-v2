@@ -239,11 +239,11 @@ if (isset($_POST['csv_upload'])) {
                                 <div class="card-content">
                                     <div class="user-profile-images">
                                         <img src="../../../app-assets/images/profile/post-media/profile-banner-co.jpg" class="img-fluid rounded-top user-timeline-image" alt="user timeline image">
-                                        <img src="logo_data/<?php echo $logo ?>" class="user-profile-image rounded" alt="user profile image" height="140" width="140">
+                                        <img src="logo_data/<?php echo "$logo" ?>" class="user-profile-image rounded" alt="user profile image" height="140" width="140">
                                     </div>
                                     <div class="user-profile-text">
                                         <h4 class="mb-0 text-bold-500 profile-text-color"><?php echo $nom_matiere; ?></h4>
-                                        <small><?php echo $nom_etablissement; ?></small>
+                                        <small><?php echo "$nom_etablissement"; ?></small>
                                     </div>
                                     <!-- user profile nav tabs start -->
                                     <div class="card-body px-0">
@@ -283,7 +283,7 @@ if (isset($_POST['csv_upload'])) {
                                                                                     <div class="form-group row">
                                                                                         <div class="col-sm-1 col-2">
                                                                                             <div class="avatar">
-                                                                                                <img src="logo_data/<?php echo $logo ?>" alt="user image" width="32" height="32">
+                                                                                                <img src="logo_data/<?php echo "$logo" ?>" alt="user image" width="32" height="32">
                                                                                                 <span class="avatar-status-online"></span>
                                                                                             </div>
                                                                                         </div>

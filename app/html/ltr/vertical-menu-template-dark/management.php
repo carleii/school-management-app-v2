@@ -17,7 +17,11 @@ if (isset($_POST['add_year'])) {
 <!-- BEGIN: Head-->
 
 <head>
+<<<<<<< HEAD
     <title>Management | <?php echo $nom_etablissement; ?></title>
+=======
+    <title>Management | <?php echo "$nom_etablissement"; ?></title>
+>>>>>>> 7680b2b4b185c0f8881ecb7801c52a1ec48f7c9b
     <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700" rel="stylesheet">
@@ -362,7 +366,7 @@ switch ($result) {
                                                         </div>
                                                         <div class="pr-50">
                                                             <div class="avatar">
-                                                                <img src="logo_data/<?php echo $logo; ?>" alt="avtar img holder">
+                                                                <img src="logo_data/<?php echo "$logo"; ?>" alt="avtar img holder">
                                                             </div>
                                                         </div>
                                                         <div class="media-body">
@@ -372,7 +376,7 @@ switch ($result) {
                                                                 </div>
                                                             </div>
                                                             <div class="mail-message">
-                                                                <p class="list-group-item-text truncate mb-0"><?php echo $nom_etablissement; ?>
+                                                                <p class="list-group-item-text truncate mb-0"><?php echo "$nom_etablissement"; ?>
                                                                 </p>
                                                                 <div class="mail-meta-item">
                                                                     <span class="float-right">

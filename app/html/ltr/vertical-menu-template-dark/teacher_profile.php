@@ -110,7 +110,7 @@ if (isset($_GET['ktsp'])) {
                                         <!-- user timeline image -->
                                         <img src="../../../app-assets/images/profile/post-media/profile-banner-co.jpg" class="img-fluid rounded-top user-timeline-image" alt="user timeline image">
                                         <!-- user profile image -->
-                                        <img src="logo_data/<?php echo $logo ?>" class="user-profile-image rounded" alt="user profile image" height="140" width="140">
+                                        <img src="logo_data/<?php echo "$logo" ?>" class="user-profile-image rounded" alt="user profile image" height="140" width="140">
                                     </div>
                                     <div class="user-profile-text">
                                         <h4 class="mb-0 text-bold-500 profile-text-color">TEACHER PROFILE</h4>
@@ -219,7 +219,7 @@ if (isset($_GET['ktsp'])) {
                                                         <ul class="list-unstyled">
                                                             <li><i class="cursor-pointer bx bx-map mb-1 mr-50"></i><?php echo $adresse; ?></li>
                                                             <li><i class="cursor-pointer bx bx-phone-call mb-1 mr-50"></i><?php echo $telephone; ?> </li>
-                                                            <li><i class="cursor-pointer bx bx-time mb-1 mr-50"></i><?php echo $date_academique; ?></li>
+                                                            <li><i class="cursor-pointer bx bx-time mb-1 mr-50"></i><?php echo "$date_academique"; ?></li>
                                                             <li><i class="cursor-pointer bx bx-envelope mb-1 mr-50"></i><?php echo $email; ?></li>
                                                         </ul>
 

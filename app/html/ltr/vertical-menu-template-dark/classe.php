@@ -517,7 +517,11 @@ if (isset($_POST['csv_upload'])) {
                                                         <div class="pr-50">
                                                             <a href="classe_profile.php?ktsp=<?php echo base64_encode($result['id'])  ?>">
                                                             <div class="avatar">
+<<<<<<< HEAD
                                                                 <img src="logo_data/<?php echo "$logo"; ?>" >
+=======
+                                                                <img src="logo_data/<?php echo "$logo"; ?>" alt="avtar img holder">
+>>>>>>> 7680b2b4b185c0f8881ecb7801c52a1ec48f7c9b
                                                             </div>
 
                                                         </a>

@@ -144,16 +144,20 @@ while ($result = mysqli_fetch_assoc($query)) {
                     <div class="row">
                         <div class="col-1">
                             <div class="user-profile-images">
+<<<<<<< HEAD
                                 <img src="logo_data/<?php echo $logo ?>" style="margin-left: 80px;" class="user-profile-image rounded" alt="school logo" height="110" width="180">
+=======
+                                <img src="logo_data/<?php echo "$logo" ?>" style="80px;" class="user-profile-image rounded" alt="school logo" height="110" width="180">
+>>>>>>> 7680b2b4b185c0f8881ecb7801c52a1ec48f7c9b
                             </div>
                         </div>
                         <div class="col-11">
                             <center>
                                 <span style="font-size : 21px">
-                                    <h2><b><?php echo $nom_etablissement; ?></b></h2>
+                                    <h2><b><?php echo "$nom_etablissement"; ?></b></h2>
                                 </span>
                                 <span style="font-size : 13px">
-                                    <h5> <b> <?php echo $nom_etablissement; ?> </b></h5>
+                                    <h5> <b> <?php echo "$nom_etablissement"; ?> </b></h5>
                                 </span>
                             </center>
                         </div>
@@ -168,6 +172,7 @@ while ($result = mysqli_fetch_assoc($query)) {
                         <div class="col-8">
                             <center>
                                 <div class="media d-flex align-items-center mb-1">
+<<<<<<< HEAD
                                     <span class="float-right" style="font-size:17px; margin-left: ">
                                         <strong> ANNEE ACADEMIQUE / ACADEMIC YEAR</strong>
                                     </span>
@@ -177,6 +182,17 @@ while ($result = mysqli_fetch_assoc($query)) {
                                 </div>
                                 <div class="media d-flex align-items-center mb-1">
                                     <span class="float-right" style="font-size:17px; margin-left: ">
+=======
+                                    <span class="float-right" style="font-size:17px;">
+                                        <strong> ANNEE ACADEMIQUE / ACADEMIC YEAR</strong>
+                                    </span>
+                                    <div class="media-body ml-1">
+                                        <h6 class="media-heading mb-0" style="font-size:17px; text-align:justify;"><?php echo "$date_academique"; ?></< /h6>
+                                    </div>
+                                </div>
+                                <div class="media d-flex align-items-center mb-1">
+                                    <span class="float-right" style="font-size:17px;">
+>>>>>>> 7680b2b4b185c0f8881ecb7801c52a1ec48f7c9b
                                         <strong>NOM ET PRENOM (S) (FIRST AND LAST NAME)</strong>
                                     </span>
                                     <div class="media-body ml-1">
@@ -184,7 +200,11 @@ while ($result = mysqli_fetch_assoc($query)) {
                                     </div>
                                 </div>
                                 <div class="media d-flex align-items-center mb-1">
+<<<<<<< HEAD
                                     <span class="float-right" style="font-size:17px; margin-left: ">
+=======
+                                    <span class="float-right" style="font-size:17px;">
+>>>>>>> 7680b2b4b185c0f8881ecb7801c52a1ec48f7c9b
                                         <strong>DATE AND PLACE OF BIRTH</strong>
                                     </span>
                                     <div class="media-body ml-1">
@@ -192,7 +212,11 @@ while ($result = mysqli_fetch_assoc($query)) {
                                     </div>
                                 </div>
                                 <div class="media d-flex align-items-center mb-1">
+<<<<<<< HEAD
                                     <span class="float-right" style="font-size:17px; margin-left: ">
+=======
+                                    <span class="float-right" style="font-size:17px;">
+>>>>>>> 7680b2b4b185c0f8881ecb7801c52a1ec48f7c9b
                                         <strong>SPECIALITE (SPECIALITY)</strong>
                                     </span>
                                     <div class="media-body ml-1">
@@ -200,7 +224,11 @@ while ($result = mysqli_fetch_assoc($query)) {
                                     </div>
                                 </div>
                                 <div class="media d-flex align-items-center mb-1">
+<<<<<<< HEAD
                                     <span class="float-right" style="font-size:17px; margin-left: ">
+=======
+                                    <span class="float-right" style="font-size:17px;">
+>>>>>>> 7680b2b4b185c0f8881ecb7801c52a1ec48f7c9b
                                         <strong>NIVEAU (LEVEL)</strong>
                                     </span>
                                     <div class="media-body ml-1">
@@ -209,7 +237,11 @@ while ($result = mysqli_fetch_assoc($query)) {
                                 </div>
 
                                 <div class="media d-flex align-items-center mb-1">
+<<<<<<< HEAD
                                     <span class="float-right" style="font-size:17px; margin-left: ">
+=======
+                                    <span class="float-right" style="font-size:17px;">
+>>>>>>> 7680b2b4b185c0f8881ecb7801c52a1ec48f7c9b
                                         <strong> MATRICULE (REGISTRATION NUMBER)</strong>
                                     </span>
                                     <div class="media-body ml-1">
@@ -396,7 +428,11 @@ while ($result = mysqli_fetch_assoc($query)) {
                         <div class="col-7">
                             <center>
                                 <div class="media d-flex align-items-center mb-1">
+<<<<<<< HEAD
                                     <a class="float-right" style="margin-left: ">
+=======
+                                    <a class="float-right">
+>>>>>>> 7680b2b4b185c0f8881ecb7801c52a1ec48f7c9b
                                         Moyenne générale (general average):
                                     </a>
                                     <div class="media-body ml-1">
@@ -417,7 +453,11 @@ while ($result = mysqli_fetch_assoc($query)) {
                                     </div>
                                 </div>
                                 <div class="media d-flex align-items-center mb-1">
+<<<<<<< HEAD
                                     <a href="" class="float-right" style="margin-left: ">
+=======
+                                    <a href="" class="float-right">
+>>>>>>> 7680b2b4b185c0f8881ecb7801c52a1ec48f7c9b
                                         MENTION / RESULT CLASSIFICATION:
                                     </a>
                                     <div class="media-body ml-1">
@@ -447,7 +487,11 @@ while ($result = mysqli_fetch_assoc($query)) {
                                     </div>
                                 </div>
                                 <div class="media d-flex align-items-center mb-1">
+<<<<<<< HEAD
                                     <a href="" class="float-right" style="margin-left: ">
+=======
+                                    <a href="" class="float-right">
+>>>>>>> 7680b2b4b185c0f8881ecb7801c52a1ec48f7c9b
                                         <?php
                                         if (($nombre_ds1 == 0) and ($nombre_ds2 == 0)) {
                                             $nombre_ds2 = 1;
@@ -469,7 +513,11 @@ while ($result = mysqli_fetch_assoc($query)) {
                             <center>
                                 <b><small>Légende(key): Va : validé(validated)<br> Nv: Non validé (non validated) </small></b>
                                 <div class="media d-flex align-items-center mb-1">
+<<<<<<< HEAD
                                     <a href="" class="float-right" style="margin-left: ">
+=======
+                                    <a href="" class="float-right">
+>>>>>>> 7680b2b4b185c0f8881ecb7801c52a1ec48f7c9b
                                         Decision/decision:
                                     </a>
                                     <div class="media-body ml-1">
@@ -477,7 +525,11 @@ while ($result = mysqli_fetch_assoc($query)) {
                                     </div>
                                 </div>
                                 <div class="media d-flex align-items-center mb-1">
+<<<<<<< HEAD
                                     <a href="" class="float-right" style="margin-left: ">
+=======
+                                    <a href="" class="float-right">
+>>>>>>> 7680b2b4b185c0f8881ecb7801c52a1ec48f7c9b
                                         <?php echo  date("D-d-M-Y"); ?> <br>
                                         <b>Le chef d'etablissement</b><br>
                                         The director <br><br><br><br>
@@ -492,7 +544,11 @@ while ($result = mysqli_fetch_assoc($query)) {
                     <hr>
                         <div class="col-1">
                             <div class="user-profile-images">
+<<<<<<< HEAD
                                 <img src="logo_data/<?php echo $logo ?>" style="margin-left: 80px;" class="user-profile-image rounded" alt="user profile image" height="77" width="70">
+=======
+                                <img src="logo_data/<?php echo "$logo" ?>" style="80px;" class="user-profile-image rounded" alt="user profile image" height="77" width="70">
+>>>>>>> 7680b2b4b185c0f8881ecb7801c52a1ec48f7c9b
                             </div>
                         </div>
                         <div class="col-11">
