@@ -17,11 +17,7 @@ if (isset($_POST['add_year'])) {
 <!-- BEGIN: Head-->
 
 <head>
-<<<<<<< HEAD
-    <title>Management | <?php echo $nom_etablissement; ?></title>
-=======
     <title>Management | <?php echo "$nom_etablissement"; ?></title>
->>>>>>> 7680b2b4b185c0f8881ecb7801c52a1ec48f7c9b
     <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700" rel="stylesheet">

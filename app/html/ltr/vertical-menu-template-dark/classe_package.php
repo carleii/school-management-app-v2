@@ -84,7 +84,7 @@ class user
 				// SETING THE USER MATRICULE
 				$query_1 = mysqli_query($this->database, "SELECT * FROM utilisateur WHERE 1");
 				$Q_num_user = mysqli_num_rows($query_1) + 1;
-				$Q_matr_user = $Q_nom . '&' . $Q_num_user . '|' . date("d") . '-' . date("D");
+				$Q_matr_user = $Q_nom . '&' . $Q_num_user . '|' . date("d") . '-' . date("D").uniqid();
 				// INSERTION OF A NEW USER
 				$query = mysqli_query($this->database, "INSERT INTO utilisateur values (null, '$Q_matr_user', '$Q_nom', '$Q_prenom', '$Q_email', '$Q_telephone', '$Q_pssw', 'admin',null) ");
 				if ($query) {

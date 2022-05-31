@@ -78,6 +78,7 @@ if (isset($_POST["register"])) {
             break;
 
         default:
+            trigger_error($result);
             # code...
             break;
     }
