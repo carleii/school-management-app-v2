@@ -71,8 +71,6 @@ if (isset($_POST['add_level'])) {
     }
     # code...
 }
-
-
 ?>
 <!-- DELETE LEVEL TREATMENT -->
 <?php
@@ -150,7 +148,6 @@ if (isset($_POST['delete_level'])) {
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->
-
 <head>
     <title><?php echo $retVal = ($statut == 1) ? "SECTION" : "LEVEL"; ?> | <?php echo "$nom_etablissement"; ?></title>
     <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
@@ -183,7 +180,7 @@ if (isset($_POST['delete_level'])) {
     <!-- END: Custom CSS-->
 
 </head>
-
+<!-- END: Head-->
 <?php
 if (isset($_POST['csv_upload'])) {
     $file = $_FILES['csv_file']['tmp_name'];
@@ -200,24 +197,20 @@ if (isset($_POST['csv_upload'])) {
             $i++;
             # code...
         }
-
         # code...
     } else {
-    ?>
-        <script type="text/javascript" language="javascript">
-            alert("Fatal error: incorrect file format \n Download the template and use it.");
-        </script>
-
-<?php
+        ?>
+        <script ></script>
+        <?php
         # code...
     }
+    # code...
+
     # code...
 }
 
 
 ?>
-<!-- END: Head-->
-
 <!-- BEGIN: Body-->
 
 <body class="vertical-layout vertical-menu-modern dark-layout content-left-sidebar email-application navbar-sticky footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="content-left-sidebar" data-layout="dark-layout">
@@ -257,9 +250,9 @@ if (isset($_POST['csv_upload'])) {
                                     <a href="template/level.csv" download=""> Download the template
                                     </a>
                                 </button>
-                                <small>do not modify the header</small>
+                                <small>do not modify the header please</small>
 
-                                <form action="#" method="post" enctype="multipart/form-data">
+                                <form action="#" id="uploadLevel" method="post" enctype="multipart/form-data">
                                     <div class="form-group mt-2">
                                         <div class="custom-file">
                                             <input type="file" required class="custom-file-input" name="csv_file" accept="csv" id="emailAttach">
@@ -412,7 +405,7 @@ if (isset($_POST['csv_upload'])) {
 
                                         <!-- email user list start -->
                                         <div class="email-user-list list-group">
-                                            <ul class="users-list-wrapper media-list">
+                                        <ul class="users-list-wrapper media-list">
                                                 <!-- SORTING THE LEVELS -->
                                                 <?php
                                                 $query = mysqli_query($database, "SELECT * FROM niveau WHERE matricule_etablissement = '$matricule_etablissement' and date_academique = '$date_academique' ");
@@ -471,7 +464,6 @@ if (isset($_POST['csv_upload'])) {
                                                 ?>
                                             </ul>
                                             <!-- email user list end -->
-
                                             <!-- no result when nothing to show on list -->
                                             <div class="no-results">
                                                 <i class="bx bx-error-circle font-large-2"></i>
@@ -512,6 +504,7 @@ if (isset($_POST['csv_upload'])) {
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
+    <script src="./level.js"></script>
     <script src="../../../app-assets/js/scripts/configs/vertical-menu-dark.js"></script>
     <script src="../../../app-assets/js/core/app-menu.js"></script>
     <script src="../../../app-assets/js/core/app.js"></script>
