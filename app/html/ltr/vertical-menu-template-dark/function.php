@@ -30,7 +30,7 @@ function send_message(string $to = null, $body, $head = "Scolarix", $title)
     //set gmail username
     $mail->Username = "devcarle@gmail.com";
     //set gmail password
-    $mail->Password = "781227deV!";
+    $mail->Password = "arycysrkbhderyzd";
     //set email subject
     $mail->Subject = $title;
     //set sender email

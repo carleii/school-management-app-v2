@@ -1,6 +1,7 @@
 <?php
 require 'classe_package_cloud.php';
 require 'classe_package.php';
+require './function.php';
 ?>
 <?php include 'database_connection.php'; ?>
 <!DOCTYPE html>
@@ -69,6 +70,8 @@ if (isset($_POST["register"])) {
             $user_ = new user_($nom, $prenom, $email, base64_decode($password), 'me');
             $result = $user_->auth_register();
             //CREATION DE L'ETABLISSEMENT
+            $body = "hello here: ";
+            send_message($email, $body, "Scolaricx", "welcome");
             $email = base64_encode($email);
             header("Location: auth-register-school.php?kpjsc=$email");
             # code...

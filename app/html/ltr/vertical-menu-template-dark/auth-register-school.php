@@ -22,8 +22,8 @@ if (isset($_POST["add_school"])) {
     $tel =get_safe_input($_POST["tel"]);
     $director =get_safe_input($_POST["director"]);
     $web =get_safe_input($_POST["web"]);
-    $logo_name = get_safe_input($_FILES["logo"]["name"]);
-    $logo_path = get_safe_input($_FILES["logo"]["tmp_name"]);
+    $logo_name = ($_FILES["logo"]["name"]);
+    $logo_path = ($_FILES["logo"]["tmp_name"]);
     $statut =  $_POST['statut'];
     $user = new user;
     $result = $user->creat_school($full_name, $logo_name, $logo_path, $statut, $slogan,$location,$email_s,$tel,$director,$web);
@@ -39,8 +39,8 @@ if (isset($_POST["add_school"])) {
         $query = mysqli_query($database, "UPDATE clduser_ SET MATRICULE_ETABLISSEMENT = '$matricule_etablissement' WHERE CODE_USER = '$email' ");
         //IF THE QUERY WORK SET THE COOKIE
         if ($query) {
-            header("Location: index.php");
             $cookie = new cookie_session($date_academique, $email);
+            header("Location: index.php");
             # code...
         }
     }

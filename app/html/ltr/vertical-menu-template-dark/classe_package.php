@@ -26,7 +26,7 @@ class user
 			$this->database = new mysqli($this->host, $this->user, $this->pssw, $this->db) or die("unable to connect");
 		} catch (Exception $e) {
 			echo "someting wrong;" . $e;
-			exit();
+			exit("unable to found the database");
 		}
 		# code...
 	}
@@ -104,7 +104,7 @@ class user
 
 	public function creat_school($Q_name, $Q_logo_name, $Q_logo_path, $statut,$slogan,$location,$email_s,$tel,$director, $web) //creation of a school
 	{
-		$Q_name = htmlentities(addslashes($Q_name));
+		$Q_name = ($Q_name);
 		$Q_date_1 = date("Y");
 		$Q_date_2 = date("Y") + 1;
 		$Q_date_academique = $Q_date_1 . "-" . $Q_date_2;
@@ -885,7 +885,7 @@ class secretary extends user
 }
 
 /**
- * Tcheacher class
+ * Teacher class
  */
 class teacher extends user
 {
@@ -978,9 +978,9 @@ class cookie_session extends user
 /**
  * Function get_safe_input utilisé pour assainir les données recues par formulaire
  * @param string $var: donnée reçue en input
- * @return string
+ * @return string : donnee assainie
  */
-function get_safe_input($var)
+function get_safe_input($var):string
 {
    return  strip_tags (addslashes(str_replace("=", "", htmlspecialchars(htmlentities($var)))));
     # code...
