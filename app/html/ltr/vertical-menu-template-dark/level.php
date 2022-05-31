@@ -200,8 +200,9 @@ if (isset($_POST['csv_upload'])) {
         # code...
     } else {
         ?>
-        <script ></script>
-        <?php
+        <script type="text/javascript" language="javascript">
+            alert("Fatal error: incorrect file format \n Download the template and use it.");
+        </script>        <?php
         # code...
     }
     # code...
