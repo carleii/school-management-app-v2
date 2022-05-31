@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 12 mai 2022 à 20:41
--- Version du serveur : 10.4.22-MariaDB
--- Version de PHP : 8.1.2
+-- Généré le : mar. 31 mai 2022 à 19:36
+-- Version du serveur : 10.4.24-MariaDB
+-- Version de PHP : 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -578,7 +578,6 @@ ALTER TABLE `cldnotif`
 --
 ALTER TABLE `clduser_`
   ADD PRIMARY KEY (`CODE_USER`),
-  ADD UNIQUE KEY `F_NAME` (`F_NAME`,`L_NAME`),
   ADD KEY `ID` (`ID`);
 
 --
@@ -690,8 +689,8 @@ ALTER TABLE `tranche_paiement`
 --
 ALTER TABLE `utilisateur`
   ADD PRIMARY KEY (`matricule_utlisateur`(250),`pssw`(250)) USING BTREE,
-  ADD UNIQUE KEY `email_utilisateur` (`email_utilisateur`) USING HASH,
-  ADD KEY `id` (`id`);
+  ADD UNIQUE KEY `id_2` (`id`),
+  ADD UNIQUE KEY `email_utilisateur` (`email_utilisateur`) USING HASH;
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
