@@ -1,6 +1,4 @@
 <?php require './index_php.php';
-require 'function.php';
-// send_message();
 ?>
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">

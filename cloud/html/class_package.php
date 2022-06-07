@@ -14,7 +14,7 @@ class system
    //3. mot de passe
    private $pssw = '';
    //4. base de données
-   private $dbb = 'cloud';
+   private $dbb = 'scolaricx';
    protected $database;
 
    function __construct()
@@ -43,7 +43,7 @@ class system
          SELECT ROLE AS role, BANNED AS ban FROM clduser_part_of_cloud WHERE CODE_USER = '$u_code' AND CODE_CLOUD = '$cl_code'
       ");
       //si l'utilisateur ne s'est jamais connecté à ce cloud public, on l'enregistre et il devient membre autorisé
-      $last_view = date("Y-d-m H:m:s");
+      $last_view = date("r");
       if ((mysqli_num_rows($query) == 0 and $result['TYPE'] == 0)) {
          $role = 0;
          $query = mysqli_query($this->database, "
@@ -77,6 +77,323 @@ class system
       }
       // code...
    }
+
+   public function save_cloud($name, $pssw, $type = 0, $matricule_user, $matricule_e)
+   {
+      $last_view = date("r");
+      $name = addslashes($name);
+      $pssw = addslashes($pssw);
+      $c_c = $matricule_user . "cld" . $pssw . $name . random_int(0, 999999999);
+      $code_allow = $c_c . "allow";
+      if ($type == 0) {
+         //enregistrement du cloud
+         $query = mysqli_query($this->database, "INSERT INTO cldcloud VALUES(
+         '$matricule_user',
+         null,
+         '$c_c',
+         '$name',
+         '$pssw',
+         '$last_view',
+         0,
+         '$matricule_e'
+      )");
+
+         //appartenance
+         $query = mysqli_query($this->database, "INSERT INTO clduser_part_of_cloud VALUES(
+         '$matricule_user',
+         '$c_c',
+         1,
+         0,
+         '$last_view'
+      ) ");
+
+         //creation du repertoire root et des premiers dossier
+         $code_folder_home = $c_c . "home_fold";
+         $code_folder_doc = $c_c . "allow#";
+         $code_folder_down = $c_c . "down_fold";
+         $code_folder_img = $c_c . "img_fold";
+         $code_folder_wks = $c_c . "wks_fold";
+         $code_folder_mus = $c_c . "mus_fold";
+         $code_folder_fav = $c_c . "fav_fold";
+         $root = "root" . $c_c;
+         $user_code = $matricule_user;
+         $query = mysqli_query($this->database, "
+         INSERT INTO cldfolder VALUES
+         (
+            null,
+            '$c_c',
+            '$user_code',
+            '$root',
+            null,
+            '$root',
+            'root',
+            '$last_view',
+            'root Folder',
+            1
+         ),
+         (
+            null,
+            '$c_c',
+            '$user_code',
+            '$root',
+            null,
+            '$code_folder_fav',
+            'Favorite',
+            '$last_view',
+            'Favorite Folder',
+            1
+         ),
+         (
+            null,
+            '$c_c',
+            '$user_code',
+            '$root',
+            null,
+            '$code_folder_mus',
+            'Music',
+            '$last_view',
+            'Music Folder',
+            1
+         ),
+         (
+            null,
+            '$c_c',
+            '$user_code',
+            '$root',
+            null,
+            '$code_folder_wks',
+            'Workspace',
+            '$last_view',
+            'Workspace Folder',
+            1
+         ),
+         (
+            null,
+            '$c_c',
+            '$user_code',
+            '$root',
+            null,
+            '$code_folder_home',
+            'office',
+            '$last_view',
+            'Home Folder',
+            1
+         ),
+         (
+            null,
+            '$c_c',
+            '$user_code',
+            '$root',
+            null,
+            '$code_folder_doc',
+            'Documents',
+            '$last_view',
+            'Docs Folder',
+            1
+         ),
+         (
+            null,
+            '$c_c',
+            '$user_code',
+            '$root',
+            null,
+            '$code_folder_down',
+            'Downloads',
+            '$last_view',
+            'Downloads Folder',
+            1
+         ),
+         (
+            null,
+            '$c_c',
+            '$user_code',
+            '$root',
+            null,
+            '$code_folder_img',
+            'Images',
+            '$last_view',
+            'Images Folder',
+            1
+         )
+      ");
+         // code...
+      } else {
+         //enregistrement du cloud
+         $query = mysqli_query($this->database, "INSERT INTO cldcloud VALUES(
+         '$matricule_user',
+         null,
+         '$c_c',
+         '$name',
+         '$pssw',
+         '$last_view',
+         1
+         )");
+
+         //appartenance
+         $query = mysqli_query($this->database, "INSERT INTO clduser_part_of_cloud VALUES(
+         '$matricule_user',
+         '$c_c',
+         1,
+         0,
+         '$last_view'
+         ) ");
+
+         //creation du repertoire root et des premiers dossier
+         $code_folder_home = $c_c . "home_fold";
+         $code_folder_doc = $c_c . "allow#";
+         $code_folder_down = $c_c . "down_fold";
+         $code_folder_img = $c_c . "img_fold";
+         $code_folder_wks = $c_c . "wks_fold";
+         $code_folder_mus = $c_c . "mus_fold";
+         $code_folder_fav = $c_c . "fav_fold";
+         $root = "root" . $c_c;
+         $user_code = $matricule_user;
+         $query = mysqli_query($this->database, "
+         INSERT INTO cldfolder VALUES
+         (
+            null,
+            '$c_c',
+            '$user_code',
+            '$root',
+            null,
+            '$root',
+            'root',
+            '$last_view',
+            'root Folder',
+            1
+         ),
+         (
+            null,
+            '$c_c',
+            '$user_code',
+            '$root',
+            null,
+            '$code_folder_fav',
+            'Favorite',
+            '$last_view',
+            'Favorite Folder',
+            1
+         ),
+         (
+            null,
+            '$c_c',
+            '$user_code',
+            '$root',
+            null,
+            '$code_folder_mus',
+            'Music',
+            '$last_view',
+            'Music Folder',
+            1
+         ),
+         (
+            null,
+            '$c_c',
+            '$user_code',
+            '$root',
+            null,
+            '$code_folder_wks',
+            'Workspace',
+            '$last_view',
+            'Workspace Folder',
+            1
+         ),
+         (
+            null,
+            '$c_c',
+            '$user_code',
+            '$root',
+            null,
+            '$code_folder_home',
+            'office',
+            '$last_view',
+            'Home Folder',
+            1
+         ),
+         (
+            null,
+            '$c_c',
+            '$user_code',
+            '$root',
+            null,
+            '$code_folder_doc',
+            'Documents',
+            '$last_view',
+            'Docs Folder',
+            1
+         ),
+         (
+            null,
+            '$c_c',
+            '$user_code',
+            '$root',
+            null,
+            '$code_folder_down',
+            'Downloads',
+            '$last_view',
+            'Downloads Folder',
+            1
+         ),
+         (
+            null,
+            '$c_c',
+            '$user_code',
+            '$root',
+            null,
+            '$code_folder_img',
+            'Images',
+            '$last_view',
+            'Images Folder',
+            1
+         )
+      ");
+         //enregistrement des niveaux d'acces
+         $privc = 0;
+         $privd = 0;
+         $privr = 0;
+         $privs = 0;
+         $privw = 0;
+         if (isset($_POST['privc'])) {
+            $privc = 1;
+            // code...
+         };
+         if (isset($_POST['privd'])) {
+            $privd = 1;
+            // code...
+         };
+         if (isset($_POST['privr'])) {
+            $privr = 1;
+            // code...
+         };
+         if (isset($_POST['privs'])) {
+            $privs = 1;
+            // code...
+         };
+         if (isset($_POST['privw'])) {
+            $privw = 1;
+            // code...
+         };
+
+         $query = mysqli_query($this->database, "INSERT INTO cldallow VALUES (
+         null,
+         null,
+         '$c_c',
+         null,
+         '$code_allow',
+         '$privr',
+         '$privw',
+         '$privc',
+         0,
+         '$privs',
+         1
+      )");
+
+         // code...
+      }
+
+      # code...
+   }
+
    public function auth(string $u_code, string $pssw)
    {
       //encodage du mot de passe
@@ -204,7 +521,7 @@ class user_ extends system
    private  $phrase_r;
 
 
-   function __construct(string $f_name, string $l_name, string $u_code = "", string $pssw = "", string $phrase_r = "", int $role = 0)
+   function __construct(string $f_name, string $l_name, string $u_code = "",  $pssw = null, string $phrase_r = "", int $role = 0)
    {
       $this->set_f_name($f_name);
       $this->set_l_name($l_name);
@@ -224,7 +541,7 @@ class user_ extends system
       // code...
    }
 
-   public function auth_register()
+   public function auth_register($role = 1, $matricule_e = null)
    {
       $pssw_encoded = base64_encode($this->pssw);
       $system = new system;
@@ -243,7 +560,9 @@ class user_ extends system
             '$this->f_name',
             '$this->l_name',
             '$pssw_encoded',
-            '$this->phrase_r'
+            '$this->phrase_r',
+            '$role',
+            '$matricule_e'
          )
       ");
       if ($query) {

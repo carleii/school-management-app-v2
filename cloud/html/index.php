@@ -347,7 +347,8 @@ if (isset($_POST['connect_cloud'])) {
                header("location: ./");
                // code...
             } else {
-               $message .= "
+                /** @var TYPE_NAME $user_ */
+                $message .= "
                <div class=\"message\">
                  <p class=\"bg-light-cyan\"> Hi " . $user_->get_f_name() . ", Your account have been suspended for this Cloud. contact the administrator</p>
                  <p class=\"bg-light-cyan\"></p>
@@ -618,11 +619,11 @@ if (isset($_POST['new_file'])) {
    $path = $_FILES['file_name']['tmp_name'];
    $size = $_FILES['file_name']['size'] / (1024 * 1024);
    $query1 = false;
-   $code_file = str_replace(" ", "_", $user_->get_l_name() . $name . "#file" . random_int(0, 999999999));
+   $code_file = str_replace(" ", "_", $user_->get_l_name() . $name . "#file" . uniqid());
    $code_file_e = base64_encode($code_file);
 
    if (isset($cloud) == false) {
-      if (isset($folder) == false or (isset($folder) == true and $folder->get_name() == "root")) {
+      if (isset($folder) == false or ((isset($folder) == true and $folder->get_name() == "root"))) {
          //verification de l'existence d'un fichier au meme nom
          $query = mysqli_query($db, "SELECT * FROM cldfile WHERE PATH_ = '$file_name' AND CODE_USER = '$code_user' ");
          if (mysqli_num_rows($query) == 0) {
@@ -695,7 +696,9 @@ if (isset($_POST['new_file'])) {
          // code...
       }
       // code...
-   } else {
+   }
+   else {
+       //Verifier si c'est un cloud public | verifier si c'est un cloud privé et c'est le proprietaire qui fait l'action | verification si c'est un cloud prive et l'utilisateur n'est pas proprietaire mais il a le droit d'ecriture
       if ($cloud->get_type() == 0 or ($cloud->get_type() == 1 and $user_->get_u_role() == 1) or ($cloud->get_type() == 1 and $user_->get_u_role() == 0 and $cloud->get_create() == 1)) {
          if (isset($folder) == false or (isset($folder) == true and $folder->get_name() == "root")) {
             $query = mysqli_query($db, "SELECT CODE_FOLDER FROM cldfolder WHERE NAME = 'root' AND CODE_CLOUD = '$cl_code' ");
@@ -809,6 +812,8 @@ if (isset($_POST['new_file'])) {
 if (isset($_GET['f_ktspf'])) {
    # code...
 }
+
+
 ?>
 
 <!doctype html>
@@ -830,7 +835,7 @@ if (isset($_GET['f_ktspf'])) {
    <link rel="stylesheet" href="../assets/css/style.min.css" />
 </head>
 
-<body class="font-muli dark-mode gradient">
+<body class="font-muli dark-mode gradient right_tb_toggle">
 
    <!-- Page Loader -->
    <!-- <div class="page-loader-wrapper">
@@ -840,7 +845,7 @@ if (isset($_GET['f_ktspf'])) {
 
    <div id="main_content">
       <?php
-      // include 'main_nav.php';
+      //include 'main_nav.php';
       ?>
 
 
@@ -848,7 +853,7 @@ if (isset($_GET['f_ktspf'])) {
       <div class="page">
          <!-- Start Page header -->
          <?php
-         // include 'page_header.php';
+         //include 'page_header.php';
          ?>
          <!-- Start Page title and tab -->
          <div class="section-body">
@@ -857,7 +862,7 @@ if (isset($_GET['f_ktspf'])) {
                   <div class="header-action">
                      <h1 class="page-title">Dashboard</h1>
                      <ol class="breadcrumb page-breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">CUSTOMS</a></li>
+                        <li class="breadcrumb-item"><a href="#">E-learning</a></li>
                         <li class="breadcrumb-item"><a href="./?cld_out" title="Exit the current Cloud and move to your private data">SERVER</a></li>
                         <?php
                         if (isset($cloud) == true) {
@@ -1073,7 +1078,7 @@ if (isset($_GET['f_ktspf'])) {
                                     </div>
                                  </div>
                                  <div class="col-lg-12 mt-3">
-                                    <button type="submit" name="create_folder" class="btn btn-warning">Add and Apply my settings</button>
+                                    <button type="submit" name="create_folder" class="btn btn-success">Add and Apply my settings</button>
                                     <!-- <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span>
                                          <button type="submit" name="create_folder" class="btn btn-success">Add and Apply Cloud settings</button> -->
                                  </div>
@@ -1179,6 +1184,10 @@ if (isset($_GET['f_ktspf'])) {
                         # code...
                      }
 
+
+
+
+
                      if (1) {
                      ?>
                         <div class="row">
@@ -1205,7 +1214,7 @@ if (isset($_GET['f_ktspf'])) {
                                              <div class="card-options">
                                                 <div class="item-action dropdown ml-2">
                                                    <a href="javascript:void(0)" data-toggle="dropdown"><i class="fe fe-more-vertical"></i></a>
-                                                   <!-- <div class="dropdown-menu dropdown-menu-right">
+                                                   <div class="dropdown-menu dropdown-menu-right">
                                                       <a href="folder.php?view=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-eye"></i> View Details </a>
                                                       <a href="folder.php?share=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-share-alt"></i> Share </a>
                                                       <a href="folder.php?download=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item" target="_blank"><i class="dropdown-icon fa fa-cloud-download"></i> Download</a>
@@ -1214,7 +1223,7 @@ if (isset($_GET['f_ktspf'])) {
                                                       <a href="folder.php?move=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-folder"></i> Move to</a>
                                                       <a href="folder.php?rename=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i> Rename</a>
                                                       <a href="folder.php?delete=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-trash"></i> Delete</a>
-                                                   </div> -->
+                                                   </div>
                                                 </div>
                                              </div>
                                           </div>
@@ -1237,7 +1246,6 @@ if (isset($_GET['f_ktspf'])) {
                                     // code...
                                  }
 
-
                                  //Affichage des fichiers
                                  $query = mysqli_query($db, "SELECT * FROM cldfile WHERE CODE_USER = '$code_user' AND CODE_CLOUD IS NULL AND CODE_FOLDER LIKE 'root%' AND STATUT = 1 ORDER BY NAME ASC
                                     ");
@@ -1251,7 +1259,7 @@ if (isset($_GET['f_ktspf'])) {
                                              <div class="card-options">
                                                 <div class="item-action dropdown ml-2">
                                                    <a href="javascript:void(0)" data-toggle="dropdown"><i class="fe fe-more-vertical"></i></a>
-                                                   <!-- <div class="dropdown-menu dropdown-menu-right">
+                                                   <div class="dropdown-menu dropdown-menu-right">
                                                       <a href="index.php?f_ktspf=<?php echo base64_encode($result['CODE_FILE']); ?>&f_ktsp=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-eye"></i> View Details </a>
                                                       <a href="index.php?f_share=<?php echo base64_encode($result['CODE_FILE']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-share-alt"></i> Share </a>
                                                       <a href="index.php?f_download=<?php echo base64_encode($result['CODE_FILE']); ?>" class="dropdown-item" target="_blank"><i class="dropdown-icon fa fa-cloud-download"></i> Download</a>
@@ -1260,7 +1268,7 @@ if (isset($_GET['f_ktspf'])) {
                                                       <a href="index.php?f_move=<?php echo base64_encode($result['CODE_FILE']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-file"></i> Move to</a>
                                                       <a href="index.php?f_rename=<?php echo base64_encode($result['CODE_FILE']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i> Rename</a>
                                                       <a href="index.php?f_delete=<?php echo base64_encode($result['CODE_FILE']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-trash"></i> Delete</a>
-                                                   </div> -->
+                                                   </div>
                                                 </div>
                                              </div>
                                           </div>
@@ -1300,7 +1308,7 @@ if (isset($_GET['f_ktspf'])) {
                                              <div class="card-options">
                                                 <div class="item-action dropdown ml-2">
                                                    <a href="javascript:void(0)" data-toggle="dropdown"><i class="fe fe-more-vertical"></i></a>
-                                                   <!-- <div class="dropdown-menu dropdown-menu-right">
+                                                   <div class="dropdown-menu dropdown-menu-right">
                                                       <a href="folder.php?view=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-eye"></i> View Details </a>
                                                       <a href="folder.php?share=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-share-alt"></i> Share </a>
                                                       <a href="folder.php?download=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item" target="_blank"><i class="dropdown-icon fa fa-cloud-download"></i> Download</a>
@@ -1309,7 +1317,7 @@ if (isset($_GET['f_ktspf'])) {
                                                       <a href="folder.php?move=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-folder"></i> Move to</a>
                                                       <a href="folder.php?rename=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i> Rename</a>
                                                       <a href="folder.php?delete=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-trash"></i> Delete</a>
-                                                   </div> -->
+                                                   </div>
                                                 </div>
                                              </div>
                                           </div>
@@ -1346,7 +1354,7 @@ if (isset($_GET['f_ktspf'])) {
                                              <div class="card-options">
                                                 <div class="item-action dropdown ml-2">
                                                    <a href="javascript:void(0)" data-toggle="dropdown"><i class="fe fe-more-vertical"></i></a>
-                                                   <!-- <div class="dropdown-menu dropdown-menu-right">
+                                                   <div class="dropdown-menu dropdown-menu-right">
                                                       <a href="index.php?f_ktspf=<?php echo base64_encode($result['CODE_FILE']); ?>&f_ktsp=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-eye"></i> View Details </a>
                                                       <a href="index.php?f_share=<?php echo base64_encode($result['CODE_FILE']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-share-alt"></i> Share </a>
                                                       <a href="index.php?f_download=<?php echo base64_encode($result['CODE_FILE']); ?>" class="dropdown-item" target="_blank"><i class="dropdown-icon fa fa-cloud-download"></i> Download</a>
@@ -1355,7 +1363,7 @@ if (isset($_GET['f_ktspf'])) {
                                                       <a href="index.php?f_move=<?php echo base64_encode($result['CODE_FILE']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-file"></i> Move to</a>
                                                       <a href="index.php?f_rename=<?php echo base64_encode($result['CODE_FILE']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i> Rename</a>
                                                       <a href="index.php?f_delete=<?php echo base64_encode($result['CODE_FILE']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-trash"></i> Delete</a>
-                                                   </div> -->
+                                                   </div>
                                                 </div>
                                              </div>
                                           </div>
@@ -1399,7 +1407,7 @@ if (isset($_GET['f_ktspf'])) {
                                              <div class="card-options">
                                                 <div class="item-action dropdown ml-2">
                                                    <a href="javascript:void(0)" data-toggle="dropdown"><i class="fe fe-more-vertical"></i></a>
-                                                   <!-- <div class="dropdown-menu dropdown-menu-right">
+                                                   <div class="dropdown-menu dropdown-menu-right">
                                                       <a href="folder.php?view=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-eye"></i> View Details </a>
                                                       <a href="folder.php?share=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-share-alt"></i> Share </a>
                                                       <a href="folder.php?download=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item" target="_blank"><i class="dropdown-icon fa fa-cloud-download"></i> Download</a>
@@ -1408,7 +1416,7 @@ if (isset($_GET['f_ktspf'])) {
                                                       <a href="folder.php?move=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-folder"></i> Move to</a>
                                                       <a href="folder.php?rename=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i> Rename</a>
                                                       <a href="folder.php?delete=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-trash"></i> Delete</a>
-                                                   </div> -->
+                                                   </div>
                                                 </div>
                                              </div>
                                           </div>
@@ -1445,7 +1453,7 @@ if (isset($_GET['f_ktspf'])) {
                                              <div class="card-options">
                                                 <div class="item-action dropdown ml-2">
                                                    <a href="javascript:void(0)" data-toggle="dropdown"><i class="fe fe-more-vertical"></i></a>
-                                                   <!-- <div class="dropdown-menu dropdown-menu-right">
+                                                   <div class="dropdown-menu dropdown-menu-right">
                                                       <a href="index.php?f_ktspf=<?php echo base64_encode($result['CODE_FILE']); ?>&f_ktsp=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-eye"></i> View Details </a>
                                                       <a href="index.php?f_share=<?php echo base64_encode($result['CODE_FILE']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-share-alt"></i> Share </a>
                                                       <a href="index.php?f_download=<?php echo base64_encode($result['CODE_FILE']); ?>" class="dropdown-item" target="_blank"><i class="dropdown-icon fa fa-cloud-download"></i> Download</a>
@@ -1454,7 +1462,7 @@ if (isset($_GET['f_ktspf'])) {
                                                       <a href="index.php?f_move=<?php echo base64_encode($result['CODE_FILE']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-file"></i> Move to</a>
                                                       <a href="index.php?f_rename=<?php echo base64_encode($result['CODE_FILE']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i> Rename</a>
                                                       <a href="index.php?f_delete=<?php echo base64_encode($result['CODE_FILE']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-trash"></i> Delete</a>
-                                                   </div> -->
+                                                   </div>
                                                 </div>
                                              </div>
                                           </div>
@@ -1495,7 +1503,7 @@ if (isset($_GET['f_ktspf'])) {
                                              <div class="card-options">
                                                 <div class="item-action dropdown ml-2">
                                                    <a href="javascript:void(0)" data-toggle="dropdown"><i class="fe fe-more-vertical"></i></a>
-                                                   <!-- <div class="dropdown-menu dropdown-menu-right">
+                                                   <div class="dropdown-menu dropdown-menu-right">
                                                       <a href="folder.php?view=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-eye"></i> View Details </a>
                                                       <a href="folder.php?share=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-share-alt"></i> Share </a>
                                                       <a href="folder.php?download=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item" target="_blank"><i class="dropdown-icon fa fa-cloud-download"></i> Download</a>
@@ -1504,7 +1512,7 @@ if (isset($_GET['f_ktspf'])) {
                                                       <a href="folder.php?move=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-folder"></i> Move to</a>
                                                       <a href="folder.php?rename=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i> Rename</a>
                                                       <a href="folder.php?delete=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-trash"></i> Delete</a>
-                                                   </div> -->
+                                                   </div>
                                                 </div>
                                              </div>
                                           </div>
@@ -1541,7 +1549,7 @@ if (isset($_GET['f_ktspf'])) {
                                              <div class="card-options">
                                                 <div class="item-action dropdown ml-2">
                                                    <a href="javascript:void(0)" data-toggle="dropdown"><i class="fe fe-more-vertical"></i></a>
-                                                   <!-- <div class="dropdown-menu dropdown-menu-right">
+                                                   <div class="dropdown-menu dropdown-menu-right">
                                                       <a href="index.php?f_ktspf=<?php echo base64_encode($result['CODE_FILE']); ?>&f_ktsp=<?php echo base64_encode($result['CODE_FOLDER']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-eye"></i> View Details </a>
                                                       <a href="index.php?f_share=<?php echo base64_encode($result['CODE_FILE']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-share-alt"></i> Share </a>
                                                       <a href="index.php?f_download=<?php echo base64_encode($result['CODE_FILE']); ?>" class="dropdown-item" target="_blank"><i class="dropdown-icon fa fa-cloud-download"></i> Download</a>
@@ -1550,7 +1558,7 @@ if (isset($_GET['f_ktspf'])) {
                                                       <a href="index.php?f_move=<?php echo base64_encode($result['CODE_FILE']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-file"></i> Move to</a>
                                                       <a href="index.php?f_rename=<?php echo base64_encode($result['CODE_FILE']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i> Rename</a>
                                                       <a href="index.php?f_delete=<?php echo base64_encode($result['CODE_FILE']); ?>" class="dropdown-item"><i class="dropdown-icon fa fa-trash"></i> Delete</a>
-                                                   </div> -->
+                                                   </div>
                                                 </div>
                                              </div>
                                           </div>
@@ -1602,9 +1610,7 @@ if (isset($_GET['f_ktspf'])) {
                   </div>
                   <!-- //collapse se connectec à un cloud -->
                   <div class="tab-pane fade" id="cloud" role="tabpanel">
-                     <center>
                         <h6>Connect to a Cloud</h6>
-                     </center>
                      <div class="card">
                         <div class="card-body">
                            <form class="form" action="" method="post">

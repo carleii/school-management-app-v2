@@ -52,7 +52,7 @@ if (isset($_POST['sign'])) {
 
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
 
-    <title><?php echo page_name('Login') ?></title>
+    <title><?php page_name('Login') ?></title>
 
     <!-- Bootstrap Core and vandor -->
     <link rel="stylesheet" href="../assets/plugins/bootstrap/css/bootstrap.min.css" />
@@ -62,8 +62,7 @@ if (isset($_POST['sign'])) {
 
 </head>
 
-<body class="font-muli dark-mode gradient" background="./logo.jpg">
-
+<body class="font-muli dark-mode gradient" >
     <div class="auth option2">
         <div class="auth_left">
             <div class="card">

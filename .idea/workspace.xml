@@ -48,10 +48,14 @@
     &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/xamppDev/php/php.exe&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/xamppDev/htdocs/school-management-app/scolaricx.sql&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ]
   }
 }</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -65,6 +69,9 @@
       <workItem from="1621193588917" duration="25000" />
       <workItem from="1654017726381" duration="4190000" />
       <workItem from="1654026259208" duration="367000" />
+      <workItem from="1654068371981" duration="6713000" />
+      <workItem from="1654098601171" duration="1653000" />
+      <workItem from="1654418314544" duration="2769000" />
     </task>
     <task id="LOCAL-00001" summary="addind the new database">
       <created>1654018713075</created>
@@ -91,6 +98,11 @@
           <url>file://$PROJECT_DIR$/app/html/ltr/vertical-menu-template-dark/level.php</url>
           <line>3</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/cloud/html/class_package.php</url>
+          <line>512</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -656,7 +656,7 @@ class headmaster extends user
 			# code...
 		}
 		if (1 == 1) {
-			$matricule_apprenant = date("y") . "THIB" . $ini . "0" . random_int(1, 999);
+			$matricule_apprenant = date("y") . "THIB" . $ini . "0" . random_int(0, 999);
 			// get random password
 			$bytes = openssl_random_pseudo_bytes(random_int(4, 10));
 			$pass = bin2hex($bytes);
