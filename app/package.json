@@ -1,11 +1,11 @@
 {
-  "name": "Scolarix",
+  "name": "Scolaricx",
   "version": "1.0.0",
   "description": "",
   "author": "carledev",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/carleii/school-management-app-v2"
   },
   "license": "GNU GENERAL PUBLIC LICENSE",
   "private": false,
